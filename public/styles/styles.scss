@@ -1,6 +1,5 @@
-$primary-color: green;
-#test {
-	background-color: $primary-color;
-	height: 10vh;
-	width: 10vw;
-}
+
+
+@import "./variables";
+@import "./adminStyles";
+@import "./_userStyles.scss"
