@@ -1,8 +1,12 @@
-#navBar {
-	background-color: $primary-color;
-	height: 10vh;
-	width: 10vw;
+
+.admin-relative {
+	position: relative
 }
-p {
-    color: $primary-color;
+.admin-logo {
+	height: 90px;
+	margin: 5px 0;
+}
+.admin-test {
+	border: 1px solid red;
+	height: 5px;
 }

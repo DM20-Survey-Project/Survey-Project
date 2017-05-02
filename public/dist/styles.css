@@ -1,38 +1,50 @@
+<<<<<<< HEAD
 
-#user-nav {
-  background-color: darkgrey;
-  height: 100px;
-  width: 100vw;
-  margin-left: 0px;
 
-}
+
+=======
+* {
+  box-sizing: border-box;
+  font-family: helvetica, sans-serif; }
 
 body {
-  margin-left: 0px;
-  margin-top: 0px;
+  margin: 0px; }
 
- }
+.content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto; }
 
-.user-content {
-  width: 100vw;
-  background-color: white;
-  height: 370px;
+.header {
+  width: 100%;
+  background-color: #383838;
+  height: 100px; }
 
-}
-.wrapper {
-  padding-left: 325px;
-    padding-top: 68px;
-    padding-right: 100px;
-}
-.u-task {
-  position: flex;
-  height: 230px;
-  width: 200px;
-  margin-right: 3vw;
-  margin-left: 3vw;
-  float: left;
-background-color: grey;
-}
+.footer {
+  width: 100%;
+  background-color: #383838;
+  height: 50px; }
+
+.min-height {
+  min-height: 850px; }
+
+.admin-relative {
+  position: relative; }
+
+.admin-logo {
+  height: 90px;
+  margin: 5px 0; }
+
+.admin-test {
+  border: 1px solid red;
+  height: 5px; }
+
+#newest {
+  background-color: green;
+  height: 100vh;
+  width: 10vw;
+  font-size: 1em;
+  letter-spacing: .2em; }
 
 
 /*# sourceMappingURL=maps/styles.css.map */
