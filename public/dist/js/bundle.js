@@ -20,8 +20,19 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
 });
 'use strict';
 
-angular.module('surveyApp').controller('adminCtrl', function ($scope) {
+angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyService) {
   $scope.test = 'Hello, I am a test';
+});
+'use strict';
+
+angular.module('surveyApp').service('surveyService', function () {
+    this.getRecentSurveys = function () {
+        return surveys;
+    };
+    var surveys = [{
+        title: 'DM20 - Week 1 Survey'
+
+    }];
 });
 'use strict';
 
