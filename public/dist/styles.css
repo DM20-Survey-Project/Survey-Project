@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-
-
-=======
 * {
   box-sizing: border-box;
   font-family: helvetica, sans-serif; }
@@ -39,12 +34,49 @@ body {
   border: 1px solid red;
   height: 5px; }
 
-#newest {
-  background-color: green;
-  height: 100vh;
-  width: 10vw;
-  font-size: 1em;
-  letter-spacing: .2em; }
+#user-nav {
+  background-color: #383838;
+  height: 120px;
+  width: 100vw; }
 
+.user-content {
+  width: 100vw;
+  background-color: #dedede;
+  height: 370px; }
+
+.user-relative {
+  position: relative; }
+
+.user-logo {
+  height: 90px;
+  height: 90px;
+  margin: 5px auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%); }
+
+.wrapper {
+  padding-top: 100px;
+  /* padding-right: 100px; */ }
+
+.u-task {
+  position: flex;
+  height: 230px;
+  width: 350px;
+  margin-right: 0vw;
+  margin-left: 10vw;
+  float: left;
+  background-color: white;
+  border: solid black 1px; }
+
+.user-logout {
+  height: 20px;
+  width: 7vw;
+  background-color: skyblue;
+  /* margin: 0px; */
+  margin-top: 12vh;
+  float: right;
+  text-align: center;
+  font-weight: 700; }
 
 /*# sourceMappingURL=maps/styles.css.map */
