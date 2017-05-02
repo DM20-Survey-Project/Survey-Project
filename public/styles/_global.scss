@@ -1,6 +1,6 @@
 * {
    box-sizing: border-box;
-   font-family: helvetica, sans-serif;
+   font-family: 'Nunito Sans', sans-serif;
 }
 body {
     margin: 0px;
@@ -23,6 +23,7 @@ body {
 }
 .min-height {
     min-height: 850px;
+    overflow: hidden;
 }
 .box-shadow {
     -webkit-box-shadow: 1px 1px 5px 0px rgba(122,122,122,1);

@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: helvetica, sans-serif; }
+  font-family: 'Nunito Sans', sans-serif; }
 
 body {
   margin: 0px;
@@ -22,20 +22,25 @@ body {
   height: 50px; }
 
 .min-height {
-  min-height: 850px; }
+  min-height: 850px;
+  overflow: hidden; }
 
 .box-shadow {
   -webkit-box-shadow: 1px 1px 5px 0px #7a7a7a;
   -moz-box-shadow: 1px 1px 5px 0px #7a7a7a;
   box-shadow: 1px 1px 5px 0px #7a7a7a; }
 
-.admin-relative {
-  position: relative; }
+.admin-header {
+  position: relative;
+  height: 100px; }
 
 .admin-logo {
   height: 90px;
-  margin: 5px 0;
-  float: left; }
+  float: left;
+  position: relative;
+  top: 50%;
+  padding: 7px;
+  transform: translate(0, -50%); }
 
 .admin-test {
   height: 100px;
@@ -46,8 +51,9 @@ body {
   float: left;
   position: relative;
   top: 50%;
-  padding: 10px;
-  margin: 15px;
+  padding: 7px;
+  transform: translate(0, -50%);
+  margin-left: 30px;
   cursor: pointer; }
   .admin-header-button h2 {
     color: white;
@@ -57,6 +63,7 @@ body {
 .admin-header-button:hover {
   background-color: #25aae1; }
 
+<<<<<<< HEAD
 .user-content {
   width: 100vw;
   background-color: #f4f4f4;
@@ -128,5 +135,78 @@ body {
   position: absolute;
   left: 27%;
   top: 108%; }
+=======
+.admin-recent-surveys {
+  float: right; }
+  .admin-recent-surveys h1 {
+    text-align: center;
+    color: #383838; }
+
+.admin-survey-entry {
+  background-color: white;
+  position: relative;
+  margin-top: 10px;
+  width: 500px;
+  min-height: 70px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .admin-survey-entry h3 {
+    max-width: 320px;
+    margin: 0;
+    display: inline-block;
+    color: #383838; }
+
+.admin-recent-templates {
+  float: left; }
+  .admin-recent-templates h1 {
+    text-align: center;
+    color: #383838; }
+
+.admin-template-entry {
+  background-color: white;
+  position: relative;
+  margin-top: 10px;
+  width: 500px;
+  min-height: 70px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .admin-template-entry h3 {
+    max-width: 320px;
+    display: inline-block;
+    margin: 0;
+    color: #383838; }
+
+.admin-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: #25aae1; }
+
+.admin-home-button {
+  float: right;
+  background-color: #25aae1;
+  padding: 7px;
+  cursor: pointer; }
+  .admin-home-button p {
+    color: white;
+    margin: 0;
+    font-weight: 400;
+    font-size: 1.3em; }
+
+.admin-home-button:hover {
+  background-color: #2BC3FF; }
+
+#newest {
+  background-color: green;
+  height: 100vh;
+  width: 10vw;
+  font-size: 1em;
+  letter-spacing: .2em; }
+>>>>>>> master
 
 /*# sourceMappingURL=maps/styles.css.map */

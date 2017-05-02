@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="content admin-relative">
+    <div class="content admin-header">
         <img class="admin-logo" src="./devmountain-logo.png" alt="devmountain logo">
         <div class="admin-header-button">
             <h2>Send Survey</h2>
@@ -14,8 +14,29 @@
 </div>
 <div class="min-height">
     <div class="content">
-        <div class="admin-test box-shadow">
-            
+        <div class="admin-recent-templates">
+            <h1>Recent Templates</h1>
+            <div class="admin-template-entry box-shadow" ng-repeat="template in templates">
+                <h3>{{template.title}}</h3>
+                <div class="admin-home-button">
+                    <p>Send Survey</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="admin-recent-surveys">
+            <h1>Recent Surveys</h1>
+            <div class="admin-survey-entry box-shadow" ng-repeat="survey in surveys">
+                <h3>{{survey.title}}</h3>
+                <div class="admin-home-button">
+                    <p>Results</p>
+                </div>
+                
+                <div ng-style="{ 'width': '{{survey.percentComplete}}%' }" class="admin-progress-bar">
+                    
+                </div>
+                
+            </div>
         </div>
     </div>
 </div>
