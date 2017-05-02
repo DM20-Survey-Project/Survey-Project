@@ -1,14 +1,10 @@
 /////MY SECTION///////////
-#user-nav {
-	background-color: $grey;
-	height: 120px;
-    width: 100vw;
-}
+
 
 
 .user-content {
   width: 100vw;
-  background-color: $offWhite;
+  background-color: #f4f4f4;
   height: 370px;
 
 }
@@ -30,20 +26,24 @@
 }
 .u-task {
 
-    position: flex;
     height: 230px;
     width: 350px;
     margin-right: 0vw;
     margin-left: 10vw;
     float: left;
-    background-color: $white;
+    background-color: white;
+
 		border: solid black 1px;
+
+h2 {
+	padding-left: 50px;
+}
 }
 .user-logout {
 
 	    height: 20px;
 	    width: 7vw;
-	    background-color: skyblue;
+	    background-color: #25aae1;
 	    /* margin: 0px; */
 	    margin-top: 12vh;
 	    float: right;
