@@ -1,0 +1,25 @@
+* {
+   box-sizing: border-box;
+   font-family: helvetica, sans-serif;
+}
+body {
+    margin: 0px;
+}
+.content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.header {
+    width: 100%;
+    background-color: $grey;
+    height: 100px;
+}
+.footer {
+    width: 100%;
+    background-color: $grey;
+    height: 50px;
+}
+.min-height {
+    min-height: 850px;
+}
