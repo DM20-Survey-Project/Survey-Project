@@ -3,7 +3,8 @@
   font-family: helvetica, sans-serif; }
 
 body {
-  margin: 0px; }
+  margin: 0px;
+  background-color: #f4f4f4; }
 
 .content {
   width: 100%;
@@ -23,16 +24,38 @@ body {
 .min-height {
   min-height: 850px; }
 
+.box-shadow {
+  -webkit-box-shadow: 1px 1px 5px 0px #7a7a7a;
+  -moz-box-shadow: 1px 1px 5px 0px #7a7a7a;
+  box-shadow: 1px 1px 5px 0px #7a7a7a; }
+
 .admin-relative {
   position: relative; }
 
 .admin-logo {
   height: 90px;
-  margin: 5px 0; }
+  margin: 5px 0;
+  float: left; }
 
 .admin-test {
-  border: 1px solid red;
-  height: 5px; }
+  height: 100px;
+  width: 100px;
+  background-color: white; }
+
+.admin-header-button {
+  float: left;
+  position: relative;
+  top: 50%;
+  padding: 10px;
+  margin: 15px;
+  cursor: pointer; }
+  .admin-header-button h2 {
+    color: white;
+    margin: 0;
+    font-weight: 400; }
+
+.admin-header-button:hover {
+  background-color: #25aae1; }
 
 #user-nav {
   background-color: #383838;

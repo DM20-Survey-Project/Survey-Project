@@ -5,8 +5,28 @@
 .admin-logo {
 	height: 90px;
 	margin: 5px 0;
+	float: left;
 }
 .admin-test {
-	border: 1px solid red;
-	height: 5px;
+
+	height: 100px;
+	width: 100px;
+	background-color: $white;
 }
+.admin-header-button {
+	float: left;
+	position: relative;
+	top: 50%;
+	padding: 10px;
+	margin: 15px;
+	cursor: pointer;
+	h2 {
+		color: $white;
+		margin: 0;
+		font-weight: 400;
+	}
+}
+.admin-header-button:hover {
+	background-color: $blue;
+}
+>>>>>>> master
