@@ -2,7 +2,7 @@
   "name": "y",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -36,6 +36,14 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "gulp": "^3.9.1"
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "devmtn-auth": "^0.2.4",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "gulp": "^3.9.1",
+    "mongoose": "^4.9.7",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   }
 }
