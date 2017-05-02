@@ -26,27 +26,61 @@
 }
 .u-task {
 
-    height: 230px;
-    width: 350px;
-    margin-right: 0vw;
-    margin-left: 10vw;
-    float: left;
-    background-color: white;
+  height: 230px;
+  width: 350px;
+  margin-right: 0vw;
+  margin-left: 10vw;
+  float: left;
+  background-color: white;
+  position: relative;
 
-		border: solid black 1px;
-
-h2 {
-	padding-left: 50px;
-}
 }
 .user-logout {
+  height: 26px;
+    width: 7vw;
+    background-color: #383838;
+    /* margin: 0px; */
+    margin-top: 11vh;
+    float: right;
+    text-align: center;
+    font-weight: 700;
+    padding-top: 3px;
+    color: white;
+    cursor: pointer;
+}
+.user-logout:hover {
+  background-color: #25aae1;
 
-	    height: 20px;
-	    width: 7vw;
-	    background-color: #25aae1;
-	    /* margin: 0px; */
-	    margin-top: 12vh;
-	    float: right;
-	    text-align: center;
-	    font-weight: 700;
+}
+.user-wrapper {
+  position: absolute;
+    top: 39%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  h2 {
+    width: 20vw;
+
+  }
+  p {
+    margin-bottom: 35px;
+    font-size: 0.8em;
+  }
+  hr {
+    width: 12vw;
+    color: lightgrey;
+  }
+}
+.user-button {
+  height: 5vh;
+width: 9vw;
+background-color: #25aae1;
+text-align: center;
+padding-top: 5px;
+font-weight: 700;
+color: white;
+cursor: pointer;
+position: absolute;
+left: 27%;
+top: 108%;
+
 }

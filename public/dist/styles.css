@@ -57,14 +57,9 @@ body {
 .admin-header-button:hover {
   background-color: #25aae1; }
 
-#user-nav {
-  background-color: #383838;
-  height: 120px;
-  width: 100vw; }
-
 .user-content {
   width: 100vw;
-  background-color: #dedede;
+  background-color: #f4f4f4;
   height: 370px; }
 
 .user-relative {
@@ -83,23 +78,55 @@ body {
   /* padding-right: 100px; */ }
 
 .u-task {
-  position: flex;
   height: 230px;
   width: 350px;
   margin-right: 0vw;
   margin-left: 10vw;
   float: left;
   background-color: white;
-  border: solid black 1px; }
+  position: relative; }
 
 .user-logout {
-  height: 20px;
+  height: 26px;
   width: 7vw;
-  background-color: skyblue;
+  background-color: #383838;
   /* margin: 0px; */
-  margin-top: 12vh;
+  margin-top: 11vh;
   float: right;
   text-align: center;
-  font-weight: 700; }
+  font-weight: 700;
+  padding-top: 3px;
+  color: white;
+  cursor: pointer; }
+
+.user-logout:hover {
+  background-color: #25aae1; }
+
+.user-wrapper {
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .user-wrapper h2 {
+    width: 20vw; }
+  .user-wrapper p {
+    margin-bottom: 35px;
+    font-size: 0.8em; }
+  .user-wrapper hr {
+    width: 12vw;
+    color: lightgrey; }
+
+.user-button {
+  height: 5vh;
+  width: 9vw;
+  background-color: #25aae1;
+  text-align: center;
+  padding-top: 5px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 27%;
+  top: 108%; }
 
 /*# sourceMappingURL=maps/styles.css.map */
