@@ -1,16 +1,38 @@
-#test {
-  background-color: blue;
-  height: 10vh;
-  width: 10vw; }
 
-p {
-  color: blue; }
+#user-nav {
+  background-color: darkgrey;
+  height: 100px;
+  width: 100vw;
+  margin-left: 0px;
 
-#newest {
-  background-color: green;
-  height: 100vh;
-  width: 10vw;
-  font-size: 1em;
-  letter-spacing: .2em; }
+}
+
+body {
+  margin-left: 0px;
+  margin-top: 0px;
+
+ }
+
+.user-content {
+  width: 100vw;
+  background-color: white;
+  height: 370px;
+
+}
+.wrapper {
+  padding-left: 325px;
+    padding-top: 68px;
+    padding-right: 100px;
+}
+.u-task {
+  position: flex;
+  height: 230px;
+  width: 200px;
+  margin-right: 3vw;
+  margin-left: 3vw;
+  float: left;
+background-color: grey;
+}
+
 
 /*# sourceMappingURL=maps/styles.css.map */
