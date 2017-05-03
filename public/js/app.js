@@ -17,7 +17,20 @@ $urlRouterProvider.when('', '/');
       controller: 'adminCtrl'
 
     })
-    
+
+    .state('adminSendSurvey', {
+      templateUrl: 'views/adminSendSurvey.html',
+      url: '/admin/send-survey',
+      controller: 'adminSendSurveyCtrl'
+
+    })
+    .state('adminSendSurveyId', {
+      templateUrl: 'views/adminSendSurvey.html',
+      url: '/admin/send-survey/:id',
+      controller: 'adminSendSurveyCtrl'
+
+    })
+
 
 
 
