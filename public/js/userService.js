@@ -2,12 +2,12 @@ angular.module('surveyApp').service('userService', function() {
   this.getUser = function () {
       return {
 				surveysA: recentSurveys,
-        surveysB: recentSurveysA
+        surveysB: recentSurveysB
 			}
   }
   var recentSurveys = [
       {
-          classTitle: 'DM21',
+
           title: 'DM20-Brett Rheiner',
         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
       },

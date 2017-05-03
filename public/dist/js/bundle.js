@@ -82,7 +82,13 @@ angular.module('surveyApp').service('templateService', function () {
 angular.module('surveyApp').controller('userCtrl', function ($scope, userService) {
   $scope.test = 'Hello, I am a test';
 
-  $scope.userData = userService.getUser();
+  $scope.getUser = function () {
+    $scope.userData = userService.getUser();
+    if ($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
+      $scope.noSurveys = true;
+    }
+  };
+  $scope.getUser();
   console.log('test');
 });
 'use strict';
@@ -95,51 +101,51 @@ angular.module('surveyApp').service('userService', function () {
         };
     };
     var recentSurveys = [{
-        classTitle: 'DM21',
-        title: '-Brett Rheiner',
+
+        title: 'DM20-Brett Rheiner',
         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
     }, {
-        title: ' - Week 2 Survey',
+        title: 'DM20 - Week 2 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 3 Survey',
+        title: 'DM20 - Week 3 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 4 Survey',
+        title: 'DM20 - Week 4 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 5 Survey',
+        title: 'DM20 - Week 5 Survey',
         description: 'lorem'
     }, {
-        title: 'Michael Memory -  - Survey',
+        title: 'Michael Memory - DM20 - Survey',
         description: 'lorem'
     }, {
-        title: ' - Jquery Survey',
+        title: 'DM20 - Jquery Survey',
         description: 'lorem'
 
     }];
 
     var recentSurveysB = [{
         classTitle: 'DM21',
-        title: '-Brett Rheiner',
+        title: 'DM20-Brett Rheiner',
         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor'
     }, {
-        title: ' - Week 2 Survey',
+        title: 'DM20 - Week 2 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 3 Survey',
+        title: 'DM20 - Week 3 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 4 Survey',
+        title: 'DM20 - Week 4 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 5 Survey',
+        title: 'DM20 - Week 5 Survey',
         description: 'lorem lasihdfo hhasdfoih oph asdfjhasldkjhfjkhaskldjhfklj hkljasdhf   kj hadjf haskjdh kjasd fkjhakldjf hklajsd klj hkajsdf khasj kdhfklj asdfklj askljdf hjakljasdkljh fklj asdfhjk'
     }, {
-        title: 'Michael Memory -  - Survey',
+        title: 'Michael Memory - DM20 - Survey',
         description: 'lorem'
     }, {
-        title: ' - Jquery Survey',
+        title: 'DM20 - Jquery Survey',
         description: 'lorem'
 
     }];

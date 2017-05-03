@@ -68,25 +68,37 @@
 .user-surveys-left {
   float: left;
   margin-left: 100px;
+  hr {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
 }
 .user-surveys-right {
   float: right;
   margin-right: 100px;
+  hr {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
 }
 .user-button {
-  height: 5vh;
-width: 9vw;
-background-color: #25aae1;
-text-align: center;
-padding-top: 5px;
-font-weight: 700;
-color: white;
-cursor: pointer;
-position: absolute;
-left: 27%;
-top: 108%;
+  padding: 7px;
+background-color: $blue;
 
+color: white;
+display: inline-block;
+position: relative;
+left: 50%;
+transform: translate(-50%);
+cursor: pointer;
 }
+.user-button:hover {
+  background-color: $blueHighlight;
+}
+
+
 .user-survey-container {
   width: 425px;
   padding: 15px;
@@ -101,4 +113,19 @@ top: 108%;
   p {
     text-align: center;
   }
+  img {
+
+  }
+}
+.user-done {
+  // height: 40vh;
+  // width: 50vw;
+  border: solid black 1px;
+  text-align: center;
+  letter-spacing: .2em;
+  font-weight: 700;
+  padding: 75px 150px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%)
 }

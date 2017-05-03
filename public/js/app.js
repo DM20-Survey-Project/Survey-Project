@@ -17,6 +17,7 @@ $urlRouterProvider.when('', '/');
       controller: 'adminCtrl'
 
     })
+    
 
 
 
