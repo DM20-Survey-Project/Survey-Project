@@ -1,6 +1,8 @@
+
 .admin-header {
 	position: relative;
 	height: 100px;
+
 }
 .admin-logo {
 	height: 90px;
@@ -11,6 +13,7 @@
 	transform: translate(0, -50%);
 }
 .admin-test {
+
 	height: 100px;
 	width: 100px;
 	background-color: $white;
@@ -32,14 +35,15 @@
 .admin-header-button:hover {
 	background-color: $blue;
 }
+
 .admin-recent-surveys {
 	float: right;
-	
+
 	h1 {
 		text-align: center;
 		color: $grey;
 	}
-	
+
 }
 .admin-survey-entry {
 	background-color: $white;
@@ -60,12 +64,12 @@
 }
 .admin-recent-templates {
 	float: left;
-	
+
 	h1 {
 		text-align: center;
 		color: $grey;
 	}
-	
+
 }
 .admin-template-entry {
 	background-color: $white;

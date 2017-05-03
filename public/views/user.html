@@ -1,1 +1,38 @@
-<div id="newest">TEST</div>
+<div class="header" >
+ 	<div class="content user-relative">
+	<img class="user-logo" src="./devmountain-logo.png" alt="devmountain logo">
+	<div class="user-logout">Logout</div>
+</div>
+</div>
+<div class="min-height content">
+	<div class="wrapper">
+
+	<!-- <div class="u-task box-shadow"  ng-repeat="s in userData.surveys"  >
+		<div class='user-wrapper'>
+			<h2>{{s.classTitle}}</h2>
+			<h2 class='testLook'>{{s.title}}</h2>
+			<p>{{s.description}}</p>
+			<hr/>
+			<div class="user-button">Take Survey</div>
+		</div>
+	</div> -->
+	<div class="user-surveys-left">
+		<div class="user-survey-container box-shadow" ng-repeat="survey in userData.surveysA">
+			<h3>DM-20</h3>
+			<h2 class='testLook'>{{survey.title}}</h2>
+			<p>{{survey.description}}</p>
+		</div>
+	</div>
+	<div class="user-surveys-right">
+		<div class="user-survey-container box-shadow" ng-repeat="survey in userData.surveysB">
+			<h3>DM-20</h3>
+			<h2 class='testLook'>{{survey.title}}</h2>
+			<p>{{survey.description}}</p>
+		</div>
+	</div>
+
+	</div>
+</div>
+<div class="footer">
+
+</div>

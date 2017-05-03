@@ -6,13 +6,11 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
 
   $stateProvider.state('user', {
     templateUrl: 'views/user.html',
-
     url: '/',
     controller: 'userCtrl'
 
   }).state('admin', {
     templateUrl: 'views/admin.html',
-
     url: '/admin',
     controller: 'adminCtrl'
 
@@ -81,7 +79,69 @@ angular.module('surveyApp').service('templateService', function () {
 });
 'use strict';
 
-angular.module('surveyApp').controller('userCtrl', function ($scope) {
+angular.module('surveyApp').controller('userCtrl', function ($scope, userService) {
   $scope.test = 'Hello, I am a test';
+
+  $scope.userData = userService.getUser();
+  console.log('test');
+});
+'use strict';
+
+angular.module('surveyApp').service('userService', function () {
+    this.getUser = function () {
+        return {
+            surveysA: recentSurveys,
+            surveysB: recentSurveysB
+        };
+    };
+    var recentSurveys = [{
+        classTitle: 'DM21',
+        title: '-Brett Rheiner',
+        description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
+    }, {
+        title: ' - Week 2 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 3 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 4 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 5 Survey',
+        description: 'lorem'
+    }, {
+        title: 'Michael Memory -  - Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Jquery Survey',
+        description: 'lorem'
+
+    }];
+
+    var recentSurveysB = [{
+        classTitle: 'DM21',
+        title: '-Brett Rheiner',
+        description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor'
+    }, {
+        title: ' - Week 2 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 3 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 4 Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Week 5 Survey',
+        description: 'lorem lasihdfo hhasdfoih oph asdfjhasldkjhfjkhaskldjhfklj hkljasdhf   kj hadjf haskjdh kjasd fkjhakldjf hklajsd klj hkajsdf khasj kdhfklj asdfklj askljdf hjakljasdkljh fklj asdfhjk'
+    }, {
+        title: 'Michael Memory -  - Survey',
+        description: 'lorem'
+    }, {
+        title: ' - Jquery Survey',
+        description: 'lorem'
+
+    }];
 });
 //# sourceMappingURL=bundle.js.map
