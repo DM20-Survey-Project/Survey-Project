@@ -27,48 +27,51 @@
 .u-task {
 
   height: 230px;
-  width: 350px;
-  margin-right: 0vw;
-  margin-left: 10vw;
+  width: 400px;
+  margin: 50px 50px;
   float: left;
   background-color: white;
   position: relative;
 
 }
 .user-logout {
-  height: 26px;
-    width: 7vw;
+
     background-color: #383838;
     /* margin: 0px; */
-    margin-top: 11vh;
+    margin: 5px;
     float: right;
     text-align: center;
-    font-weight: 700;
-    padding-top: 3px;
-    color: white;
+    font-weight: 400;
+    padding: 3px 7px;
+    color: #c1c1c1;
     cursor: pointer;
 }
-.user-logout:hover {
-  background-color: #25aae1;
 
-}
 .user-wrapper {
   position: absolute;
     top: 39%;
     left: 50%;
     transform: translate(-50%, -50%);
-  h2 {
-    width: 20vw;
 
-  }
   p {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     font-size: 0.8em;
   }
   hr {
-    width: 12vw;
+    width: 80%;
     color: lightgrey;
   }
+}
+.testLook {
+
+}
+.user-surveys-left {
+  float: left;
+  margin-left: 100px;
+}
+.user-surveys-right {
+  float: right;
+  margin-right: 100px;
 }
 .user-button {
   height: 5vh;
@@ -83,4 +86,19 @@ position: absolute;
 left: 27%;
 top: 108%;
 
+}
+.user-survey-container {
+  width: 425px;
+  padding: 15px;
+  background-color: $white;
+  margin-bottom: 25px;
+  h3 {
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
 }

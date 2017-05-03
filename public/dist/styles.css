@@ -63,79 +63,6 @@ body {
 .admin-header-button:hover {
   background-color: #25aae1; }
 
-<<<<<<< HEAD
-.user-content {
-  width: 100vw;
-  background-color: #f4f4f4;
-  height: 370px; }
-
-.user-relative {
-  position: relative; }
-
-.user-logo {
-  height: 90px;
-  height: 90px;
-  margin: 5px auto;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%); }
-
-.wrapper {
-  padding-top: 100px;
-  /* padding-right: 100px; */ }
-
-.u-task {
-  height: 230px;
-  width: 350px;
-  margin-right: 0vw;
-  margin-left: 10vw;
-  float: left;
-  background-color: white;
-  position: relative; }
-
-.user-logout {
-  height: 26px;
-  width: 7vw;
-  background-color: #383838;
-  /* margin: 0px; */
-  margin-top: 11vh;
-  float: right;
-  text-align: center;
-  font-weight: 700;
-  padding-top: 3px;
-  color: white;
-  cursor: pointer; }
-
-.user-logout:hover {
-  background-color: #25aae1; }
-
-.user-wrapper {
-  position: absolute;
-  top: 39%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
-  .user-wrapper h2 {
-    width: 20vw; }
-  .user-wrapper p {
-    margin-bottom: 35px;
-    font-size: 0.8em; }
-  .user-wrapper hr {
-    width: 12vw;
-    color: lightgrey; }
-
-.user-button {
-  height: 5vh;
-  width: 9vw;
-  background-color: #25aae1;
-  text-align: center;
-  padding-top: 5px;
-  font-weight: 700;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  left: 27%;
-  top: 108%; }
-=======
 .admin-recent-surveys {
   float: right; }
   .admin-recent-surveys h1 {
@@ -201,12 +128,88 @@ body {
 .admin-home-button:hover {
   background-color: #2BC3FF; }
 
-#newest {
-  background-color: green;
-  height: 100vh;
-  width: 10vw;
-  font-size: 1em;
-  letter-spacing: .2em; }
->>>>>>> master
+.user-content {
+  width: 100vw;
+  background-color: #f4f4f4;
+  height: 370px; }
+
+.user-relative {
+  position: relative; }
+
+.user-logo {
+  height: 90px;
+  height: 90px;
+  margin: 5px auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%); }
+
+.wrapper {
+  padding-top: 100px;
+  /* padding-right: 100px; */ }
+
+.u-task {
+  height: 230px;
+  width: 400px;
+  margin: 50px 50px;
+  float: left;
+  background-color: white;
+  position: relative; }
+
+.user-logout {
+  background-color: #383838;
+  /* margin: 0px; */
+  margin: 5px;
+  float: right;
+  text-align: center;
+  font-weight: 400;
+  padding: 3px 7px;
+  color: #c1c1c1;
+  cursor: pointer; }
+
+.user-wrapper {
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .user-wrapper p {
+    margin-bottom: 20px;
+    font-size: 0.8em; }
+  .user-wrapper hr {
+    width: 80%;
+    color: lightgrey; }
+
+.user-surveys-left {
+  float: left;
+  margin-left: 100px; }
+
+.user-surveys-right {
+  float: right;
+  margin-right: 100px; }
+
+.user-button {
+  height: 5vh;
+  width: 9vw;
+  background-color: #25aae1;
+  text-align: center;
+  padding-top: 5px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 27%;
+  top: 108%; }
+
+.user-survey-container {
+  width: 425px;
+  padding: 15px;
+  background-color: white;
+  margin-bottom: 25px; }
+  .user-survey-container h3 {
+    text-align: center; }
+  .user-survey-container h2 {
+    text-align: center; }
+  .user-survey-container p {
+    text-align: center; }
 
 /*# sourceMappingURL=maps/styles.css.map */
