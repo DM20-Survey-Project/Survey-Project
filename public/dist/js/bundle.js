@@ -14,6 +14,16 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
     url: '/admin',
     controller: 'adminCtrl'
 
+  }).state('adminSendSurvey', {
+    templateUrl: 'views/adminSendSurvey.html',
+    url: '/admin/send-survey',
+    controller: 'adminSendSurveyCtrl'
+
+  }).state('adminSendSurveyId', {
+    templateUrl: 'views/adminSendSurvey.html',
+    url: '/admin/send-survey/:id',
+    controller: 'adminSendSurveyCtrl'
+
   });
 });
 'use strict';
@@ -26,6 +36,9 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
     return { 'width': '10%' };
   };
 });
+'use strict';
+
+angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService) {});
 'use strict';
 
 angular.module('surveyApp').service('surveyService', function () {
