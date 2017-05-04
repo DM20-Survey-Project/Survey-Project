@@ -1,7 +1,8 @@
 /////MY SECTION///////////
 
-
-
+//////////USER.HTML/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////
+/////////////////////
 .user-content {
   width: 100vw;
   background-color: #f4f4f4;
@@ -24,11 +25,7 @@
 	padding-top: 100px;
     /* padding-right: 100px; */
 }
-.user-question-wrapper {
-  padding-right: 300px;
-  padding-left: 300px;
-  padding-top: 100px;
-}
+
 .u-task {
 
   height: 230px;
@@ -92,22 +89,7 @@
     margin-bottom: 5%;
   }
 }
-.user-survey-box {
 
-
-padding: 15px;
-background-color: white;
-margin-bottom: 25px;
-img {
-  height: 25px;
-  position: absolute;
-}
-h4 {
-  text-align: center;
-  letter-spacing: .1em;
-  margin-top: 0px;
-}
-}
 .user-button {
   padding: 7px;
 background-color: $blue;
@@ -155,6 +137,60 @@ cursor: pointer;
   left: 50%;
   transform: translate(-50%)
 }
+
+.user-text {
+
+}
+
+//////////userQuestion.html/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////
+//////////////////////////////
 .user-response {
   border: solid black 1px;
+}
+.user-survey-box {
+
+      padding: 15px;
+      background-color: white;
+      margin-bottom: 25px;
+      position: relative;
+      background-color: white;
+img {
+  height: 25px;
+  position: absolute;
+}
+h4 {
+  text-align: center;
+
+      margin-top: 0px;
+      margin-bottom: 45px;
+      background-color: $blue;
+      color: white;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      left: 0;
+      padding: 7px;
+      font-weight: 400;
+      font-size: 1.2em;
+}
+textarea {
+
+}
+}
+.user-text {
+  width: 100%;
+  margin-top: 40px;
+}
+.user-answer {
+  margin-top: 25px;
+}
+
+/////////////survePage.html/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
+/////////////////////////
+.user-question-wrapper {
+  padding-right: 300px;
+  padding-left: 300px;
+  padding-top: 100px;
 }

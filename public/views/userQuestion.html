@@ -1,10 +1,24 @@
 <div class="user-survey-box box-shadow" >
-	<!-- <img src="https://avatars3.githubusercontent.com/u/5432151?v=3&s=200" alt=""> -->
-	<h4>{{question.title}}</h4>
-	<h1 ng-show="textAnswer">text answer </h1>
-	<h1 ng-show="numberAnswer">number Answer </h1>
-	<h1 ng-show="booleanAnswer">boolean answer</h1>
 
-	<div class="user-response"></div>
+	<h4>{{question.questionTitle}}</h4>
+
+	<div ng-show="textAnswer">
+	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..."></textarea>
+</div>
+
+<div ng-show="numberAnswer">
+<input id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+	number Answer
+</div>
+
+	<div ng-show="booleanAnswer" class="user-answer">
+		<form action="">
+		<input type="radio" name="" value="yes">Yes
+
+		<input type="radio" name="" value="no">No<br>
+</form>
+	</div>
+
+
 
 </div>

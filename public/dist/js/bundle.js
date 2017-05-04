@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, $stateProvider) {
+angular.module('surveyApp', ['ui.router', 'rzModule']).config(function ($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.when('', '/');
 
@@ -471,6 +471,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surve
     $scope.userData = surveyService.getSurveyById();
   };
   $scope.getSurveyById();
+
   console.log($scope.userData);
 });
 //# sourceMappingURL=bundle.js.map
