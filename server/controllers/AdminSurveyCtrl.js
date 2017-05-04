@@ -11,7 +11,7 @@ module.exports = {
         let cohort_id = newSurvey.cohortSentTo;
         usersModel.find({
                 cohort: cohort_id
-            }, _id)
+            }, '_id')
             .exec((err, result) => {
                 if (err) {
                     console.log('error creating admin survey', err);
