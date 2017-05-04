@@ -5,19 +5,38 @@ angular.module('surveyApp')
     restrict: 'E',
     scope: {
       entities: '=',
+      title: '='
       
     },
     controller: function( $scope, $state ) {
       $scope.isCohort = false
-      if ($scope.entities.type === 'Cohort') {
+      $scope.isTemplate = false;
+
+      console.log($scope.title);
+      if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
+      } else if ($scope.title === 'Template') {
+        $scope.isTemplate = true;
       }
+
+
       $scope.select = function (id) {
-        for (var i = 0; i < $scope.entities.entities.length; i++) {
-          if ($scope.entities.entities[i].id == id) {
-            $scope.selected = $scope.entities.entities[i]
+        if ($scope.isTemplate) {
+          console.log('template');
+          for (var i = 0; i < $scope.entities.length; i++) {
+            if ($scope.entities[i].id == id) {
+              console.log('found one');
+              $scope.selected = $scope.entities[i]
+            }
+            
           }
-          
+        } else {
+          for (var i = 0; i < $scope.entities.entities.length; i++) {
+            if ($scope.entities.entities[i].id == id) {
+              $scope.selected = $scope.entities.entities[i]
+            }
+            
+          }
         }
         $scope.show();
       }

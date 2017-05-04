@@ -116,17 +116,19 @@
 }
 .admin-send-survey-input {
 	width: 100%;
+	position: relative;
 	padding: 10px;
 	background-color: $white;
 	border: 1px solid #A0A0A0;
 	min-height: 48px;
-
+	cursor: pointer;
 	h3 {
 		margin: 0;
 	}
 }
 .admin-dropdown-box {
 	width: 400px;
+	position: relative
 }
 .admin-dropdown-container {
 	background-color: $white;
@@ -186,4 +188,10 @@
 		height: 38px;
 		font-size: 1.2em
 	}
+}
+.admin-dropdown-hidden {
+	position: absolute;
+	width: 100%;
+	background-color: $white;
+	z-index: 2;
 }
