@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, $stateProvider) {
+angular.module('surveyApp', ['ui.router', 'rzModule']).config(function ($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.when('', '/');
 
@@ -44,6 +44,8 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
   $scope.entities = entityService.getEntities();
+  $scope.templates = templateService.getTemplates();
+  console.log($scope.templates);
 });
 'use strict';
 
@@ -52,18 +54,35 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
     templateUrl: "views/dropdown.html",
     restrict: 'E',
     scope: {
-      entities: '='
+      entities: '=',
+      title: '='
 
     },
     controller: function controller($scope, $state) {
       $scope.isCohort = false;
-      if ($scope.entities.type === 'Cohort') {
+      $scope.isTemplate = false;
+
+      console.log($scope.title);
+      if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
+      } else if ($scope.title === 'Template') {
+        $scope.isTemplate = true;
       }
+
       $scope.select = function (id) {
-        for (var i = 0; i < $scope.entities.entities.length; i++) {
-          if ($scope.entities.entities[i].id == id) {
-            $scope.selected = $scope.entities.entities[i];
+        if ($scope.isTemplate) {
+          console.log('template');
+          for (var i = 0; i < $scope.entities.length; i++) {
+            if ($scope.entities[i].id == id) {
+              console.log('found one');
+              $scope.selected = $scope.entities[i];
+            }
+          }
+        } else {
+          for (var i = 0; i < $scope.entities.entities.length; i++) {
+            if ($scope.entities.entities[i].id == id) {
+              $scope.selected = $scope.entities.entities[i];
+            }
           }
         }
         $scope.show();
@@ -320,20 +339,33 @@ angular.module('surveyApp').service('templateService', function () {
     this.getRecentTemplates = function () {
         return recentTemplates;
     };
+    this.getTemplates = function () {
+        return recentTemplates;
+    };
+    this.parseTitle = function (title) {
+        console.log(title);
+    };
     var recentTemplates = [{
-        title: '$$cohort$$ - Unit 1 Survey'
+        title: '$$cohort$$ - Unit 1 Survey',
+        id: 1
     }, {
-        title: '$$cohort$$ - Unit 5 Survey'
+        title: '$$cohort$$ - Unit 5 Survey',
+        id: 2
     }, {
-        title: '$$cohort$$ - Jquery Survey'
+        title: '$$cohort$$ - Jquery Survey',
+        id: 3
     }, {
-        title: '$$cohort$$ - Weekly'
+        title: '$$cohort$$ - Weekly',
+        id: 4
     }, {
-        title: '$$name$$ - $$cohort$$ - iOS Mentor'
+        title: '$$name$$ - $$cohort$$ - iOS Mentor',
+        id: 5
     }, {
-        title: '$$name$$ - $$cohort$$ - iOS Instructor'
+        title: '$$name$$ - $$cohort$$ - iOS Instructor',
+        id: 6
     }, {
-        title: '$$name$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj'
+        title: '$$name$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj',
+        id: 7
     }];
 });
 'use strict';
@@ -439,6 +471,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surve
     $scope.userData = surveyService.getSurveyById();
   };
   $scope.getSurveyById();
+
   console.log($scope.userData);
 });
 "use strict";
