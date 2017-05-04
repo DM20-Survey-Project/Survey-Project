@@ -148,6 +148,11 @@ body {
   padding-top: 100px;
   /* padding-right: 100px; */ }
 
+.user-question-wrapper {
+  padding-right: 300px;
+  padding-left: 300px;
+  padding-top: 100px; }
+
 .u-task {
   height: 230px;
   width: 400px;
@@ -165,7 +170,11 @@ body {
   font-weight: 400;
   padding: 3px 7px;
   color: #c1c1c1;
-  cursor: pointer; }
+  cursor: pointer;
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  transform: translate(0, 100%); }
 
 .user-wrapper {
   position: absolute;
@@ -195,6 +204,18 @@ body {
     margin-top: 5%;
     margin-bottom: 5%; }
 
+.user-survey-box {
+  padding: 15px;
+  background-color: white;
+  margin-bottom: 25px; }
+  .user-survey-box img {
+    height: 25px;
+    position: absolute; }
+  .user-survey-box h4 {
+    text-align: center;
+    letter-spacing: .1em;
+    margin-top: 0px; }
+
 .user-button {
   padding: 7px;
   background-color: #25aae1;
@@ -223,11 +244,13 @@ body {
 .user-done {
   border: solid black 1px;
   text-align: center;
-  letter-spacing: .2em;
   font-weight: 700;
   padding: 75px 150px;
   position: absolute;
   left: 50%;
   transform: translate(-50%); }
+
+.user-response {
+  border: solid black 1px; }
 
 /*# sourceMappingURL=maps/styles.css.map */

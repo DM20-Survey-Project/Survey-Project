@@ -6,7 +6,7 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
 
   $stateProvider.state('user', {
     templateUrl: 'views/user.html',
-    url: '/',
+    url: '/user',
     controller: 'userCtrl'
 
   }).state('admin', {
@@ -24,6 +24,10 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
     url: '/admin/send-survey/:id',
     controller: 'adminSendSurveyCtrl'
 
+  }).state('userSurveyPage', {
+    templateUrl: 'views/surveyPage.html',
+    url: '/user/surveyPage',
+    controller: 'userSurveyCtrl'
   });
 });
 'use strict';
@@ -44,6 +48,9 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
 angular.module('surveyApp').service('surveyService', function () {
     this.getRecentSurveys = function () {
         return recentSurveys;
+    };
+    this.getSurveyById = function () {
+        return survey;
     };
     var recentSurveys = [{
         title: 'DM20 - Week 1 Survey',
@@ -67,6 +74,36 @@ angular.module('surveyApp').service('surveyService', function () {
         title: 'DM20 - Jquery Survey',
         percentComplete: 0
     }];
+    var survey = {
+        title: 'DM20-WHATEVER',
+        description: 'LOREMMMMMM',
+        questions: [{
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text'
+
+        }, {
+            questionTitle: 'uhwoueofhoeir?',
+            type: 'boolean'
+
+        }, {
+            questionTitle: 'How good is micahel memoryasdfring?',
+            type: 'number'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'boolean'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'number'
+
+        }]
+
+    };
 });
 'use strict';
 
@@ -103,6 +140,28 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, userService
   };
   $scope.getUser();
   console.log('test');
+});
+'use strict';
+
+angular.module('surveyApp').directive('userQuestionDirective', function () {
+	return {
+		templateUrl: "views/userQuestion.html",
+		restrict: 'E',
+		scope: {
+			question: '='
+
+		},
+		controller: function controller($scope, $state) {
+			if ($scope.question.type == 'text') {
+				$scope.textAnswer = true;
+			} else if ($scope.question.type == 'number') {
+				$scope.numberAnswer = true;
+			} else if ($scope.question.type == 'boolean') {
+				$scope.booleanAnswer = true;
+			} else {}
+		},
+		link: function link(scope, element, attributes) {}
+	};
 });
 'use strict';
 
@@ -162,5 +221,15 @@ angular.module('surveyApp').service('userService', function () {
         description: 'lorem'
 
     }];
+});
+'use strict';
+
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surveyService) {
+
+  $scope.getSurveyById = function () {
+    $scope.userData = surveyService.getSurveyById();
+  };
+  $scope.getSurveyById();
+  console.log($scope.userData);
 });
 //# sourceMappingURL=bundle.js.map

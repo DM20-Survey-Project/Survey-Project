@@ -68,6 +68,7 @@ angular.module('surveyApp').service('userService', function() {
           title: 'DM20 - Jquery Survey',
 					  description: 'lorem'
 
-      },
+      }
   ]
+
 })
