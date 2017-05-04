@@ -38,7 +38,216 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 });
 'use strict';
 
-angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService) {});
+angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
+  $scope.entities = entityService.getEntities();
+});
+'use strict';
+
+angular.module('surveyApp').directive('dropdownDirective', function () {
+  return {
+    templateUrl: "views/dropdown.html",
+    restrict: 'E',
+    scope: {
+      entities: '='
+
+    },
+    controller: function controller($scope, $state) {
+      $scope.isCohort = false;
+      if ($scope.entities.type === 'Cohort') {
+        $scope.isCohort = true;
+      }
+      $scope.select = function (id) {
+        for (var i = 0; i < $scope.entities.entities.length; i++) {
+          if ($scope.entities.entities[i].id == id) {
+            $scope.selected = $scope.entities.entities[i];
+          }
+        }
+        $scope.show();
+      };
+      $scope.show = function () {
+        if ($scope.shown) {
+          $scope.shown = false;
+        } else {
+          $scope.shown = true;
+        }
+      };
+    },
+    link: function link(scope, element, attributes) {}
+  };
+});
+'use strict';
+
+angular.module('surveyApp').service('entityService', function () {
+    this.getEntities = function () {
+        return entities;
+    };
+    var entities = {
+        mentors: {
+            type: 'Mentor',
+            entities: [{
+                name: 'Michael Memory',
+                id: 1,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Max Rodewald',
+                id: 2,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Brett Gardiner',
+                id: 3,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Bingo Jackson',
+                id: 4,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'HeeHaw Horseman',
+                id: 5,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Gunsmoke',
+                id: 6,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Michael Memory',
+                id: 7,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Max Rodewald',
+                id: 8,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Brett Gardiner',
+                id: 9,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Bingo Jackson',
+                id: 10,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'HeeHaw Horseman',
+                id: 11,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }, {
+                name: 'Gunsmoke',
+                id: 12,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+
+            }]
+        },
+        cohorts: {
+            type: "Cohort",
+            entities: [{
+                name: 'DM20',
+                id: 1,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+            }, {
+                name: 'DM19',
+                id: 2,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+            }, {
+                name: 'DM18',
+                id: 3,
+                location: {
+                    city: 'Provo',
+                    state: 'Utah'
+
+                }
+            }, {
+                name: 'iOS20',
+                id: 4,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+            }, {
+                name: 'iOS19',
+                id: 5,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+            }, {
+                name: 'iOS18',
+                id: 6,
+                location: {
+                    city: 'Salt Lake City',
+                    state: 'Utah'
+
+                }
+            }]
+        }
+    };
+});
 'use strict';
 
 angular.module('surveyApp').service('surveyService', function () {
