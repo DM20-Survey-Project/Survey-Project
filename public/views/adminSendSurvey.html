@@ -18,14 +18,17 @@
 </div>
 <div class="min-height">
     <div class="content">
-        <h1>test</h1>
         <div class="admin-dropdown-box">
             
-            <dropdown-directive entities="entities.mentors"></dropdown-directive>
+            <dropdown-directive entities="templates" title="'Template'"></dropdown-directive>
+        </div>
+        <div class="admin-dropdown-box">
+            
+            <dropdown-directive entities="entities.mentors" title="entities.mentors.type"></dropdown-directive>
         </div>
         <h1></h1>
-        <div style="width: 500px;">
-            <dropdown-directive entities="entities.cohorts"></dropdown-directive>
+        <div class="admin-dropdown-box">
+            <dropdown-directive entities="entities.cohorts" title="entities.cohorts.type"></dropdown-directive>
         </div>
     </div>
 </div>
