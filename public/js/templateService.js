@@ -5,8 +5,43 @@ angular.module('surveyApp').service('templateService', function() {
   this.getTemplates = function () {
       return recentTemplates
   }
+  var currentTemplate = {
+
+  }
+  this.getSelectedTemplate = function () {
+      return currentTemplate
+  }
+  this.giveSelected = function (template) {
+    currentTemplate.template = template
+    currentTemplate.types = this.parseTitle(template.title)
+  }
   this.parseTitle = function (title) {
-    console.log(title);
+    var parsing = false
+    var parseStrArr = []
+    
+
+    var titleArr = title.split('')
+    var parsedEntities = []
+    for (var i = 0; i < titleArr.length; i++) {
+        
+        if (parsing) {
+            
+            if (titleArr[i] !== '$') {
+                parseStrArr.push(titleArr[i])
+            } else {
+                parsing = false
+                parsedEntities.push(parseStrArr.join(''))
+                parseStrArr = []
+                i += 2
+            }
+        } else {
+            if (titleArr[i - 1] == '$') {
+                parsing = true
+            }
+        }
+        
+    }
+    return parsedEntities
   }
   var recentTemplates = [
       {
@@ -26,15 +61,15 @@ angular.module('surveyApp').service('templateService', function() {
           id: 4
       },
       {
-          title: '$$name$$ - $$cohort$$ - iOS Mentor',
+          title: '$$mentor$$ - $$cohort$$ - iOS Mentor',
           id: 5
       },
       {
-          title: '$$name$$ - $$cohort$$ - iOS Instructor',
+          title: '$$mentor$$ - $$cohort$$ - iOS Instructor',
           id: 6
       },
       {
-          title: '$$name$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj',
+          title: '$$mentor$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj',
           id: 7
       },
   ]

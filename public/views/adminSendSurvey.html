@@ -20,16 +20,15 @@
     <div class="content">
         <div class="admin-dropdown-box">
             
-            <dropdown-directive entities="templates" title="'Template'"></dropdown-directive>
+            <dropdown-directive entities="templates" title="'Template'" check="check()"></dropdown-directive>
         </div>
-        <div class="admin-dropdown-box">
-            
-            <dropdown-directive entities="entities.mentors" title="entities.mentors.type"></dropdown-directive>
+        <div ng-repeat="type in entities">
+            <div class="admin-dropdown-box">
+                
+                <dropdown-directive entities="type" title="type.type" check=""></dropdown-directive>
+            </div>
         </div>
-        <h1></h1>
-        <div class="admin-dropdown-box">
-            <dropdown-directive entities="entities.cohorts" title="entities.cohorts.type"></dropdown-directive>
-        </div>
+        
     </div>
 </div>
 <div class="footer">

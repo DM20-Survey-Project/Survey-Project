@@ -1,6 +1,10 @@
 'use strict';
 
+<<<<<<< HEAD
 angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, $stateProvider) {
+=======
+angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
+>>>>>>> master
 
   $urlRouterProvider.when('', '/');
 
@@ -43,9 +47,12 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 'use strict';
 
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
-  $scope.entities = entityService.getEntities();
+
   $scope.templates = templateService.getTemplates();
-  console.log($scope.templates);
+  $scope.check = function () {
+    $scope.selectedTemplate = templateService.getSelectedTemplate();
+    $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
+  };
 });
 'use strict';
 
@@ -55,14 +62,14 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
     restrict: 'E',
     scope: {
       entities: '=',
-      title: '='
+      title: '=',
+      check: '&'
 
     },
-    controller: function controller($scope, $state) {
+    controller: function controller($scope, $state, templateService) {
       $scope.isCohort = false;
       $scope.isTemplate = false;
 
-      console.log($scope.title);
       if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {
@@ -71,11 +78,11 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
 
       $scope.select = function (id) {
         if ($scope.isTemplate) {
-          console.log('template');
           for (var i = 0; i < $scope.entities.length; i++) {
             if ($scope.entities[i].id == id) {
-              console.log('found one');
               $scope.selected = $scope.entities[i];
+              templateService.giveSelected($scope.selected);
+              $scope.check();
             }
           }
         } else {
@@ -101,174 +108,188 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
 'use strict';
 
 angular.module('surveyApp').service('entityService', function () {
-    this.getEntities = function () {
-        return entities;
-    };
-    var entities = {
-        mentors: {
-            type: 'Mentor',
-            entities: [{
-                name: 'Michael Memory',
-                id: 1,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
+    this.getEntities = function (requestedEntites) {
+        var response = [];
+        for (var i = 0; i < requestedEntites.length; i++) {
+            switch (requestedEntites[i]) {
+                case 'mentor':
+                    response.push(mentors);
+                    break;
+                case 'cohort':
+                    response.push(cohorts);
+                    break;
 
-                }
-
-            }, {
-                name: 'Max Rodewald',
-                id: 2,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Brett Gardiner',
-                id: 3,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Bingo Jackson',
-                id: 4,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'HeeHaw Horseman',
-                id: 5,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Gunsmoke',
-                id: 6,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Michael Memory',
-                id: 7,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Max Rodewald',
-                id: 8,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Brett Gardiner',
-                id: 9,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Bingo Jackson',
-                id: 10,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'HeeHaw Horseman',
-                id: 11,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }, {
-                name: 'Gunsmoke',
-                id: 12,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-
-            }]
-        },
-        cohorts: {
-            type: "Cohort",
-            entities: [{
-                name: 'DM20',
-                id: 1,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-            }, {
-                name: 'DM19',
-                id: 2,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-            }, {
-                name: 'DM18',
-                id: 3,
-                location: {
-                    city: 'Provo',
-                    state: 'Utah'
-
-                }
-            }, {
-                name: 'iOS20',
-                id: 4,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-            }, {
-                name: 'iOS19',
-                id: 5,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-            }, {
-                name: 'iOS18',
-                id: 6,
-                location: {
-                    city: 'Salt Lake City',
-                    state: 'Utah'
-
-                }
-            }]
+                default:
+                    break;
+            }
         }
+        return response;
+    };
+
+    var mentors = {
+        type: 'Mentor',
+        entities: [{
+            name: 'Michael Memory',
+            id: 1,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Max Rodewald',
+            id: 2,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Brett Gardiner',
+            id: 3,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Bingo Jackson',
+            id: 4,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'HeeHaw Horseman',
+            id: 5,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Gunsmoke',
+            id: 6,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Michael Memory',
+            id: 7,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Max Rodewald',
+            id: 8,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Brett Gardiner',
+            id: 9,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Bingo Jackson',
+            id: 10,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'HeeHaw Horseman',
+            id: 11,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }, {
+            name: 'Gunsmoke',
+            id: 12,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+
+        }]
+    };
+
+    var cohorts = {
+        type: "Cohort",
+        entities: [{
+            name: 'DM20',
+            id: 1,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+        }, {
+            name: 'DM19',
+            id: 2,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+        }, {
+            name: 'DM18',
+            id: 3,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+        }, {
+            name: 'iOS20',
+            id: 4,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+        }, {
+            name: 'iOS19',
+            id: 5,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+        }, {
+            name: 'iOS18',
+            id: 6,
+            location: {
+                city: 'Salt Lake City',
+                state: 'Utah'
+
+            }
+        }]
     };
 });
 'use strict';
@@ -342,8 +363,39 @@ angular.module('surveyApp').service('templateService', function () {
     this.getTemplates = function () {
         return recentTemplates;
     };
+    var currentTemplate = {};
+    this.getSelectedTemplate = function () {
+        return currentTemplate;
+    };
+    this.giveSelected = function (template) {
+        currentTemplate.template = template;
+        currentTemplate.types = this.parseTitle(template.title);
+    };
     this.parseTitle = function (title) {
-        console.log(title);
+        var parsing = false;
+        var parseStrArr = [];
+
+        var titleArr = title.split('');
+        var parsedEntities = [];
+        for (var i = 0; i < titleArr.length; i++) {
+
+            if (parsing) {
+
+                if (titleArr[i] !== '$') {
+                    parseStrArr.push(titleArr[i]);
+                } else {
+                    parsing = false;
+                    parsedEntities.push(parseStrArr.join(''));
+                    parseStrArr = [];
+                    i += 2;
+                }
+            } else {
+                if (titleArr[i - 1] == '$') {
+                    parsing = true;
+                }
+            }
+        }
+        return parsedEntities;
     };
     var recentTemplates = [{
         title: '$$cohort$$ - Unit 1 Survey',
@@ -358,13 +410,13 @@ angular.module('surveyApp').service('templateService', function () {
         title: '$$cohort$$ - Weekly',
         id: 4
     }, {
-        title: '$$name$$ - $$cohort$$ - iOS Mentor',
+        title: '$$mentor$$ - $$cohort$$ - iOS Mentor',
         id: 5
     }, {
-        title: '$$name$$ - $$cohort$$ - iOS Instructor',
+        title: '$$mentor$$ - $$cohort$$ - iOS Instructor',
         id: 6
     }, {
-        title: '$$name$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj',
+        title: '$$mentor$$ - $$cohort$$ - UI/UX Mentor asdfas dfasdglkfasld asdljfh askljasdflkj',
         id: 7
     }];
 });
