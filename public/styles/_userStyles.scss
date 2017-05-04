@@ -24,6 +24,11 @@
 	padding-top: 100px;
     /* padding-right: 100px; */
 }
+.user-question-wrapper {
+  padding-right: 300px;
+  padding-left: 300px;
+  padding-top: 100px;
+}
 .u-task {
 
   height: 230px;
@@ -36,15 +41,19 @@
 }
 .user-logout {
 
-    background-color: #383838;
-    /* margin: 0px; */
-    margin: 5px;
-    float: right;
-    text-align: center;
-    font-weight: 400;
-    padding: 3px 7px;
-    color: #c1c1c1;
-    cursor: pointer;
+  background-color: #383838;
+  /* margin: 0px; */
+  margin: 5px;
+  float: right;
+  text-align: center;
+  font-weight: 400;
+  padding: 3px 7px;
+  color: #c1c1c1;
+  cursor: pointer;
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  transform: translate(0, 100%);
 }
 
 .user-wrapper {
@@ -68,25 +77,54 @@
 .user-surveys-left {
   float: left;
   margin-left: 100px;
+  hr {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
 }
 .user-surveys-right {
   float: right;
   margin-right: 100px;
+  hr {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+.user-survey-box {
+
+
+padding: 15px;
+background-color: white;
+margin-bottom: 25px;
+img {
+  height: 25px;
+  position: absolute;
+}
+h4 {
+  text-align: center;
+  letter-spacing: .1em;
+  margin-top: 0px;
+}
 }
 .user-button {
-  height: 5vh;
-width: 9vw;
-background-color: #25aae1;
-text-align: center;
-padding-top: 5px;
-font-weight: 700;
-color: white;
-cursor: pointer;
-position: absolute;
-left: 27%;
-top: 108%;
+  padding: 7px;
+background-color: $blue;
 
+color: white;
+display: inline-block;
+position: relative;
+left: 50%;
+transform: translate(-50%);
+cursor: pointer;
 }
+.user-button:hover {
+  background-color: $blueHighlight;
+}
+
+
+
 .user-survey-container {
   width: 425px;
   padding: 15px;
@@ -101,4 +139,22 @@ top: 108%;
   p {
     text-align: center;
   }
+  img {
+
+  }
+}
+.user-done {
+  // height: 40vh;
+  // width: 50vw;
+  border: solid black 1px;
+  text-align: center;
+
+  font-weight: 700;
+  padding: 75px 150px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%)
+}
+.user-response {
+  border: solid black 1px;
 }

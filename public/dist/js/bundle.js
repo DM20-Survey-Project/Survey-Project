@@ -6,7 +6,7 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
 
   $stateProvider.state('user', {
     templateUrl: 'views/user.html',
-    url: '/',
+    url: '/user',
     controller: 'userCtrl'
 
   }).state('admin', {
@@ -24,6 +24,10 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
     url: '/admin/send-survey/:id',
     controller: 'adminSendSurveyCtrl'
 
+  }).state('userSurveyPage', {
+    templateUrl: 'views/surveyPage.html',
+    url: '/user/surveyPage',
+    controller: 'userSurveyCtrl'
   });
 });
 'use strict';
@@ -254,6 +258,9 @@ angular.module('surveyApp').service('surveyService', function () {
     this.getRecentSurveys = function () {
         return recentSurveys;
     };
+    this.getSurveyById = function () {
+        return survey;
+    };
     var recentSurveys = [{
         title: 'DM20 - Week 1 Survey',
         percentComplete: 50
@@ -276,6 +283,36 @@ angular.module('surveyApp').service('surveyService', function () {
         title: 'DM20 - Jquery Survey',
         percentComplete: 0
     }];
+    var survey = {
+        title: 'DM20-WHATEVER',
+        description: 'LOREMMMMMM',
+        questions: [{
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text'
+
+        }, {
+            questionTitle: 'uhwoueofhoeir?',
+            type: 'boolean'
+
+        }, {
+            questionTitle: 'How good is micahel memoryasdfring?',
+            type: 'number'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'boolean'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text'
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'number'
+
+        }]
+
+    };
 });
 'use strict';
 
@@ -304,8 +341,36 @@ angular.module('surveyApp').service('templateService', function () {
 angular.module('surveyApp').controller('userCtrl', function ($scope, userService) {
   $scope.test = 'Hello, I am a test';
 
-  $scope.userData = userService.getUser();
+  $scope.getUser = function () {
+    $scope.userData = userService.getUser();
+    if ($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
+      $scope.noSurveys = true;
+    }
+  };
+  $scope.getUser();
   console.log('test');
+});
+'use strict';
+
+angular.module('surveyApp').directive('userQuestionDirective', function () {
+	return {
+		templateUrl: "views/userQuestion.html",
+		restrict: 'E',
+		scope: {
+			question: '='
+
+		},
+		controller: function controller($scope, $state) {
+			if ($scope.question.type == 'text') {
+				$scope.textAnswer = true;
+			} else if ($scope.question.type == 'number') {
+				$scope.numberAnswer = true;
+			} else if ($scope.question.type == 'boolean') {
+				$scope.booleanAnswer = true;
+			} else {}
+		},
+		link: function link(scope, element, attributes) {}
+	};
 });
 'use strict';
 
@@ -317,53 +382,63 @@ angular.module('surveyApp').service('userService', function () {
         };
     };
     var recentSurveys = [{
-        classTitle: 'DM21',
-        title: '-Brett Rheiner',
+
+        title: 'DM20-Brett Rheiner',
         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
     }, {
-        title: ' - Week 2 Survey',
+        title: 'DM20 - Week 2 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 3 Survey',
+        title: 'DM20 - Week 3 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 4 Survey',
+        title: 'DM20 - Week 4 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 5 Survey',
+        title: 'DM20 - Week 5 Survey',
         description: 'lorem'
     }, {
-        title: 'Michael Memory -  - Survey',
+        title: 'Michael Memory - DM20 - Survey',
         description: 'lorem'
     }, {
-        title: ' - Jquery Survey',
+        title: 'DM20 - Jquery Survey',
         description: 'lorem'
 
     }];
 
     var recentSurveysB = [{
         classTitle: 'DM21',
-        title: '-Brett Rheiner',
+        title: 'DM20-Brett Rheiner',
         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor'
     }, {
-        title: ' - Week 2 Survey',
+        title: 'DM20 - Week 2 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 3 Survey',
+        title: 'DM20 - Week 3 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 4 Survey',
+        title: 'DM20 - Week 4 Survey',
         description: 'lorem'
     }, {
-        title: ' - Week 5 Survey',
+        title: 'DM20 - Week 5 Survey',
         description: 'lorem lasihdfo hhasdfoih oph asdfjhasldkjhfjkhaskldjhfklj hkljasdhf   kj hadjf haskjdh kjasd fkjhakldjf hklajsd klj hkajsdf khasj kdhfklj asdfklj askljdf hjakljasdkljh fklj asdfhjk'
     }, {
-        title: 'Michael Memory -  - Survey',
+        title: 'Michael Memory - DM20 - Survey',
         description: 'lorem'
     }, {
-        title: ' - Jquery Survey',
+        title: 'DM20 - Jquery Survey',
         description: 'lorem'
 
     }];
+});
+'use strict';
+
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surveyService) {
+
+  $scope.getSurveyById = function () {
+    $scope.userData = surveyService.getSurveyById();
+  };
+  $scope.getSurveyById();
+  console.log($scope.userData);
 });
 //# sourceMappingURL=bundle.js.map

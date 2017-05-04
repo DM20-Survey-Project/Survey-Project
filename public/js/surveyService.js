@@ -2,6 +2,9 @@ angular.module('surveyApp').service('surveyService', function() {
   this.getRecentSurveys = function () {
       return recentSurveys
   }
+  this.getSurveyById = function () {
+    return survey
+  }
   var recentSurveys = [
       {
           title: 'DM20 - Week 1 Survey',
@@ -32,4 +35,41 @@ angular.module('surveyApp').service('surveyService', function() {
           percentComplete: 0
       },
   ]
-})
+  var survey = {
+    title: 'DM20-WHATEVER',
+    description: 'LOREMMMMMM',
+    questions: [
+      {
+        questionTitle: 'How good is micahel memory at mentoring?',
+        type: 'text'
+
+
+      },{
+        questionTitle: 'uhwoueofhoeir?',
+        type: 'boolean'
+
+
+      },{
+        questionTitle: 'How good is micahel memoryasdfring?',
+        type: 'number'
+
+
+      },{
+        questionTitle: 'How good is micahel memory at mentoring?',
+        type: 'boolean'
+
+
+      },{
+        questionTitle: 'How good is micahel memory at mentoring?',
+        type: 'text'
+
+
+      },{
+        questionTitle: 'How good is micahel memory at mentoring?',
+        type: 'number'
+
+
+      },
+    ]
+
+  }});

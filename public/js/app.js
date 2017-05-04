@@ -7,7 +7,7 @@ $urlRouterProvider.when('', '/');
   $stateProvider
     .state('user', {
       templateUrl: 'views/user.html',
-      url: '/',
+      url: '/user',
       controller: 'userCtrl'
 
     })
@@ -17,6 +17,7 @@ $urlRouterProvider.when('', '/');
       controller: 'adminCtrl'
 
     })
+
     .state('adminSendSurvey', {
       templateUrl: 'views/adminSendSurvey.html',
       url: '/admin/send-survey',
@@ -29,6 +30,12 @@ $urlRouterProvider.when('', '/');
       controller: 'adminSendSurveyCtrl'
 
     })
+    .state('userSurveyPage', {
+      templateUrl: 'views/surveyPage.html',
+      url: '/user/surveyPage',
+      controller: 'userSurveyCtrl'
+    })
+
 
 
 
