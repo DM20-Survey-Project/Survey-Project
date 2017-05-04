@@ -1,24 +1,13 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
 
-var User = new mongoose.Schema({
-  name: { type: String },
-  email: { type: String, index: true, trim: true },
-  password: { type: String }
+const UserSchema = new Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  cohort: { type: Number, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  roles: [{ type: String, required: true }]
 });
 
-User.pre('save', function(text) {
-  let user = this;
-  if (!user.isModified('password')) return next();
-  let salt = bcrypt.getSaltSync(10);
-  var hash = bcrypt.hashSync(user.password, salt);
-  user.password = hash;
-  return next(null, user);
-});
-
-User.methods.verifyPassword = function(reqBodyPassword) {
-  let user = this;
-  return bcrypt.compareSync(reqBodyPassword, user.password);
-};
-
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', UserSchema);

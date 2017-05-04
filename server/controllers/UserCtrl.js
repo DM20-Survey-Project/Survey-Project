@@ -1,36 +1,83 @@
-var User = require('../models/UserModel');
+const usersModel = require('./../models/UserModel');
 
 module.exports = {
 
-  register: function(req, res, next) {
-    User.create(req.body, function(err, result) {
-      if(err) return res.status(500).send(err);
-      newUser = result.toObject();
-      newUser.password = null;
-      res.status(200).json(newUser);
-    });
-  },
+    create(req, res) {
+        console.log('Creating user...');
+        const newUser = new usersModel(req.body);
+        newUser.password = newUser.generateHash(newUser.password);
+        newUser.save((err, result) => {
+            if (err)
+                return res.status(500).send(err);
+            else
+                res.send(result);
+        });
+    },
 
-  read: function(req, res, next) {
-    User.find(req.query, function(err, result) {
-      if (err) return res.status(500).send(err);
-      for (var i = 0; i < result.length; i++) {
-        delete result[i].password;
-      }
-      res.status(200).send(result);
-    });
-  },
+    read(req, res) {
+        console.log('Reading user...');
+        usersModel.find(req.query)
+            .exec((err, result) => {
+                if (err) {
+                    console.log('error reading user', err);
+                    return res.status(500).send(err);
+                } else {
+                    res.send(result);
+                }
+            });
+    },
 
-  me: function(req, res, next) {
-    if (!req.user) return res.status(401).send('current user not defined');
-    req.user.password = null;
-    return res.status(200).json(req.user);
-  },
+    readUsersInCohort(req, res) {
+        console.log('Reading users by cohort...');
+        usersModel
+            .find({
+                'cohort': req.params.cohort_id
+            }, '_id')
+            .exec((err, result) => {
+                if (err) {
+                    console.log('error reading users by cohort', err);
+                    return res.status(500).send(err);
+                } else {
+                    res.send(result);
+                }
+            });
+    },
 
-  update: function(req, res, next) {
-    User.findByIdAndUpdate(req.params._id, req.body, function(err, result) {
-      if (err) next(err);
-      res.status(200).send('user updated');
-    });
-  }
-};
+    update(req, res) {
+        console.log('Updating user...');
+        usersModel.findById(req.params.id)
+            .exec((err, result) => {
+                if (err) {
+                    console.log('error updating user', err);
+                    return res.status(500).send(err);
+                } else {
+                    for (let p in req.body) {
+                        if (req.body.hasOwnProperty(p)) {
+                            result[p] = req.body[p];
+                        }
+                    }
+                    result.save((er, re) => {
+                        if (er)
+                            return res.status(500).send(err);
+                        else
+                            res.send(re);
+                    });
+                }
+            });
+    },
+
+    delete(req, res) {
+        console.log('Deleting user...');
+        usersModel.findByIdAndRemove(req.params.id)
+            .exec((err, result) => {
+                if (err) {
+                    console.log('error deleting user', err);
+                    return res.status(500).send(err);
+                }
+                else {
+                    res.send(result);
+                }
+            });
+    }
+
+}
