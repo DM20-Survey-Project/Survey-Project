@@ -3,6 +3,8 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, survey
 	$scope.getSurveyById = function(){
     $scope.userData = surveyService.getSurveyById();
   }
-$scope.getSurveyById(); 
+$scope.getSurveyById();
+
+
 console.log($scope.userData)
-})
+});
