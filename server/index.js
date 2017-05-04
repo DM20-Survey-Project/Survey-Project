@@ -40,20 +40,20 @@ passport.use('devmtn', new devmtnAuth({
     },
     function(jwtoken, user, done) {
       console.log("DEV USER: ", user);
-      if (!user.cohortId) {
+      if (!user.cohort) {
         // Add cohort 0 for people who do not have a cohort id
-        user.cohortId = 0;
+        user.cohort = 0;
         console.log('this user does not have a cohort id');
       }
       //Make sure we have that id in our database
-      Cohort.findOne({ dmCohortId: user.cohortId }).exec(function (findCohortErr, findCohortResult) {
+      Cohort.findOne({ dmCohortId: user.cohort }).exec(function (findCohortErr, findCohortResult) {
         if (findCohortErr) {
           return done(findCohortErr);
         } else if (!findCohortResult) {
           //We Need to make the cohort first!
-          console.log('creating new cohort for id ', user.cohortId);
+          console.log('creating new cohort for id ', user.cohort);
           var newCohort = {
-            dmCohortId: user.cohortId,
+            dmCohortId: user.cohort,
           };
           Cohort.create(newCohort, function (createCohortErr, createdCohort) {
             if (createCohortErr) {
@@ -64,7 +64,7 @@ passport.use('devmtn', new devmtnAuth({
           });
         } else {
           console.log('cohort exists');
-          finishLoginFunction(jwtoken, user, done, user.cohortId);
+          finishLoginFunction(jwtoken, user, done, user.cohort);
         }
       });
     }));
@@ -82,7 +82,7 @@ passport.use('devmtn', new devmtnAuth({
             email: user.email,
             dm_id: user.id.toString(),
             roles: user.roles,
-            cohortId: newId
+            cohort: newId
           };
           User.create(newUser, function (createErr, createdUser) {
             if (createErr) return done(createErr, null);
@@ -99,13 +99,13 @@ passport.use('devmtn', new devmtnAuth({
           if (user.roles && user.roles.length > 0) {
             console.log('Overwritting roles');
             foundUser.roles = user.roles;
-          }else if(user.cohortId){
+          }else if(user.cohort){
             foundUser.roles  = [{id:6, role:'student'}];
           }
-          // //also update cohortId (* if the system has one)
+          // //also update cohort (* if the system has one)
           // Commenting out until it gets updated appropriately.
-          if (user.cohortId) {
-            foundUser.cohortId = user.cohortId;
+          if (user.cohort) {
+            foundUser.cohort = user.cohort;
           }
           //update roles from devmtn
           User.findByIdAndUpdate(foundUser._id, foundUser, function (updErr, updRes) {

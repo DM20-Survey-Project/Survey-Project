@@ -1,2 +1,6 @@
 node_modules
+<<<<<<< HEAD
 config.js
+=======
+public/dist
+>>>>>>> master
