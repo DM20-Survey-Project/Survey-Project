@@ -5,14 +5,14 @@ angular.module('surveyApp')
     restrict: 'E',
     scope: {
       entities: '=',
-      title: '='
+      title: '=',
+      check: '&'
       
     },
-    controller: function( $scope, $state ) {
+    controller: function( $scope, $state, templateService ) {
       $scope.isCohort = false
       $scope.isTemplate = false;
 
-      console.log($scope.title);
       if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {
@@ -22,11 +22,11 @@ angular.module('surveyApp')
 
       $scope.select = function (id) {
         if ($scope.isTemplate) {
-          console.log('template');
           for (var i = 0; i < $scope.entities.length; i++) {
             if ($scope.entities[i].id == id) {
-              console.log('found one');
               $scope.selected = $scope.entities[i]
+              templateService.giveSelected($scope.selected)
+              $scope.check()
             }
             
           }

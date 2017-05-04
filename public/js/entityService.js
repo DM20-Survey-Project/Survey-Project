@@ -1,9 +1,25 @@
 angular.module('surveyApp').service('entityService', function() {
-  this.getEntities = function () {
-      return entities
+  this.getEntities = function (requestedEntites) {
+      var response = []
+      for (var i = 0; i < requestedEntites.length; i++) {
+          switch (requestedEntites[i]) {
+            case 'mentor':
+                response.push(mentors)
+                break;
+            case 'cohort':
+                response.push(cohorts)
+                break;
+        
+            default:
+                break;
+          }
+          
+      }
+      return response
   }
-  var entities = {
-    mentors: {
+
+
+  var mentors = {
         type: 'Mentor',
         entities: [
       {
@@ -127,8 +143,9 @@ angular.module('surveyApp').service('entityService', function() {
           
       },
     ],
-    },
-    cohorts: {
+    }
+
+  var cohorts = {
         type: "Cohort",
         entities: [
         {
@@ -187,5 +204,5 @@ angular.module('surveyApp').service('entityService', function() {
         },
     ]
     }
-  }
+  
 })
