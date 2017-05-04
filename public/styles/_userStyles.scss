@@ -1,17 +1,18 @@
 /////MY SECTION///////////
-
 //////////USER.HTML/////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////
 /////////////////////
-.user-content {
-  width: 100vw;
-  background-color: #f4f4f4;
-  height: 370px;
 
+.user-content {
+    width: 100vw;
+    background-color: #f4f4f4;
+    height: 370px;
 }
+
 .user-relative {
-	position: relative
+    position: relative;
 }
+
 .user-logo {
     height: 90px;
     height: 90px;
@@ -20,177 +21,257 @@
     left: 50%;
     transform: translate(-50%);
 }
+
 .wrapper {
-  // padding-left: 258px;
-	padding-top: 100px;
+    // padding-left: 258px;
+    padding-top: 100px;
     /* padding-right: 100px; */
 }
 
 .u-task {
-
-  height: 230px;
-  width: 400px;
-  margin: 50px 50px;
-  float: left;
-  background-color: white;
-  position: relative;
-
+    height: 230px;
+    width: 400px;
+    margin: 50px;
+    float: left;
+    background-color: white;
+    position: relative;
 }
-.user-logout {
 
-  background-color: #383838;
-  /* margin: 0px; */
-  margin: 5px;
-  float: right;
-  text-align: center;
-  font-weight: 400;
-  padding: 3px 7px;
-  color: #c1c1c1;
-  cursor: pointer;
-  position: absolute;
-  right: 0%;
-  top: 50%;
-  transform: translate(0, 100%);
+.user-logout {
+    background-color: #383838;
+    /* margin: 0px; */
+    margin: 5px;
+    float: right;
+    text-align: center;
+    font-weight: 400;
+    padding: 3px 7px;
+    color: #c1c1c1;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, 100%);
 }
 
 .user-wrapper {
-  position: absolute;
+    position: absolute;
     top: 39%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-  p {
-    margin-bottom: 20px;
-    font-size: 0.8em;
-  }
-  hr {
-    width: 80%;
-    color: lightgrey;
-  }
-}
-.testLook {
+    p {
+        margin-bottom: 20px;
+        font-size: 0.8em;
+    }
 
+    hr {
+        width: 80%;
+        color: lightgrey;
+    }
 }
+
+.testLook {}
+
 .user-surveys-left {
-  float: left;
-  margin-left: 100px;
-  hr {
-    width: 50%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
+    float: left;
+    margin-left: 100px;
+
+    hr {
+        width: 50%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
 }
+
 .user-surveys-right {
-  float: right;
-  margin-right: 100px;
-  hr {
-    width: 50%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
+    float: right;
+    margin-right: 100px;
+
+    hr {
+        width: 50%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
 }
 
 .user-button {
-  padding: 7px;
-background-color: $blue;
-
-color: white;
-display: inline-block;
-position: relative;
-left: 50%;
-transform: translate(-50%);
-cursor: pointer;
+    padding: 7px;
+    background-color: $blue;
+    color: white;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    cursor: pointer;
 }
+
 .user-button:hover {
-  background-color: $blueHighlight;
+    background-color: $blueHighlight;
 }
-
-
 
 .user-survey-container {
-  width: 425px;
-  padding: 15px;
-  background-color: $white;
-  margin-bottom: 25px;
-  h3 {
-    text-align: center;
-  }
-  h2 {
-    text-align: center;
-  }
-  p {
-    text-align: center;
-  }
-  img {
+    width: 425px;
+    padding: 15px;
+    background-color: $white;
+    margin-bottom: 25px;
 
-  }
+    h3 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    img {}
 }
+
 .user-done {
-  // height: 40vh;
-  // width: 50vw;
-  border: solid black 1px;
-  text-align: center;
-
-  font-weight: 700;
-  padding: 75px 150px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%)
+    // height: 40vh;
+    // width: 50vw;
+    border: solid black 1px;
+    text-align: center;
+    font-weight: 700;
+    padding: 75px 150px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
 }
 
-.user-text {
-
-}
-
+.user-text {}
 //////////userQuestion.html/////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////
 //////////////////////////////
+
 .user-response {
-  border: solid black 1px;
+    border: solid black 1px;
 }
+
 .user-survey-box {
+    padding: 15px;
+    background-color: white;
+    margin-bottom: 30px;
+    position: relative;
+    background-color: white;
 
-      padding: 15px;
-      background-color: white;
-      margin-bottom: 25px;
-      position: relative;
-      background-color: white;
-img {
-  height: 25px;
-  position: absolute;
-}
-h4 {
-  text-align: center;
+    img {
+        height: 25px;
+        position: absolute;
+    }
 
-      margin-top: 0px;
-      margin-bottom: 45px;
-      background-color: $blue;
-      color: white;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      left: 0;
-      padding: 7px;
-      font-weight: 400;
-      font-size: 1.2em;
-}
-textarea {
+    h4 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 45px;
+        background-color: $blue;
+        color: white;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        left: 0;
+        padding: 7px;
+        font-weight: 400;
+        font-size: 1.2em;
+    }
 
+    textarea {}
 }
-}
+
 .user-text {
-  width: 100%;
-  margin-top: 40px;
+    width: 100%;
+    margin-top: 40px;
+    border-width: 0;
+    border-bottom-width: 1px;
 }
+
+.user-text:focus {
+    outline: none;
+    border-color: $blue;
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+
+.user-numberAnswer {
+    margin-top: 50px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    /* top: 62%; */
+    display: inline-block;
+    /* margin-top: 100px; */
+
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 300px;
+        height: 5px;
+        background: #ddd;
+        border: none;
+        border-radius: 3px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 17px;
+        width: 17px;
+        border-radius: 50%;
+        background: $blue;
+        margin-top: -4px;
+        cursor: pointer;
+    }
+    input[type=range] {
+        -webkit-appearance: none;
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+}
+
 .user-answer {
-  margin-top: 25px;
+    margin-top: 40px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    cursor: pointer;
+    display: inline-block;
+
+}
+.display-value {
+
+      text-align: center;
+      margin: 0;
+      margin-top: 25px;
+}
+.user-rating-min {
+  display: inline-block;
+  font-weight: 700;
+  float: left;
+  margin: 2px;
+  margin-right: 7px;
+
+}
+.user-rating-max {
+  display: inline-block;
+  font-weight: 700;
+  float:right;
+  margin: 2px;
+  margin-left: 7px;
+}
+.user-thumb-slider {
+  display: inline-block;
 }
 
 /////////////survePage.html/////////////////////////////////////////////////////////
 //////////////////////////////////////////////////
 /////////////////////////
+
 .user-question-wrapper {
-  padding-right: 300px;
-  padding-left: 300px;
-  padding-top: 100px;
+    padding-right: 300px;
+    padding-left: 300px;
+    padding-top: 100px;
 }

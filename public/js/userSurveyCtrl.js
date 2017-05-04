@@ -5,6 +5,10 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, survey
   }
 $scope.getSurveyById();
 
+$scope.getSliderValue = function(x) {
 
+ console.log(x)
+}
+$scope.getSliderValue();
 console.log($scope.userData)
 });
