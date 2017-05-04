@@ -108,9 +108,82 @@
 		color: $white;
 		margin: 0;
 		font-weight: 400;
-		font-size: 1.3em;
+		font-size: 1.1em;
 	}
 }
 .admin-home-button:hover {
 	background-color: $blueHighlight;
+}
+.admin-send-survey-input {
+	width: 100%;
+	padding: 10px;
+	background-color: $white;
+	border: 1px solid #A0A0A0;
+	min-height: 48px;
+
+	h3 {
+		margin: 0;
+	}
+}
+.admin-dropdown-box {
+	width: 400px;
+}
+.admin-dropdown-container {
+	background-color: $white;
+	width: 100%;
+
+}
+.admin-dropdown-entity-container {
+	height: 300px;
+	overflow: auto;
+}
+.admin-dropdown-entity-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-dropdown-entity-container::-webkit-scrollbar-track {
+    // margin-left: -6px;
+}
+
+.admin-dropdown-entity-container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+	background-color: $blue; 
+}
+.admin-dropdown-entity {
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	p {
+		margin: 0;
+		float: left
+	}
+	i {
+		cursor: pointer;
+		color: #d8d8d8;
+	}
+	
+}
+.admin-dropdown-entity:hover {
+	background-color: $blue;
+	p {
+		color: $white;
+	}
+	i {
+		color: $grey;
+	}
+	i:hover {
+		color: $red;
+	}
+}
+.admin-dropdown-container-footer {
+	margin: 0 15px;
+	padding: 15px 0;
+	border-top: 1px solid #A0A0A0;
+	input {
+		width: 60%;
+		height: 38px;
+		font-size: 1.2em
+	}
 }

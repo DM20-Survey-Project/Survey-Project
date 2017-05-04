@@ -1,0 +1,23 @@
+<h2>{{entities.type}}</h2>
+<div class="admin-dropdown-container box-shadow">
+    <div class="admin-send-survey-input" ng-click="show()">
+                <h3>{{selected.name}}</h3>
+    </div>
+    <div ng-show="shown">
+        <div class="admin-dropdown-entity-container">
+            <div class="admin-dropdown-entity" ng-click="select(entity.id)" ng-repeat="entity in entities.entities | filter:dropdownSearch">
+                <p>{{entity.name}} - {{entity.location.city}}</p>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="admin-dropdown-container-footer">
+            <input type="" name="" value="" ng-model="dropdownSearch">
+            <div ng-hide="isCohort" class="admin-home-button">
+                <p>Add {{entities.type}}</p>
+            </div>
+            <div ng-show="isCohort" class="admin-home-button">
+                <p>Refresh {{entities.type}}</p>
+            </div>
+        </div>
+    </div>
+</div>
