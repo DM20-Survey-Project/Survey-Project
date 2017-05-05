@@ -9,6 +9,9 @@ $scope.getSliderValue = function(x) {
 
  console.log(x)
 }
+$scope.submit = function(){
+	console.log($scope.userData)
+}
 $scope.getSliderValue();
-console.log($scope.userData)
+// console.log($scope.userData)
 });

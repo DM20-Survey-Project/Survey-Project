@@ -7,6 +7,14 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 
 	    },
 	    controller: function( $scope, $state ) {
+				$scope.test = function(question) {
+					question.test = true; console.log("tru11111e",question)
+				}
+				$scope.testno = function(question) {
+					question.test = false; console.log("quest",question)
+				}
+
+
 	      if ($scope.question.type == 'text'){
 					$scope.textAnswer = true;
 				}

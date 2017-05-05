@@ -449,6 +449,13 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 
 		},
 		controller: function controller($scope, $state) {
+			$scope.test = function (question) {
+				question.test = true;console.log("tru11111e", question);
+			};
+			$scope.testno = function (question) {
+				question.test = false;console.log("quest", question);
+			};
+
 			if ($scope.question.type == 'text') {
 				$scope.textAnswer = true;
 			} else if ($scope.question.type == 'number') {
@@ -534,7 +541,10 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surve
 
     console.log(x);
   };
+  $scope.submit = function () {
+    console.log($scope.userData);
+  };
   $scope.getSliderValue();
-  console.log($scope.userData);
+  // console.log($scope.userData)
 });
 //# sourceMappingURL=bundle.js.map

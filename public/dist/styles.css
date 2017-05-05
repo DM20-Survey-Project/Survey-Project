@@ -401,4 +401,14 @@ body {
   padding-left: 300px;
   padding-top: 100px; }
 
+.user-button-answer {
+  display: inline-block;
+  position: relative;
+  transform: translate(-50%);
+  background-color: #25aae1;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  left: 50%; }
+
 /*# sourceMappingURL=maps/styles.css.map */

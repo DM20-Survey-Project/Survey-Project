@@ -275,3 +275,13 @@
     padding-left: 300px;
     padding-top: 100px;
 }
+.user-button-answer {
+  display: inline-block;
+  position: relative;
+  transform:translate(-50%);
+  background-color: $blue;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  left: 50%;
+}
