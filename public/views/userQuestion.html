@@ -11,7 +11,8 @@
 <div class="user-rating-min">Very Poor</div>
 
 <div class="user-thumb-slider">
-<input type="range" min="0" max="10" value="1" name="slider" ng-change="getSliderValue(sliderValue);" ng-model="sliderValue" >
+<div ng-bind-html="numberString"></div>
+<input type="range" min="{{question.min.value}}" max="{{question.max.value}}" value="1" name="slider" ng-change="getSliderValue(sliderValue);" ng-model="sliderValue" >
 <h3 class="display-value">{{sliderValue}}</h3>
 </div>
 

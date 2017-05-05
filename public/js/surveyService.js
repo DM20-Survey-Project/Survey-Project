@@ -51,7 +51,15 @@ angular.module('surveyApp').service('surveyService', function() {
 
       },{
         questionTitle: 'How good is micahel memoryasdfring?',
-        type: 'number'
+        type: 'number',
+        min: {
+          value: 1,
+          tag: 'Very Poor'
+        },
+        max: {
+          value: 20,
+          tag: 'Very Good'
+        }
 
 
       },{

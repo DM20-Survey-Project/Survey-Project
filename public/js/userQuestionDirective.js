@@ -12,6 +12,8 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 				}
 				else if ($scope.question.type == 'number'){
 					$scope.numberAnswer = true;
+					$scope.numberString = ''
+					// '<input type="range" min="1" max="10" value="1" name="slider" ng-change="getSliderValue(sliderValue);" ng-model="sliderValue" >'
 				}
 			 	else if ($scope.question.type == 'boolean'){
 					$scope.booleanAnswer = true;

@@ -1,10 +1,6 @@
 'use strict';
 
-<<<<<<< HEAD
-angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, $stateProvider) {
-=======
 angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
->>>>>>> master
 
   $urlRouterProvider.when('', '/');
 
@@ -336,7 +332,15 @@ angular.module('surveyApp').service('surveyService', function () {
 
         }, {
             questionTitle: 'How good is micahel memoryasdfring?',
-            type: 'number'
+            type: 'number',
+            min: {
+                value: 1,
+                tag: 'Very Poor'
+            },
+            max: {
+                value: 20,
+                tag: 'Very Good'
+            }
 
         }, {
             questionTitle: 'How good is micahel memory at mentoring?',
@@ -449,6 +453,8 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 				$scope.textAnswer = true;
 			} else if ($scope.question.type == 'number') {
 				$scope.numberAnswer = true;
+				$scope.numberString = '';
+				// '<input type="range" min="1" max="10" value="1" name="slider" ng-change="getSliderValue(sliderValue);" ng-model="sliderValue" >'
 			} else if ($scope.question.type == 'boolean') {
 				$scope.booleanAnswer = true;
 			} else {}
