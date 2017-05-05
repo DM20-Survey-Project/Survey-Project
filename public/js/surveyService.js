@@ -41,17 +41,20 @@ angular.module('surveyApp').service('surveyService', function() {
     questions: [
       {
         questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'text'
+        type: 'text',
+        required: true
 
 
       },{
         questionTitle: 'uhwoueofhoeir?',
-        type: 'boolean'
+        type: 'boolean',
+        required: true
 
 
       },{
         questionTitle: 'How good is micahel memoryasdfring?',
         type: 'number',
+        required: true,
         min: {
           value: 1,
           tag: 'Very Poor'
@@ -64,17 +67,20 @@ angular.module('surveyApp').service('surveyService', function() {
 
       },{
         questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'boolean'
+        type: 'boolean',
+        required: true
 
 
       },{
         questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'text'
+        type: 'text',
+        required: true
 
 
       },{
         questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'number'
+        type: 'number',
+        required: true
 
 
       },

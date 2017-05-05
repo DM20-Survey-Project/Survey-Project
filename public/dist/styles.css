@@ -396,6 +396,9 @@ body {
 .user-thumb-slider {
   display: inline-block; }
 
+.incomplete {
+  background-color: #d9534f !important; }
+
 .user-question-wrapper {
   padding-right: 300px;
   padding-left: 300px;
