@@ -18,14 +18,17 @@
 </div>
 <div class="min-height">
     <div class="content">
-        <div class="admin-dropdown-box">
+        <div class="admin-send-survey-dropdowns">
             
-            <dropdown-directive entities="templates" title="'Template'" check="check()"></dropdown-directive>
-        </div>
-        <div ng-repeat="type in entities">
-            <div class="admin-dropdown-box">
-                
-                <dropdown-directive entities="type" title="type.type" check=""></dropdown-directive>
+            <div ng-repeat="type in entities">
+                <div class="admin-dropdown-box-templates">
+                    
+                    <dropdown-directive entities="type" title="type.type" check=""></dropdown-directive>
+                </div>
+            </div>
+            <div class="admin-dropdown-box-templates">
+            
+                <dropdown-directive entities="templates" title="'Template'" check="check()"></dropdown-directive>
             </div>
         </div>
         
