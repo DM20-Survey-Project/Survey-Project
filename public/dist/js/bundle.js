@@ -324,27 +324,41 @@ angular.module('surveyApp').service('surveyService', function () {
         description: 'LOREMMMMMM',
         questions: [{
             questionTitle: 'How good is micahel memory at mentoring?',
-            type: 'text'
+            type: 'text',
+            required: true
 
         }, {
             questionTitle: 'uhwoueofhoeir?',
-            type: 'boolean'
+            type: 'boolean',
+            required: true
 
         }, {
             questionTitle: 'How good is micahel memoryasdfring?',
-            type: 'number'
+            type: 'number',
+            required: true,
+            min: {
+                value: 1,
+                tag: 'Very Poor'
+            },
+            max: {
+                value: 20,
+                tag: 'Very Good'
+            }
 
         }, {
             questionTitle: 'How good is micahel memory at mentoring?',
-            type: 'boolean'
+            type: 'boolean',
+            required: true
 
         }, {
             questionTitle: 'How good is micahel memory at mentoring?',
-            type: 'text'
+            type: 'text',
+            required: true
 
         }, {
             questionTitle: 'How good is micahel memory at mentoring?',
-            type: 'number'
+            type: 'number',
+            required: true
 
         }]
 
@@ -441,15 +455,46 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 
 		},
 		controller: function controller($scope, $state) {
+
+			//////////////booleanAnswer ng-click"answer && answerno"//////////////////////////////
+			$scope.answer = function (question) {
+				question.answer = 'true';console.log("tru11111e", question);
+			};
+			$scope.answerno = function (question) {
+				question.answer = 'false';console.log("quest", question);
+			};
+
+			/////////////textAnswer ng-change="textAssignAnswer" ng-model="textValue"/////////////////////////////////
+			$scope.textAssignAnswer = function () {
+				$scope.question.answer = $scope.textValue;
+			};
+
+			/////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
 			if ($scope.question.type == 'text') {
+				// $scope.numberAnswer = false;
 				$scope.textAnswer = true;
-			} else if ($scope.question.type == 'number') {
-				$scope.numberAnswer = true;
-			} else if ($scope.question.type == 'boolean') {
-				$scope.booleanAnswer = true;
-			} else {}
+			}
+			///////////ng-show=numberAnswer/false ///////////////////////////////////////
+			//////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
+			else if ($scope.question.type == 'number') {
+					$scope.numberAnswer = true;
+					$scope.numberString = '';
+
+					$scope.numberAssignAnswer = function () {
+						$scope.question.answer = $scope.sliderValue;
+					};
+					console.log($scope.sliderValue);
+				}
+
+				/////////ng-show=booleanAnswer/false /////////////////////////
+				else if ($scope.question.type == 'boolean') {
+
+						$scope.booleanAnswer = true;
+					} else {}
 		},
-		link: function link(scope, element, attributes) {}
+		link: function link(scope, element, attributes) {
+			// scope.numberAnswer = true;
+		}
 	};
 });
 'use strict';
@@ -515,11 +560,30 @@ angular.module('surveyApp').service('userService', function () {
 
 angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surveyService) {
 
-  $scope.getSurveyById = function () {
-    $scope.userData = surveyService.getSurveyById();
-  };
-  $scope.getSurveyById();
+	$scope.getSurveyById = function () {
+		$scope.userData = surveyService.getSurveyById();
+	};
+	$scope.getSurveyById();
 
-  console.log($scope.userData);
+	$scope.getSliderValue = function (x) {
+
+		console.log(x);
+	};
+	$scope.submit = function () {
+
+		for (var i = 0; i < $scope.userData.questions.length; i++) {
+			if ($scope.userData.questions[i].required) {
+				if ($scope.userData.questions[i].answer) {
+					$scope.userData.questions[i].incomplete = false;
+				} else {
+
+					$scope.userData.questions[i].incomplete = true;
+				}
+			}
+		}
+		console.log($scope.userData);
+	};
+	$scope.getSliderValue();
+	// console.log($scope.userData)
 });
 //# sourceMappingURL=bundle.js.map
