@@ -1,14 +1,6 @@
 angular.module('surveyApp')
 .controller('localSignupCtrl', function(localService, $scope, $state, $location, $anchorScroll) {
 
-    $scope.gotoTop = function() {
-        // set the location.hash to the id of
-        // the element you wish to scroll to.
-        $location.hash('top');  // top of body
-
-        // call $anchorScroll()
-        $anchorScroll();
-    };
 
     $scope.processForm = function() {
         localService.signup($scope.user)
@@ -30,7 +22,5 @@ angular.module('surveyApp')
         });
 
     }
-
-    $scope.gotoTop();
 
 });

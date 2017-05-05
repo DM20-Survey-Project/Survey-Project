@@ -36,6 +36,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "devmtn-auth": "^0.2.4",
@@ -48,6 +49,7 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "underscore": "^1.8.3"
   }
 }

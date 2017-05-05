@@ -17,21 +17,22 @@ var setSignupDefaults = function(user) {
 
 module.exports = {
 
-  successResponse(req, res) {
+  successRespond(req, res) {
+    console.log('auth ctrl ', req.user)
     res.json(req.user);
   },
 
   logout(req, res) {
     req.logout();
-    res.redirect('/!#/login');
+    res.redirect('/!#/');
   },
 
   localSignup: function(req, res) {
     console.log('in localSignup');
     console.log('req.body = ', req.body)
-    var user = setSignupDefaults(req.body);
+    let user = setSignupDefaults(req.body);
     console.log('user after setSignupDefaults = ', user)
-    var newUser = new usersModel(user);
+    let newUser = new usersModel(user);
     // newUser.password = newUser.generateHash(newUser.password);
     newUser.save(function(err, result) {
         if (err)

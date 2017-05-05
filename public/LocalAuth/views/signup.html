@@ -1,40 +1,41 @@
-
 <div id="signupScreen" class="surveyContainer">
-    <div class="container">
-        <form ng-submit="processForm()">
+   <div class="container">
+       <form ng-submit="processForm()">
 
-            <h4>Please Enter Your Information Below</h4>
+           <h4>Please Enter Your Information Below</h4>
 
-            <div class="row">
-                <div class="input-field col s6 offset-s3">
-                      <input ng-model="user.firstName" type="text" id="emailEntry" required>
-                    <label for="emailEntry">First Name</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6 offset-s3">
-                      <input ng-model="user.lastName" type="text" id="emailEntry" required>
-                    <label for="emailEntry">Last Name</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6 offset-s3">
-                      <input ng-model="user.cohort" type="number" id="emailEntry" required>
-                    <label for="emailEntry">Cohort</label>
-                </div>
-            </div>
+           <div class="row">
+               <div class="input-field col s6">
+                     <input ng-model="user.email" type="email" id="emailEntry" required>
+                   <label for="emailEntry">Email</label>
+               </div>
+           </div>
 
 
-            <div class="row">
-                <div class="input-field col s6 offset-s3">
-                      <input ng-model="user.password" type="password" id="passwordEntry" required>
-                    <label for="passwordEntry">Password</label>
-                </div>
-            </div>
+           <div class="row">
+               <div class="input-field col s6">
+                     <input ng-model="user.password" type="password" id="passwordEntry" required>
+                   <label for="passwordEntry">Password</label>
+               </div>
+           </div>
 
-            <input class="button" type="submit">
-            <p class="error_msg" ng-show="errorMsg">{{errorMsg}}</p>
+           <div class="row">
+               <div class="input-field col s6">
+                     <input ng-model="user.first_name" type="text" id="first_name" required>
+                     <label for="templateName">First Name</label>
+               </div>
+           </div>
 
-         </form>
-    </div>
+           <div class="row">
+               <div class="input-field col s6">
+                     <input ng-model="user.last_name" type="text" id="last_name" required>
+                     <label for="templateName">Last Name</label>
+               </div>
+           </div>
+
+           <input class="button" type="submit">
+           <p class="error_msg" ng-show="errorMsg">{{errorMsg}}</p>
+
+        </form>
+   </div>
 </div>

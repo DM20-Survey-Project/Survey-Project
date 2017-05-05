@@ -4,7 +4,7 @@ module.exports = {
 
     create(req, res) {
         console.log('Creating new topic...');
-        const newTopic = new topicsModel(req.body)
+        let newTopic = new topicsModel(req.body)
         newTopic.save((err, result) => {
             if (err)
                 return res.status(500).send(err);
@@ -16,9 +16,7 @@ module.exports = {
     read(req, res) {
         console.log('Reading topic...');
         topicsModel.find(req.query)
-            .sort({
-                name: 'asc'
-            })
+            .sort({ name: 'asc' })
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading topic', err)

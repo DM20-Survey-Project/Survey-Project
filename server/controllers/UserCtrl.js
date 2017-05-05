@@ -4,7 +4,7 @@ module.exports = {
 
     create(req, res) {
         console.log('Creating user...');
-        const newUser = new usersModel(req.body);
+        let newUser = new usersModel(req.body);
         // newUser.password = newUser.generateHash(newUser.password);
         newUser.save((err, result) => {
             if (err)
@@ -16,37 +16,33 @@ module.exports = {
 
     read(req, res) {
         console.log('Reading user...');
-        usersModel.find(req.query)
-            .exec((err, result) => {
-                if (err) {
-                    console.log('error reading user', err);
-                    return res.status(500).send(err);
-                } else {
-                    res.send(result);
-                }
-            });
+        function handleQuery(err, result) {
+            console.log('err', err);
+            console.log('result', result);
+            if (err) {
+                console.log('in error routine');
+                return res.status(500).send(err);
+            }
+            else {
+                res.send(result)
+            }
+        }
+
+        this.getUserByQuery(req.query)
+            .then(handleQuery);
     },
 
-//////// GET USER BY ID /////////
-    // readOne(req, res) {
-    //     console.log('Admin read survey by ID');
-    //     surveysModel.findById(req.params.id)
-    //         .exec((err, result) => {
-    //             if (err) {
-    //                 console.log('error reading admin survey by ID ', err);
-    //                 return res.status(500).send(err);
-    //             }
-    //             res.send(result);
-    //             console.log('reading admin survey by ID success');
-    //         });
-    // },
+    getUserByQuery: function(query){
+        return usersModel
+            .findOne(query)
+            .exec();
+    },
+
 
     readUsersInCohort(req, res) {
         console.log('Reading users by cohort...');
         usersModel
-            .find({
-                'cohort': req.params.cohort_id
-            }, '_id firstName lastName')
+            .find({ 'cohort': req.params.cohort_id }, '_id')
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading users by cohort', err);

@@ -45,10 +45,10 @@ angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, 
   }).state('login', {
     url: '/',
     templateUrl: 'LocalAuth/views/login.html',
-    params: {
-      toastMessage: '',
-      successRedirect: ''
-    },
+    // params : {
+    //     toastMessage: '',
+    //     successRedirect: ''
+    // },
     controller: 'localLoginCtrl'
   }).state('signup', {
     url: '/signup',
@@ -299,14 +299,6 @@ angular.module('surveyApp').service('entityService', function () {
 });
 'use strict';
 
-angular.module('surveyApp').controller('loginCtrl', function ($scope, authService) {
-  $scope.login = function () {
-    console.log('Log');
-    authService.login();
-  };
-});
-'use strict';
-
 angular.module('surveyApp').service('surveyService', function () {
   this.getRecentSurveys = function () {
     return recentSurveys;
@@ -511,16 +503,17 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, surve
 "use strict";
 
 angular.module("surveyApp").service("authService", function ($http) {
-
-  this.login = function (user) {
-    return $http({
-      method: 'post',
-      url: '/api/login',
-      data: user
-    }).then(function (response) {
-      return response;
-    });
-  };
+  // 
+  // this.login = function(user) {
+  //   return $http({
+  //     method: 'post',
+  //     url: '/api/login',
+  //     data: user
+  //   }).then(function(response) {
+  //     console.log('srevice ', response);
+  //     return response;
+  //   });
+  // };
 
   this.logout = function () {
     return $http({

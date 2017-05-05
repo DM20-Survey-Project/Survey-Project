@@ -52,13 +52,18 @@ $urlRouterProvider.when('', '/');
       controller: 'userSurveyCtrl'
     })
 
+
+
+
+
+
     .state('login', {
 		url: '/',
 		templateUrl: 'LocalAuth/views/login.html',
-        params : {
-            toastMessage: '',
-            successRedirect: ''
-        },
+        // params : {
+        //     toastMessage: '',
+        //     successRedirect: ''
+        // },
 		controller: 'localLoginCtrl'
     })
     .state('signup', {

@@ -1,14 +1,15 @@
 angular.module("surveyApp").service("authService", function($http) {
-
-  this.login = function(user) {
-    return $http({
-      method: 'post',
-      url: '/api/login',
-      data: user
-    }).then(function(response) {
-      return response;
-    });
-  };
+  // 
+  // this.login = function(user) {
+  //   return $http({
+  //     method: 'post',
+  //     url: '/api/login',
+  //     data: user
+  //   }).then(function(response) {
+  //     console.log('srevice ', response);
+  //     return response;
+  //   });
+  // };
 
   this.logout = function() {
     return $http({
@@ -54,5 +55,5 @@ angular.module("surveyApp").service("authService", function($http) {
             url: '/api/current_user'
         });
     };
-    
+
 });

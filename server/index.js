@@ -7,19 +7,21 @@ const devmtnAuth = require('devmtn-auth');
 const passport = require('passport')
 ////// Config file ///////
 const config = require('./config');
-////// Config file ///////
+////// Auth Middleware file ///////
 const authMiddleware = require('./authMiddleware');
 
 //////// CONTROLLERS /////////
-const AdminSurveyCtrl = require('./controllers/AdminSurveyCtrl');
-const StudentSurveyCtrl = require('./controllers/StudentSurveyCtrl');
-const TemplatesCtrl = require('./controllers/TemplatesCtrl');
-const TopicsCtrl = require('./controllers/TopicsCtrl');
-const UserCtrl = require('./controllers/UserCtrl')
+const adminSurveyCtrl = require('./controllers/AdminSurveyCtrl');
+const studentSurveyCtrl = require('./controllers/StudentSurveyCtrl');
+const templatesCtrl = require('./controllers/TemplatesCtrl');
+const topicsCtrl = require('./controllers/TopicsCtrl');
+const userCtrl = require('./controllers/UserCtrl')
 const devmtnCtrl = require('./controllers/DevMtnAuthCtrl');
 const authCtrl = require('./controllers/AuthCtrl');
-
-require('./controllers/LocalLogin')(passport);
+const jwtAuthCtrl = require('./controllers/jwtAuthCtrl');
+const cohortCtrl = require('./controllers/CohortCtrl');
+jwt = require
+require('./controllers/passport')(passport);
 
 ///// Express /////
 const app = module.exports = express();
@@ -51,10 +53,11 @@ app.use(passport.session());
 // }
 // app.get('/api/current_user', authCtrl.current_user);
 // app.get('/api/current_admin_user', authCtrl.current_admin_user);
-// app.get('/api/admin/templates', authCtrl.requireAdminAuth, TemplatesCtrl.readNames)
+// app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames)
 
-// Auth
-app.post('/api/login', passport.authenticate('local-login'), authCtrl.successResponse);
+
+/////////// LOCAL LOGIN UNTIL DEVMTN //////////////
+app.post('/api/login', passport.authenticate('local-login'), authCtrl.successRespond);
 
 // Auth
 app.post('/api/signup', authCtrl.localSignup);
@@ -67,41 +70,54 @@ app.get('/api/current_admin_user', authCtrl.current_admin_user);
 
 
 
+
+
+
+
+
+
 ///////// Student Endpoints //////////
-app.get('/api/surveys/untaken/:student_id', StudentSurveyCtrl.readUntaken);
-app.get('/api/surveys/:id', StudentSurveyCtrl.read);
-app.post('/api/surveys/results', StudentSurveyCtrl.create);
+app.get('/api/surveys/untaken/:student_id', authCtrl.requireAuth, studentSurveyCtrl.readUntaken);
+app.get('/api/surveys/:id', authCtrl.requireAuth, studentSurveyCtrl.read);
+app.post('/api/surveys/results', authCtrl.requireAuth, studentSurveyCtrl.create);
 
 ///////// Admin Endpoints //////////
-app.get('/api/admin/surveys', AdminSurveyCtrl.read);
-app.get('/api/admin/surveys/names-dates', AdminSurveyCtrl.readNamesAndDates);
-app.get('/api/admin/surveys/:id', AdminSurveyCtrl.readOne);
-app.get('/api/admin/results/:id', AdminSurveyCtrl.readResults);
-app.get('/api/admin/surveys/sent-to/:survey_id', AdminSurveyCtrl.readSentTo);
-app.get('/api/admin/surveys/untaken/:survey_id', AdminSurveyCtrl.readUntaken);
-app.post('/api/admin/surveys', AdminSurveyCtrl.create);
+app.get('/api/admin/surveys', adminSurveyCtrl.read);
+app.get('/api/admin/results', authCtrl.requireLeadAuth, adminSurveyCtrl.queryResults);
+app.get('/api/admin/surveys/names-dates', authCtrl.requireAdminAuth, adminSurveyCtrl.readNamesAndDates);
+app.get('/api/admin/surveys/:id', authCtrl.requireAdminAuth, adminSurveyCtrl.readOne);
+app.get('/api/admin/results/:id', authCtrl.requireLeadAuth, adminSurveyCtrl.readResults);
+app.get('/api/admin/results/analytics/:id', authCtrl.requireLeadAuth, adminSurveyCtrl.readAnalyticsResults)
+app.get('/api/admin/surveys/sent-to/:survey_id', authCtrl.requireAdminAuth, adminSurveyCtrl.readSentTo);
+app.get('/api/admin/surveys/untaken/:survey_id', authCtrl.requireAdminAuth, adminSurveyCtrl.readUntaken);
+app.get('/api/admin/surveyfilter', adminSurveyCtrl.readFilterOptions);
+app.post('/api/admin/surveys', authCtrl.requireAdminAuth, adminSurveyCtrl.create);
 
 ///////// Template Endpoints //////////
-app.get('/api/admin/templates', TemplatesCtrl.readNames);
-app.get('/api/admin/templates/:id', TemplatesCtrl.read);
-app.post('/api/admin/templates', TemplatesCtrl.create);
-app.put('/api/admin/templates/:id', TemplatesCtrl.update);
-app.delete('/api/admin/templates/:id', TemplatesCtrl.delete);
+app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames);
+app.get('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.read);
+app.post('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.create);
+app.put('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.update);
+app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
 
 ///////// Topics Endpoints //////////
-app.get('/api/topics', TopicsCtrl.read);
-app.get('/api/admin/topics', TopicsCtrl.read);
-app.post('/api/admin/topics', TopicsCtrl.create);
-app.delete('/api/admind/topics/:id', TopicsCtrl.delete);
+app.get('/api/topics', topicsCtrl.read);
+app.post('/api/topics', topicsCtrl.create);
+app.get('/api/admin/topics', authCtrl.requireAdminAuth, topicsCtrl.read);
+app.post('/api/admin/topics', authCtrl.requireAdminAuth, topicsCtrl.create);
+app.delete('/api/admind/topics/:id', authCtrl.requireAdminAuth, topicsCtrl.delete);
 
 ///////// User Endpoints //////////
-app.get('/api/admin/users', UserCtrl.read);
-app.get('/api/admin/users/cohort/:cohort_id', UserCtrl.readUsersInCohort);
-app.post('/api/admin/users', UserCtrl.create);
-app.put('/api/admin/users/:id', UserCtrl.update);
-app.delete('/api/admin/users/:id', UserCtrl.delete);
+app.get('/api/admin/users',  userCtrl.read);
+app.get('/api/admin/users/cohort/:cohort_id', authCtrl.requireAdminAuth, userCtrl.readUsersInCohort);
+app.post('/api/admin/users', authCtrl.requireAdminAuth, userCtrl.create);
+app.put('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.update);
+app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 
-
+///////// Cohort Endpoints //////////
+app.get('/api/admin/cohorts', authCtrl.requireAdminAuth, cohortCtrl.read);
+app.put('/api/admin/cohorts/:id', authCtrl.requireAdminAuth, cohortCtrl.update);
+app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
 
 
 

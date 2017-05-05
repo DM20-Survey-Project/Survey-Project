@@ -1,5 +1,5 @@
-const localStrategy = require('passport-local').Strategy,
-    user = require('../models/UserModel.js');
+var localStrategy = require('passport-local').Strategy,
+    user = require('../models/UserModel');
 
 module.exports = function(passport) {
 
@@ -38,9 +38,12 @@ module.exports = function(passport) {
 
               // check to see if theres already a user with that email
               if (user) {
-                return done(null, user);
-              }
-              else {
+                // if (user.validPassword(password)) {
+                    return done(null, user);
+                // } else {
+                //     return done('Invalid Password', false);
+                // }
+              } else {
                   // if there is no user with that email
                   return done('User not found', false);
               }
