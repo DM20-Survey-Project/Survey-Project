@@ -1,0 +1,40 @@
+
+<div id="signupScreen" class="surveyContainer">
+    <div class="container">
+        <form ng-submit="processForm()">
+
+            <h4>Please Enter Your Information Below</h4>
+
+            <div class="row">
+                <div class="input-field col s6 offset-s3">
+                      <input ng-model="user.firstName" type="text" id="emailEntry" required>
+                    <label for="emailEntry">First Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 offset-s3">
+                      <input ng-model="user.lastName" type="text" id="emailEntry" required>
+                    <label for="emailEntry">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 offset-s3">
+                      <input ng-model="user.cohort" type="number" id="emailEntry" required>
+                    <label for="emailEntry">Cohort</label>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s6 offset-s3">
+                      <input ng-model="user.password" type="password" id="passwordEntry" required>
+                    <label for="passwordEntry">Password</label>
+                </div>
+            </div>
+
+            <input class="button" type="submit">
+            <p class="error_msg" ng-show="errorMsg">{{errorMsg}}</p>
+
+         </form>
+    </div>
+</div>

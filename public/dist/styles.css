@@ -338,4 +338,14 @@ body {
   padding-left: 300px;
   padding-top: 100px; }
 
+.loginPage {
+  background-color: #25aae1;
+  height: 100px;
+  width: 10%;
+  position: relative;
+  font-size: 60px;
+  top: 300px;
+  text-align: center;
+  left: 45%; }
+
 /*# sourceMappingURL=maps/styles.css.map */

@@ -5,7 +5,9 @@ const Schema = mongoose.Schema;
 const ResultsSchema = new Schema({
   survey: { type: Schema.Types.ObjectId, ref: 'Surveys' },
   user: { type: Schema.Types.ObjectId, ref: 'Users' },
-  answers: [AnswerSchema]
+  answers: [AnswerSchema],
+  topic: { type: Schema.Types.ObjectId, ref: 'Topics' },
+  archived: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Results', ResultsSchema);

@@ -1,13 +1,27 @@
 'use strict';
 
-angular.module('surveyApp', ['ui.router', 'rzModule']).config(function ($urlRouterProvider, $stateProvider) {
+angular.module('surveyApp', ['ui.router']).config(function ($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.when('', '/');
 
   $stateProvider.state('user', {
     templateUrl: 'views/user.html',
     url: '/user',
-    controller: 'userCtrl'
+    controller: 'userCtrl',
+    resolve: {
+      auth: function auth(authService, $state, $stateParams) {
+        return authService.checkForAuth().then(function (response) {
+          if (response.status === 200) {
+            return response.data;
+          }
+        }).catch(function (err) {
+          console.error('err = ', err);
+          $state.go('login', {
+            successRedirect: 'user'
+          });
+        });
+      }
+    }
 
   }).state('admin', {
     templateUrl: 'views/admin.html',
@@ -28,6 +42,18 @@ angular.module('surveyApp', ['ui.router', 'rzModule']).config(function ($urlRout
     templateUrl: 'views/surveyPage.html',
     url: '/user/surveyPage',
     controller: 'userSurveyCtrl'
+  }).state('login', {
+    url: '/',
+    templateUrl: 'LocalAuth/views/login.html',
+    params: {
+      toastMessage: '',
+      successRedirect: ''
+    },
+    controller: 'localLoginCtrl'
+  }).state('signup', {
+    url: '/signup',
+    templateUrl: 'LocalAuth/views/signup.html',
+    controller: 'localSignupCtrl'
   });
 });
 'use strict';
@@ -273,6 +299,14 @@ angular.module('surveyApp').service('entityService', function () {
 });
 'use strict';
 
+angular.module('surveyApp').controller('loginCtrl', function ($scope, authService) {
+  $scope.login = function () {
+    console.log('Log');
+    authService.login();
+  };
+});
+'use strict';
+
 angular.module('surveyApp').service('surveyService', function () {
   this.getRecentSurveys = function () {
     return recentSurveys;
@@ -481,7 +515,7 @@ angular.module("surveyApp").service("authService", function ($http) {
   this.login = function (user) {
     return $http({
       method: 'post',
-      url: '/login',
+      url: '/api/login',
       data: user
     }).then(function (response) {
       return response;
@@ -523,6 +557,13 @@ angular.module("surveyApp").service("authService", function ($http) {
       data: user
     }).then(function (response) {
       return response;
+    });
+  };
+
+  this.checkForAuth = function () {
+    return $http({
+      method: 'GET',
+      url: '/api/current_user'
     });
   };
 });

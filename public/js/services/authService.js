@@ -3,7 +3,7 @@ angular.module("surveyApp").service("authService", function($http) {
   this.login = function(user) {
     return $http({
       method: 'post',
-      url: '/login',
+      url: '/api/login',
       data: user
     }).then(function(response) {
       return response;
@@ -47,4 +47,12 @@ angular.module("surveyApp").service("authService", function($http) {
       return response;
     });
   };
+
+  this.checkForAuth = function() {
+        return $http({
+            method: 'GET',
+            url: '/api/current_user'
+        });
+    };
+    
 });
