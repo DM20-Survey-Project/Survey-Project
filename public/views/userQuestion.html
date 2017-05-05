@@ -3,34 +3,34 @@
 	<h4>{{question.questionTitle}}</h4>
 
 	<div ng-show="textAnswer">
-	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..."></textarea>
+	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..." ng-change="textAssignAnswer()" ng-model="textValue"></textarea>
 </div>
 
-<div ng-show="numberAnswer" class="user-numberAnswer">
+
+
+<div ng-if="numberAnswer" class="user-numberAnswer">
 	<!-- <span  style="color:red;" id="slider-value"></span> -->
 <div class="user-rating-min">Very Poor</div>
 
 <div class="user-thumb-slider">
 <div ng-bind-html="numberString"></div>
-<input type="range" min="{{question.min.value}}" max="{{question.max.value}}" value="1" name="slider" ng-change="getSliderValue(sliderValue);" ng-model="sliderValue" >
+<input type="range" min="{{question.min.value}}" max="{{question.max.value}}" value="1" name="slider" ng-change="numberAssignAnswer()" ng-model="sliderValue" >
 <h3 class="display-value">{{sliderValue}}</h3>
 </div>
 
 <div class="user-rating-max">Very Good</div>
-
-
 <!-- <output for="slider" onforminput="value = foo.valueAsNumber;"></output> -->
-
 </div>
+
+
 
 	<div ng-show="booleanAnswer" class="user-answer">
 		<form action="">
-		<input type="radio" name="answer" value="true" ng-model="question.test">Yes
-
-		<input type="radio" name="answer" value="false" ng-click="testno(question)">No<br>
+		<input type="radio" name="answer" value="true" ng-click="answer(question)">Yes
+		<input type="radio" name="answer" value="false" ng-click="answerno(question)">No<br>
 </form>
 	</div>
 
-
+<!-- ng-click="answerno(question)" -->
 
 </div>
