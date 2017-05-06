@@ -1,6 +1,9 @@
 angular.module('surveyApp')
 .service('localService', function( $http ) {
 
+
+  var loggedInUser = {};
+
   this.login = function(userData) {
         console.log('userData = ', userData);
         return $http({

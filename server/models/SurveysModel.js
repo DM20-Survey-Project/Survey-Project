@@ -6,10 +6,10 @@ const SurveySchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   cohortSentTo: { type: Number, required: true },
-  usersSentTo: [{ type: String, ref: 'Users' }],
-  usersTaken: [{ type: String, ref: 'Users' }],
+  usersSentTo: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
+  usersUntaken: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   dateSent: { type: Date, required: true },
-  topic: { type: String, ref: 'Topics' },
+  topic: { type: Schema.Types.ObjectId, ref: 'Topics' },
   questions: [QuestionSchema]
 });
 

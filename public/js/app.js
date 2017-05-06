@@ -1,4 +1,4 @@
-angular.module('surveyApp', ['ui.router'])
+angular.module('surveyApp', ['ui.router', 'ngSanitize'])
 
   .config( function ($urlRouterProvider, $stateProvider ){
 
@@ -49,7 +49,27 @@ $urlRouterProvider.when('', '/');
     .state('userSurveyPage', {
       templateUrl: 'views/surveyPage.html',
       url: '/user/surveyPage',
-      controller: 'userSurveyCtrl'
+      controller: 'userSurveyCtrl',
+      params : {
+            surveyId: ''
+        },
+      resolve: {
+            auth: function(authService, $state, $stateParams) {
+                return authService.checkForAuth()
+                .then(function( response ) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                })
+                .catch(function(err) {
+                    // For any error, send them back to admin login screen.
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
     })
 
 

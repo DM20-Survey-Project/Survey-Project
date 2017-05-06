@@ -126,14 +126,35 @@
 		margin: 0;
 	}
 }
-.admin-dropdown-box {
-	width: 400px;
-	position: relative
+.admin-send-survey-dropdowns {
+	display: flex;
+	flex-direction: column-reverse;
 }
+.admin-dropdown-box-entities {
+	width: 400px;
+	position: relative;
+	float: left;
+}
+.admin-dropdown-box-templates {
+	width: 500px;
+	position: relative;
+	display: inline-block;
+	left: 50%;
+	transform: translate(-50%)
+}
+
 .admin-dropdown-container {
 	background-color: $white;
 	width: 100%;
 
+}
+dropdown-directive {
+	h1, h2 {
+		text-align: center
+	}
+	h2 {
+		margin: 10px;
+	}
 }
 .admin-dropdown-entity-container {
 	height: 300px;
@@ -143,9 +164,6 @@
     width: 6px;
 }
 
-.admin-dropdown-entity-container::-webkit-scrollbar-track {
-    // margin-left: -6px;
-}
 
 .admin-dropdown-entity-container::-webkit-scrollbar-thumb {
     border-radius: 3px;

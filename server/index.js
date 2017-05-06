@@ -77,7 +77,7 @@ app.get('/api/current_admin_user', authCtrl.current_admin_user);
 
 
 ///////// Student Endpoints //////////
-app.get('/api/surveys/untaken/:student_id', authCtrl.requireAuth, studentSurveyCtrl.readUntaken);
+app.get('/api/surveys/untaken/:student_id', studentSurveyCtrl.readUntaken);
 app.get('/api/surveys/:id', authCtrl.requireAuth, studentSurveyCtrl.read);
 app.post('/api/surveys/results', authCtrl.requireAuth, studentSurveyCtrl.create);
 
@@ -91,7 +91,7 @@ app.get('/api/admin/results/analytics/:id', authCtrl.requireLeadAuth, adminSurve
 app.get('/api/admin/surveys/sent-to/:survey_id', authCtrl.requireAdminAuth, adminSurveyCtrl.readSentTo);
 app.get('/api/admin/surveys/untaken/:survey_id', authCtrl.requireAdminAuth, adminSurveyCtrl.readUntaken);
 app.get('/api/admin/surveyfilter', adminSurveyCtrl.readFilterOptions);
-app.post('/api/admin/surveys', authCtrl.requireAdminAuth, adminSurveyCtrl.create);
+app.post('/api/admin/surveys', adminSurveyCtrl.create);
 
 ///////// Template Endpoints //////////
 app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames);

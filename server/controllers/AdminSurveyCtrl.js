@@ -70,8 +70,11 @@ module.exports = {
                     return res.status(500).send(error);
                 } else {
                     newSurvey._doc.usersSentTo = [];
+                    newSurvey._doc.usersUntaken = [];
                     result.forEach(function(resul, index, array) {
                         newSurvey._doc.usersSentTo.push(resul._doc._id);
+                        newSurvey._doc.usersUntaken.push(resul._doc._id);
+
                     })
                     newSurvey.save(function(er, re) {
                         if (er)
