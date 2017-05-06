@@ -1,4 +1,4 @@
-angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $stateParams, $state, userService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function($scope, auth, $stateParams, $state, userService) {
 
   console.log('in takeSurveyCtrl');
   console.log('$stateParams.surveyId = ', $stateParams.surveyId);
@@ -13,19 +13,21 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state
    $scope.borderOnNo = [];
 
   $scope.readTopic = function() {
-          userService.getTopic($scope.survey.topic)
-          .then(function( response ) {
-              console.log('in takeSurveyCtrl');
-              console.log('in getTopic');
-              console.log('response', response);
-              if (response.status === 200) {
-                  $scope.topic = response.data[0].name;
-              }
-           })
-          .catch(function(err) {
-          // For any error, send them back to admin login screen.
-              console.error('err = ', err);
-          });
+    console.log($scope.survey.topic)
+    $scope.topic = $scope.survey.topic
+          // userService.getTopic($scope.survey.topic)
+          // .then(function( response ) {
+          //     console.log('in takeSurveyCtrl');
+          //     console.log('in getTopic');
+          //     console.log('response', response);
+          //     if (response.status === 200) {
+          //         $scope.topic = response.data[0].name;
+          //     }
+          //  })
+          // .catch(function(err) {
+          // // For any error, send them back to admin login screen.
+          //     console.error('err = ', err);
+          // });
       }
 
       $scope.initializeResults = function() {

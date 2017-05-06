@@ -336,93 +336,77 @@ angular.module('surveyApp').service('entityService', function () {
 
 angular.module('surveyApp').service('surveyService', function () {
 
-  // this.getRecentSurveys = function () {
-  //     return recentSurveys
-  // }
-  // this.getSurveyById = function () {
-  //   return survey
-  // }
-  // var recentSurveys = [
-  //     {
-  //         title: 'DM20 - Week 1 Survey',
-  //         percentComplete: 50
-  //     },
-  //     {
-  //         title: 'DM20 - Week 2 Survey',
-  //         percentComplete: 80
-  //     },
-  //     {
-  //         title: 'DM20 - Week 3 Survey',
-  //         percentComplete: 11
-  //     },
-  //     {
-  //         title: 'DM20 - Week 4 Survey',
-  //         percentComplete: 100
-  //     },
-  //     {
-  //         title: 'DM20 - Week 5 Survey',
-  //         percentComplete: 40
-  //     },
-  //     {
-  //         title: 'Michael Memory - DM20 - Survey',
-  //         percentComplete: 33
-  //     },
-  //     {
-  //         title: 'DM20 - Jquery Survey',
-  //         percentComplete: 0
-  //     },
-  // ]
-  // var survey = {
-  //   title: 'DM20-WHATEVER',
-  //   description: 'LOREMMMMMM',
-  //   questions: [
-  //     {
-  //       questionTitle: 'How good is micahel memory at mentoring?',
-  //       type: 'text',
-  //       required: true
-  //
-  //
-  //     },{
-  //       questionTitle: 'uhwoueofhoeir?',
-  //       type: 'boolean',
-  //       required: true
-  //
-  //
-  //     },{
-  //       questionTitle: 'How good is micahel memoryasdfring?',
-  //       type: 'number',
-  //       required: true,
-  //       min: {
-  //         value: 1,
-  //         tag: 'Very Poor'
-  //       },
-  //       max: {
-  //         value: 20,
-  //         tag: 'Very Good'
-  //       }
-  //
-  //
-  //     },{
-  //       questionTitle: 'How good is micahel memory at mentoring?',
-  //       type: 'boolean',
-  //       required: true
-  //
-  //
-  //     },{
-  //       questionTitle: 'How good is micahel memory at mentoring?',
-  //       type: 'text',
-  //       required: true
-  //
-  //
-  //     },{
-  //       questionTitle: 'How good is micahel memory at mentoring?',
-  //       type: 'number',
-  //       required: true
-  //
-  //
-  //     },
-  //   ]
+  this.getRecentSurveys = function () {
+    return recentSurveys;
+  };
+  this.getSurveyById = function () {
+    return survey;
+  };
+  var recentSurveys = [{
+    title: 'DM20 - Week 1 Survey',
+    percentComplete: 50
+  }, {
+    title: 'DM20 - Week 2 Survey',
+    percentComplete: 80
+  }, {
+    title: 'DM20 - Week 3 Survey',
+    percentComplete: 11
+  }, {
+    title: 'DM20 - Week 4 Survey',
+    percentComplete: 100
+  }, {
+    title: 'DM20 - Week 5 Survey',
+    percentComplete: 40
+  }, {
+    title: 'Michael Memory - DM20 - Survey',
+    percentComplete: 33
+  }, {
+    title: 'DM20 - Jquery Survey',
+    percentComplete: 0
+  }];
+  var survey = {
+    title: 'DM20-WHATEVER',
+    description: 'LOREMMMMMM',
+    questions: [{
+      questionTitle: 'How good is micahel memory at mentoring?',
+      type: 'text',
+      required: true
 
+    }, {
+      questionTitle: 'uhwoueofhoeir?',
+      type: 'boolean',
+      required: true
+
+    }, {
+      questionTitle: 'How good is micahel memoryasdfring?',
+      type: 'number',
+      required: true,
+      min: {
+        value: 1,
+        tag: 'Very Poor'
+      },
+      max: {
+        value: 20,
+        tag: 'Very Good'
+      }
+
+    }, {
+      questionTitle: 'How good is micahel memory at mentoring?',
+      type: 'boolean',
+      required: true
+
+    }, {
+      questionTitle: 'How good is micahel memory at mentoring?',
+      type: 'text',
+      required: true
+
+    }, {
+      questionTitle: 'How good is micahel memory at mentoring?',
+      type: 'number',
+      required: true
+
+    }]
+  };
 });
 'use strict';
 
@@ -528,10 +512,10 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 
 			//////////////booleanAnswer ng-click"answer && answerno"//////////////////////////////
 			$scope.answer = function (question) {
-				question.answer = 'true';console.log("tru11111e", question);
+				question.answer = 'true';console.log("answer: ", question);
 			};
 			$scope.answerno = function (question) {
-				question.answer = 'false';console.log("quest", question);
+				question.answer = 'false';console.log("no answer: ", question);
 			};
 
 			/////////////textAnswer ng-change="textAssignAnswer" ng-model="textValue"/////////////////////////////////
@@ -546,7 +530,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 			}
 			///////////ng-show=numberAnswer/false ///////////////////////////////////////
 			//////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
-			else if ($scope.question.type == 'number') {
+			else if ($scope.question.type == 'numeric') {
 					$scope.numberAnswer = true;
 					$scope.numberString = '';
 
@@ -646,7 +630,7 @@ angular.module('surveyApp').service('userService', function () {
 });
 'use strict';
 
-angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stateParams, $state, userService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, auth, $stateParams, $state, userService) {
 
     console.log('in takeSurveyCtrl');
     console.log('$stateParams.surveyId = ', $stateParams.surveyId);
@@ -660,17 +644,21 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
     $scope.borderOnYes = [], $scope.borderOnNo = [];
 
     $scope.readTopic = function () {
-        userService.getTopic($scope.survey.topic).then(function (response) {
-            console.log('in takeSurveyCtrl');
-            console.log('in getTopic');
-            console.log('response', response);
-            if (response.status === 200) {
-                $scope.topic = response.data[0].name;
-            }
-        }).catch(function (err) {
-            // For any error, send them back to admin login screen.
-            console.error('err = ', err);
-        });
+        console.log($scope.survey.topic);
+        $scope.topic = $scope.survey.topic;
+        // userService.getTopic($scope.survey.topic)
+        // .then(function( response ) {
+        //     console.log('in takeSurveyCtrl');
+        //     console.log('in getTopic');
+        //     console.log('response', response);
+        //     if (response.status === 200) {
+        //         $scope.topic = response.data[0].name;
+        //     }
+        //  })
+        // .catch(function(err) {
+        // // For any error, send them back to admin login screen.
+        //     console.error('err = ', err);
+        // });
     };
 
     $scope.initializeResults = function () {
@@ -910,7 +898,7 @@ angular.module("surveyApp").service("userService", function ($http) {
     this.getTopic = function (topicId) {
         return $http({
             method: 'GET',
-            url: '/api/topics?_id=' + topicId
+            url: '/api/topics/' + topicId
         });
     };
 

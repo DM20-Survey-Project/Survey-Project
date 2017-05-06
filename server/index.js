@@ -101,7 +101,7 @@ app.put('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.upd
 app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
 
 ///////// Topics Endpoints //////////
-app.get('/api/topics', topicsCtrl.read);
+app.get('/api/topics/:id', topicsCtrl.read);
 app.post('/api/topics', topicsCtrl.create);
 app.get('/api/admin/topics', authCtrl.requireAdminAuth, topicsCtrl.read);
 app.post('/api/admin/topics', authCtrl.requireAdminAuth, topicsCtrl.create);

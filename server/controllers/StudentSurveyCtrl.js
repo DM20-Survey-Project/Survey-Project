@@ -73,7 +73,7 @@ module.exports = {
         surveysModel
             .find({
                 usersUntaken: req.params.student_id
-            }, 'name')
+            }, 'name description')
             .exec(function(err, result) {
                 console.log('err', err);
                 console.log('result', result);

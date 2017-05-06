@@ -19,7 +19,7 @@ angular.module("surveyApp").service("userService", function($http) {
     this.getTopic = function(topicId) {
     	return $http({
             method: 'GET',
-            url: '/api/topics?_id=' + topicId
+            url: '/api/topics/' + topicId
         });
      }
 
