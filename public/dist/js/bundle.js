@@ -47,6 +47,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
   $scope.templates = templateService.getTemplates();
   $scope.check = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate();
+    console.log($scope.selectedTemplate);
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
   };
 });
@@ -409,7 +410,46 @@ angular.module('surveyApp').service('templateService', function () {
     };
     var recentTemplates = [{
         title: '$$cohort$$ - Unit 1 Survey',
-        id: 1
+        id: 1,
+        questions: [{
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text',
+            required: true
+
+        }, {
+            questionTitle: 'uhwoueofhoeir?',
+            type: 'boolean',
+            required: true
+
+        }, {
+            questionTitle: 'How good is micahel memoryasdfring?',
+            type: 'number',
+            required: true,
+            min: {
+                value: 1,
+                tag: 'Very Poor'
+            },
+            max: {
+                value: 20,
+                tag: 'Very Good'
+            }
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'boolean',
+            required: true
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'text',
+            required: true
+
+        }, {
+            questionTitle: 'How good is micahel memory at mentoring?',
+            type: 'number',
+            required: true
+
+        }]
     }, {
         title: '$$cohort$$ - Unit 5 Survey',
         id: 2

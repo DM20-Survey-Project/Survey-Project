@@ -213,6 +213,13 @@ dropdown-directive h2 {
   background-color: white;
   z-index: 2; }
 
+.admin-send-survey-questions {
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%); }
+
 .user-content {
   width: 100vw;
   background-color: #f4f4f4;
