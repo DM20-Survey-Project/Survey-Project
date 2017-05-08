@@ -1,4 +1,4 @@
-angular.module('surveyApp', ['ui.router', 'ngSanitize'])
+liveangular.module('surveyApp', ['ui.router', 'ngSanitize'])
 
   .config( function ($urlRouterProvider, $stateProvider ){
 
