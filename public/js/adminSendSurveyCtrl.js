@@ -3,6 +3,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, s
   $scope.templates = templateService.getTemplates()
   $scope.check = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate()
+    console.log($scope.selectedTemplate);
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types)
   }
 })

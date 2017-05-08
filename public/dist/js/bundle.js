@@ -91,6 +91,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
   $scope.templates = templateService.getTemplates();
   $scope.check = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate();
+    console.log($scope.selectedTemplate);
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
   };
 });
@@ -453,7 +454,54 @@ angular.module('surveyApp').service('templateService', function () {
     };
     var recentTemplates = [{
         title: '$$cohort$$ - Unit 1 Survey',
-        id: 1
+        id: 1,
+        questions: [{
+            questionText: 'How good is micahel memory at mentoring?',
+            type: 'text',
+            required: true
+
+        }, {
+            questionText: 'uhwoueofhoeir?',
+            type: 'boolean',
+            required: true
+
+        }, {
+            questionText: 'How good is micahel memoryasdfring?',
+            type: 'numeric',
+            required: true,
+            min: {
+                value: 1,
+                tag: 'Very Poor'
+            },
+            max: {
+                value: 20,
+                tag: 'Very Good'
+            }
+
+        }, {
+            questionText: 'How good is micahel memory at mentoring?',
+            type: 'boolean',
+            required: true
+
+        }, {
+            questionText: 'How good is micahel memory at mentoring?',
+            type: 'text',
+            required: true
+
+        }, {
+            questionText: 'How good is micahel memory at mentoring?',
+            type: 'numeric',
+            required: true,
+            min: {
+                value: 1,
+                tag: 'Very Bad'
+            },
+            max: {
+                value: 5,
+                tag: 'Very Great'
+            }
+
+        }]
     }, {
         title: '$$cohort$$ - Unit 5 Survey',
         id: 2
@@ -478,25 +526,25 @@ angular.module('surveyApp').service('templateService', function () {
 
 angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $stateParams, auth, authService, userService) {
 
-    $scope.loadUntakenSurveys = function () {
-        userService.getUntaken(auth._id).then(function (response) {
-            console.log('in studentCtrl');
-            console.log('in loadUntakenSurveys');
-            console.log('response', response);
-            $scope.untakenSurveys = response.data;
-        });
-    };
+      $scope.loadUntakenSurveys = function () {
+            userService.getUntaken(auth._id).then(function (response) {
+                  console.log('in studentCtrl');
+                  console.log('in loadUntakenSurveys');
+                  console.log('response', response);
+                  $scope.untakenSurveys = response.data;
+            });
+      };
 
-    $scope.loadUntakenSurveys();
+      $scope.loadUntakenSurveys();
 
-    // $scope.getUntaken = function(studentId){
-    //   $scope.userData = userService.getUntaken('590cf0a10bc4105a51c14dd6');
-    //   if($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
-    //       $scope.noSurveys = true;
-    //   }
-    // }
-    // $scope.getUntaken();
-    // console.log('test')
+      // $scope.getUntaken = function(studentId){
+      //   $scope.userData = userService.getUntaken('590cf0a10bc4105a51c14dd6');
+      //   if($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
+      //       $scope.noSurveys = true;
+      //   }
+      // }
+      // $scope.getUntaken();
+      // console.log('test')
 });
 'use strict';
 
