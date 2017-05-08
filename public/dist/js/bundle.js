@@ -560,8 +560,6 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
   $scope.loadUntakenSurveys = function () {
     userService.getUntaken(auth._id).then(function (response) {
       $scope.untakenSurveys = [];
-      $scope.optionalSurveys = [];
-      $scope.repeatableSurveys = [];
       if (!response.data.hasOwnProperty('message')) {
         response.data.forEach(function (e) {
           if (e.repeatable && e.usersTaken.indexOf(auth._id) > -1) {

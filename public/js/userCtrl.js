@@ -25,20 +25,12 @@ angular.module('surveyApp').controller('userCtrl', function($scope, $state, $sta
         userService.getUntaken(auth._id)
         .then(function( response ) {
             $scope.untakenSurveys = [];
-            $scope.optionalSurveys = [];
-            $scope.repeatableSurveys = [];
             if(!response.data.hasOwnProperty('message')){
-              response.data.forEach(function(e){
-                if (e.repeatable && e.usersTaken.indexOf(auth._id)>-1){
-                  $scope.repeatableSurveys.push(e);
-                }else if (e.optional){
-                  $scope.optionalSurveys.push(e);
-                }else{
+              response.data.forEach(function(e) {
                   $scope.untakenSurveys.push(e);
-                }
-              })
-            }
-        });
+                })
+              }
+            })
     }
 
 
