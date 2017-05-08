@@ -10,15 +10,15 @@
 
 <div ng-show="numberAnswer" class="user-numberAnswer">
 	<!-- <span  style="color:red;" id="slider-value"></span> -->
-<div class="user-rating-min">Very Poor</div>
+<div class="user-rating-min">{{question.min.tag}}</div>
 
 <div class="user-thumb-slider">
 <div ng-bind-html="numberString"></div>
-<input type="range" min="{{question.lowValue}}" max="{{question.highValue}}" value="1" name="slider" ng-change="numberAssignAnswer()" ng-model="sliderValue" >
+<input type="range" min="{{question.min.value}}" max="{{question.max.value}}" value="1" name="slider" ng-change="numberAssignAnswer()" ng-model="sliderValue" >
 <h3 class="display-value">{{sliderValue}}</h3>
 </div>
 
-<div class="user-rating-max">Very Good</div>
+<div class="user-rating-max">{{question.max.tag}}</div>
 <!-- <output for="slider" onforminput="value = foo.valueAsNumber;"></output> -->
 </div>
 
