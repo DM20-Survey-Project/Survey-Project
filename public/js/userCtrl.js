@@ -1,20 +1,52 @@
-angular.module('surveyApp').controller('userCtrl', function($scope, $state, $stateParams, auth, authService, userService) {
+angular.module('surveyApp').controller('userCtrl', function($scope, $state, $stateParams, auth, authService, userService, $location, $anchorScroll) {
+
+  $scope.name = auth.first_name + ' ' + auth.last_name;
+  $scope.isMentor = false;
+  $(document).ready(function() {
+    if ($stateParams.toastMessage)
+         Materialize.toast($stateParams.toastMessage, 4000);
+        for (var i = 0; i < auth.roles.length; i++) {
+            if (auth.roles[i].role === 'mentor') {
+                $scope.isMentor = true;
+            }
+        }
+});
+
+  $scope.gotoTop = function() {
+        // set the location.hash to the id of
+        // the element you wish to scroll to.
+        $location.hash('top');  // top of body
+
+        $anchorScroll();
+    };
 
 
-  $scope.loadUntakenSurveys = function() {
-          userService.getUntaken(auth._id)
-          .then(function( response ) {
-              console.log('in studentCtrl');
-              console.log('in loadUntakenSurveys')
-              console.log('response', response);
-              $scope.untakenSurveys = response.data;
-          });
-      }
+    $scope.loadUntakenSurveys = function() {
+        userService.getUntaken(auth._id)
+        .then(function( response ) {
+            $scope.untakenSurveys = [];
+            $scope.optionalSurveys = [];
+            $scope.repeatableSurveys = [];
+            if(!response.data.hasOwnProperty('message')){
+              response.data.forEach(function(e){
+                if (e.repeatable && e.usersTaken.indexOf(auth._id)>-1){
+                  $scope.repeatableSurveys.push(e);
+                }else if (e.optional){
+                  $scope.optionalSurveys.push(e);
+                }else{
+                  $scope.untakenSurveys.push(e);
+                }
+              })
+            }
+        });
+    }
 
+
+       $scope.gotoTop();
       $scope.loadUntakenSurveys();
 
 
-      
+
 
 
   // $scope.getUntaken = function(studentId){
