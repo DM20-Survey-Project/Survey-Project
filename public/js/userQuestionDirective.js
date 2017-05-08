@@ -10,10 +10,10 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 
 	//////////////booleanAnswer ng-click"answer && answerno"//////////////////////////////
 				$scope.answer = function(question) {
-					question.answer = 'true'; console.log("tru11111e",question)
+					question.answer = 'true'; console.log("answer: ",question)
 				}
 				$scope.answerno = function(question) {
-					question.answer = 'false'; console.log("quest",question)
+					question.answer = 'false'; console.log("no answer: ",question)
 				}
 
 /////////////textAnswer ng-change="textAssignAnswer" ng-model="textValue"/////////////////////////////////
@@ -30,7 +30,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 				}
 ///////////ng-show=numberAnswer/false ///////////////////////////////////////
 //////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
-				else if ($scope.question.type == 'number'){
+				else if ($scope.question.type == 'numeric'){
 					$scope.numberAnswer = true;
 					$scope.numberString = '';
 

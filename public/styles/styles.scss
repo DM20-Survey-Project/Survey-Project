@@ -4,3 +4,15 @@
 @import "./global.scss";
 @import "./adminStyles";
 @import "./userStyles.scss";
+
+
+.loginPage {
+  background-color: $blue;
+  height: 100px;
+  width: 10%;
+  position: relative;
+  font-size: 60px;
+  top: 300px;
+  text-align: center;
+  left: 45%;
+}
