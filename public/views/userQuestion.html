@@ -1,6 +1,6 @@
 <div class="user-survey-box box-shadow" >
 
-	<h4 ng-class="{incomplete: question.incomplete == true}">{{question.questionTitle}}</h4>
+	<h4 ng-class="{incomplete: question.incomplete == true}">{{question.questionText}}</h4>
 
 	<div ng-show="textAnswer">
 	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..." ng-change="textAssignAnswer()" ng-model="textValue"></textarea>
@@ -10,7 +10,7 @@
 
 <div ng-show="numberAnswer" class="user-numberAnswer">
 	<!-- <span  style="color:red;" id="slider-value"></span> -->
-<div class="user-rating-min">Very Poor</div>
+<div class="user-rating-min">{{question.min.tag}}</div>
 
 <div class="user-thumb-slider">
 <div ng-bind-html="numberString"></div>
@@ -18,7 +18,7 @@
 <h3 class="display-value">{{sliderValue}}</h3>
 </div>
 
-<div class="user-rating-max">Very Good</div>
+<div class="user-rating-max">{{question.max.tag}}</div>
 <!-- <output for="slider" onforminput="value = foo.valueAsNumber;"></output> -->
 </div>
 

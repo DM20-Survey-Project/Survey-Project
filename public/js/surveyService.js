@@ -1,4 +1,6 @@
 angular.module('surveyApp').service('surveyService', function() {
+
+
   this.getRecentSurveys = function () {
       return recentSurveys
   }
@@ -85,5 +87,6 @@ angular.module('surveyApp').service('surveyService', function() {
 
       },
     ]
+  }
 
-  }});
+  });

@@ -31,6 +31,14 @@
                 <dropdown-directive entities="templates" title="'Template'" check="check()"></dropdown-directive>
             </div>
         </div>
+
+        <div class="admin-send-survey-questions">
+            <div ng-repeat="question in selectedTemplate.template.questions">
+                
+                <user-question-directive question = "question"></user-question-directive>
+
+            </div>
+        </div>
         
     </div>
 </div>

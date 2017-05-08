@@ -46,7 +46,62 @@ angular.module('surveyApp').service('templateService', function() {
   var recentTemplates = [
       {
           title: '$$cohort$$ - Unit 1 Survey',
-          id: 1
+          id: 1,
+          questions: [
+            {
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'text',
+                required: true
+
+
+            },{
+                questionText: 'uhwoueofhoeir?',
+                type: 'boolean',
+                required: true
+
+
+            },{
+                questionText: 'How good is micahel memoryasdfring?',
+                type: 'numeric',
+                required: true,
+                min: {
+                value: 1,
+                tag: 'Very Poor'
+                },
+                max: {
+                value: 20,
+                tag: 'Very Good'
+                }
+
+
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'boolean',
+                required: true
+
+
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'text',
+                required: true
+
+
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'numeric',
+                required: true,
+                min: {
+                value: 1,
+                tag: 'Very Bad'
+                },
+                max: {
+                value: 5,
+                tag: 'Very Great'
+                }
+
+
+            },
+        ]
       },
       {
           title: '$$cohort$$ - Unit 5 Survey',

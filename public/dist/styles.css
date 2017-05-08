@@ -213,6 +213,13 @@ dropdown-directive h2 {
   background-color: white;
   z-index: 2; }
 
+.admin-send-survey-questions {
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%); }
+
 .user-content {
   width: 100vw;
   background-color: #f4f4f4;
@@ -433,5 +440,15 @@ dropdown-directive h2 {
   padding: 7px;
   margin-bottom: 100px;
   cursor: pointer; }
+
+.loginPage {
+  background-color: #25aae1;
+  height: 100px;
+  width: 10%;
+  position: relative;
+  font-size: 60px;
+  top: 300px;
+  text-align: center;
+  left: 45%; }
 
 /*# sourceMappingURL=maps/styles.css.map */

@@ -8,7 +8,23 @@ $urlRouterProvider.when('', '/');
     .state('user', {
       templateUrl: 'views/user.html',
       url: '/user',
-      controller: 'userCtrl'
+      controller: 'userCtrl',
+      resolve: {
+                    auth: function(authService, $state, $stateParams) {
+                        return authService.checkForAuth()
+                            .then(function(response) {
+                                if (response.status === 200) {
+                                    return response.data;
+                                }
+                            })
+                            .catch(function(err) {
+                                console.error('err = ', err);
+                                $state.go('login', {
+                                    successRedirect: 'user'
+                                });
+                            });
+                    }
+                }
 
     })
     .state('admin', {
@@ -33,9 +49,48 @@ $urlRouterProvider.when('', '/');
     .state('userSurveyPage', {
       templateUrl: 'views/surveyPage.html',
       url: '/user/surveyPage',
-      controller: 'userSurveyCtrl'
+      controller: 'userSurveyCtrl',
+      params : {
+            surveyId: ''
+        },
+      resolve: {
+            auth: function(authService, $state, $stateParams) {
+                return authService.checkForAuth()
+                .then(function( response ) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                })
+                .catch(function(err) {
+                    // For any error, send them back to admin login screen.
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
     })
 
+
+
+
+
+
+    .state('login', {
+		url: '/',
+		templateUrl: 'LocalAuth/views/login.html',
+        // params : {
+        //     toastMessage: '',
+        //     successRedirect: ''
+        // },
+		controller: 'localLoginCtrl'
+    })
+    .state('signup', {
+		url: '/signup',
+		templateUrl: 'LocalAuth/views/signup.html',
+		controller: 'localSignupCtrl'
+    })
 
 
 
