@@ -37,7 +37,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 					$scope.numberAssignAnswer = function(){
 						$scope.question.answer = $scope.sliderValue
 					}
-					console.log($scope.sliderValue)
+					
 				}
 
 	/////////ng-show=booleanAnswer/false /////////////////////////

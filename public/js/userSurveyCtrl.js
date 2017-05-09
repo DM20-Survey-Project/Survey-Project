@@ -8,7 +8,7 @@ $scope.getSurveyById();
 
 $scope.getSliderValue = function(x) {
 
- console.log(x)
+ 
 }
 $scope.submit = function(){
 var incompleteQuestions = [];

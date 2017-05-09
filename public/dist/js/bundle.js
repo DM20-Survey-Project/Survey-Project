@@ -1,6 +1,6 @@
 'use strict';
 
-liveangular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
+angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
 
   $urlRouterProvider.when('', '/');
 
@@ -616,7 +616,6 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 					$scope.numberAssignAnswer = function () {
 						$scope.question.answer = $scope.sliderValue;
 					};
-					console.log($scope.sliderValue);
 				}
 
 				/////////ng-show=booleanAnswer/false /////////////////////////
@@ -714,10 +713,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 
 	$scope.getSurveyById();
 
-	$scope.getSliderValue = function (x) {
-
-		console.log(x);
-	};
+	$scope.getSliderValue = function (x) {};
 	$scope.submit = function () {
 		var incompleteQuestions = [];
 
