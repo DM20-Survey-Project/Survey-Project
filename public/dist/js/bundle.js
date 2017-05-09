@@ -757,6 +757,15 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
     $scope.gotoTop();
     $scope.loadUntakenSurveys();
 
+    $scope.logout = function () {
+        console.log('working');
+        authService.logout().then(function (response) {
+            if (response.status === 200) {
+                $state.go('login');
+            }
+        });
+    };
+
     // $scope.getUser = function(){
     //   $scope.surveys = userService.getUser();
     // }
@@ -823,6 +832,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 		}
 	};
 });
+
 // angular.module('surveyApp').service('userService', function() {
 //
 // var surveysColumn1 = [{}];
@@ -922,65 +932,6 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
-<<<<<<< HEAD
-    // this.getUser = function() {
-    //   return recentSurveys
-    // }
-    var recentSurveys = [{
-
-        title: 'DM20-Brett Rheiner',
-        description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
-    }, {
-        title: 'DM20 - Week 2 Survey'
-
-    }, {
-        title: 'DM20 - Week 3 Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Week 4 Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Week 5 Survey',
-        description: 'lorem'
-    }, {
-        title: 'Michael Memory - DM20 - Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Jquery Survey',
-        description: 'lorem'
-
-    }, {
-        classTitle: 'DM21',
-        title: 'DM20-MAXXiliion Rheiner'
-
-    }, {
-        title: 'DM20 - Week 2 Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Week 3 Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Week 4 Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Week 5 Survey',
-        description: 'lorem lasihdfo hhasdfoih oph asdfjhasldkjhfjkhaskldjhfklj hkljasdhf   kj hadjf haskjdh kjasd fkjhakldjf hklajsd klj hkajsdf khasj kdhfklj asdfklj askljdf hjakljasdkljh fklj asdfhjk'
-    }, {
-        title: 'Michael Memory - DM20 - Survey',
-        description: 'lorem'
-    }, {
-        title: 'DM20 - Jquery Survey',
-        description: 'lorem'
-
-    }];
-});
-'use strict';
-
-angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, surveyService) {
-
-	$scope.getSurveyById = function () {
-		$scope.userData = surveyService.getSurveyById();
-=======
 	$scope.readSurvey = function () {
 		userService.getSurvey($stateParams.surveyId).then(function (response) {
 			console.log('in takeSurveyCtrl');
@@ -991,7 +942,6 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 			console.error('err = ', err);
 			$state.go('user');
 		});
->>>>>>> master
 	};
 	$scope.readSurvey();
 

@@ -62,6 +62,18 @@ angular.module('surveyApp').controller('userCtrl', function($scope, $state, $sta
     $scope.gotoTop();
     $scope.loadUntakenSurveys();
 
+
+    $scope.logout = function(){
+      console.log('working')
+      authService.logout()
+       .then(function( response ) {
+            if (response.status === 200) {
+                $state.go('login');
+            }
+        });
+    }
+
+
     // $scope.getUser = function(){
     //   $scope.surveys = userService.getUser();
     // }
