@@ -1,8 +1,8 @@
-var JwtStrategy = require('passport-jwt').Strategy,
-    passport = require('passport'),
-    ExtractJwt = require('passport-jwt').ExtractJwt,
-    User = require('../models/UserModel'),
-    DevmtnAuthConfig = require('../config').AUTH_CONFIG;
+const JwtStrategy = require('passport-jwt').Strategy;
+const passport = require('passport');
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User = require('../models/UserModel');
+const DevmtnAuthConfig = require('../config').AUTH_CONFIG;
 
 var opts = {}
 opts.jwtFromRequest = cookieExtractor;

@@ -2,64 +2,88 @@
 
 angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.when('', '/');
+    $urlRouterProvider.when('', '/');
 
-  $stateProvider.state('user', {
-    templateUrl: 'views/user.html',
-    url: '/user',
-    controller: 'userCtrl'
-  }).state('admin', {
-    templateUrl: 'views/admin.html',
-    url: '/admin',
-    controller: 'adminCtrl'
+    $stateProvider.state('user', {
+        templateUrl: 'views/user.html',
+        url: '/user',
+        params: {
+            toastMessage: ''
+        },
+        controller: 'userCtrl',
+        resolve: {
+            auth: function auth(authService, $state, $stateParams) {
+                return authService.checkForAuth().then(function (response) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                }).catch(function (err) {
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
 
-  }).state('adminSendSurvey', {
-    templateUrl: 'views/adminSendSurvey.html',
-    url: '/admin/send-survey',
-    controller: 'adminSendSurveyCtrl'
+    }).state('admin', {
+        templateUrl: 'views/admin.html',
+        url: '/admin',
+        controller: 'adminCtrl'
 
-  }).state('adminSendSurveyId', {
-    templateUrl: 'views/adminSendSurvey.html',
-    url: '/admin/send-survey/:id',
-    controller: 'adminSendSurveyCtrl'
+    }).state('adminSendSurvey', {
+        templateUrl: 'views/adminSendSurvey.html',
+        url: '/admin/send-survey',
+        controller: 'adminSendSurveyCtrl'
 
-  }).state('userSurveyPage', {
-    templateUrl: 'views/surveyPage.html',
-    url: '/user/surveyPage',
-    controller: 'userSurveyCtrl',
-    params: {
-      surveyId: ''
-    }
-    // resolve: {
-    //       // auth: function(authService, $state, $stateParams) {
-    //       //     return authService.checkForAuth()
-    //       //     .then(function( response ) {
-    //       //         if (response.status === 200) {
-    //       //             return response.data;
-    //       //         }
-    //       //     })
-    //       //     .catch(function(err) {
-    //       //         // For any error, send them back to admin login screen.
-    //       //         console.error('err = ', err);
-    //       //         $state.go('login', {
-    //       //             successRedirect: 'user'
-    //       //         });
-    //       //     });
-    //       // }
-    //   }
-  }).state('login', {
-    url: '/',
-    templateUrl: 'LocalAuth/views/login.html',
-    // params : {
-    //     toastMessage: '',
-    //     successRedirect: ''
-    // },
-    controller: 'localLoginCtrl'
-  }).state('signup', {
-    url: '/signup',
-    templateUrl: 'LocalAuth/views/signup.html',
-    controller: 'localSignupCtrl'
-  });
+    }).state('adminSendSurveyId', {
+        templateUrl: 'views/adminSendSurvey.html',
+        url: '/admin/send-survey/:id',
+        controller: 'adminSendSurveyCtrl'
+
+    }).state('userSurveyPage', {
+        templateUrl: 'views/surveyPage.html',
+        url: '/user/surveyPage/:surveyId',
+        controller: 'userSurveyCtrl',
+        resolve: {
+            auth: function auth(authService, $state, $stateParams) {
+                return authService.checkForAuth().then(function (response) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                }).catch(function (err) {
+                    // For any error, send them back to admin landing screen.
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
+    }).state('login', {
+        url: '/',
+        templateUrl: 'views/loginPage.html',
+        params: {
+            toastMessage: '',
+            successRedirect: ''
+        }
+    });
+
+    // .state('login', {
+    // url: '/',
+    // templateUrl: 'LocalAuth/views/login.html',
+    //     // params : {
+    //     //     toastMessage: '',
+    //     //     successRedirect: ''
+    //     // },
+    // controller: 'localLoginCtrl'
+    // })
+    // .state('signup', {
+    // url: '/signup',
+    // templateUrl: 'LocalAuth/views/signup.html',
+    // controller: 'localSignupCtrl'
+    // })
+
 });
 'use strict';
 
@@ -73,13 +97,111 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 });
 'use strict';
 
+angular.module('surveyApp').directive('adminQuestionDirective', function () {
+	return {
+		templateUrl: "views/adminQuestion.html",
+		restrict: 'E',
+		scope: {
+			question: '='
+
+		},
+		controller: function controller($scope, $state) {
+
+			/////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
+			if ($scope.question.type == 'text') {
+				// $scope.numberAnswer = false;
+				$scope.textAnswer = true;
+			}
+			///////////ng-show=numberAnswer/false ///////////////////////////////////////
+			//////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
+			else if ($scope.question.type == 'numeric') {
+					$scope.numberAnswer = true;
+					$scope.numberString = '';
+				}
+
+				/////////ng-show=booleanAnswer/false /////////////////////////
+				else if ($scope.question.type == 'boolean') {
+
+						$scope.booleanAnswer = true;
+					} else {}
+		},
+		link: function link(scope, element, attributes) {
+			// scope.numberAnswer = true;
+		}
+	};
+});
+'use strict';
+
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
 
+  $scope.survey = {
+    entities: {}
+  };
+  $scope.submitDisabled = true;
+
   $scope.templates = templateService.getTemplates();
-  $scope.check = function () {
+
+  $scope.checkTemplate = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate();
-    console.log($scope.selectedTemplate);
+
+    $scope.survey.questions = $scope.selectedTemplate.template.questions;
+    $scope.survey.title = $scope.selectedTemplate.template.title;
+
+    //TODO fix this
+    $scope.survey.entities = {};
+    for (var i = 0; i < $scope.selectedTemplate.types.length; i++) {
+      $scope.survey.entities[$scope.selectedTemplate.types[i]];
+      if ($scope.survey.entities[$scope.selectedTemplate.types[i]]) {
+        console.log('!!!FOUND ONE!!!');
+      } else {
+        $scope.survey.entities[$scope.selectedTemplate.types[i]] = undefined;
+      }
+    }
+
+    $scope.entities = [];
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    $scope.checkCompleted();
+  };
+  $scope.check = function () {
+    $scope.survey.description = $scope.surveyDescription;
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    $scope.checkCompleted();
+    console.log($scope.survey);
+  };
+
+  $scope.checkCompleted = function () {
+    var incompleteVars = [];
+    for (var key in $scope.survey.entities) {
+      if ($scope.survey.entities.hasOwnProperty(key)) {
+        if (!$scope.survey.entities[key]) {
+          incompleteVars.push(key + ' not filled');
+        }
+      }
+    }
+    if (incompleteVars.length > 0) {
+      $scope.submitDisabled = true;
+      $scope.submitText = "Fill out all variables";
+    } else {
+      $scope.submitDisabled = false;
+      $scope.submitText = "Send Survey to " + $scope.survey.entities.cohort.name;
+    }
+  };
+  $scope.replaceTitle = function replaceTitle(title, entities) {
+
+    var titleArr = title.split(' ');
+    for (var key in entities) {
+      if (entities.hasOwnProperty(key)) {
+        if (entities[key]) {
+          for (var i = 0; i < titleArr.length; i++) {
+            if (titleArr[i].indexOf(key) != -1) {
+              titleArr.splice(i, 1, entities[key].name);
+            }
+          }
+        }
+      }
+    }
+    return titleArr.join(' ');
   };
 });
 'use strict';
@@ -91,7 +213,9 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
     scope: {
       entities: '=',
       title: '=',
-      check: '&'
+      check: '&',
+      checkTemplate: '&',
+      surveyEntities: '='
 
     },
     controller: function controller($scope, $state, templateService) {
@@ -110,13 +234,15 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
             if ($scope.entities[i].id == id) {
               $scope.selected = $scope.entities[i];
               templateService.giveSelected($scope.selected);
-              $scope.check();
+              $scope.checkTemplate();
             }
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
             if ($scope.entities.entities[i].id == id) {
               $scope.selected = $scope.entities.entities[i];
+              $scope.surveyEntities[$scope.entities.type] = $scope.selected;
+              $scope.check();
             }
           }
         }
@@ -147,6 +273,10 @@ angular.module('surveyApp').service('entityService', function () {
                     response.push(cohorts);
                     break;
 
+                case 'topic':
+                    response.push(topics);
+                    break;
+
                 default:
                     break;
             }
@@ -155,7 +285,7 @@ angular.module('surveyApp').service('entityService', function () {
     };
 
     var mentors = {
-        type: 'Mentor',
+        type: 'mentor',
         entities: [{
             name: 'Michael Memory',
             id: 1,
@@ -268,7 +398,7 @@ angular.module('surveyApp').service('entityService', function () {
     };
 
     var cohorts = {
-        type: "Cohort",
+        type: "cohort",
         entities: [{
             name: 'DM20',
             id: 1,
@@ -317,6 +447,31 @@ angular.module('surveyApp').service('entityService', function () {
                 state: 'Utah'
 
             }
+        }]
+    };
+
+    var topics = {
+        type: "topic",
+        entities: [{
+            name: 'Jquery',
+            id: 1
+
+        }, {
+            name: 'Angular',
+            id: 2
+
+        }, {
+            name: 'HTML/CSS',
+            id: 3
+
+        }, {
+            name: 'React',
+            id: 4
+
+        }, {
+            name: 'Mentoring',
+            id: 5
+
         }]
     };
 });
@@ -477,7 +632,7 @@ angular.module('surveyApp').service('templateService', function () {
         return parsedEntities;
     };
     var recentTemplates = [{
-        title: '$$cohort$$ - Unit 1 Survey',
+        title: '$$cohort$$ - $$topic$$ - Unit 1 Survey',
         id: 1,
         questions: [{
             questionText: 'How good is micahel memory at mentoring?',
@@ -548,34 +703,73 @@ angular.module('surveyApp').service('templateService', function () {
 });
 'use strict';
 
-angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $stateParams, userService) {
+angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $stateParams, auth, authService, userService, $location, $anchorScroll) {
 
-  // $scope.loadUntakenSurveys = function() {
-  //         userService.getUntaken(auth._id)
-  //         .then(function( response ) {
-  //             console.log('in studentCtrl');
-  //             console.log('in loadUntakenSurveys')
-  //             console.log('response', response);
-  //             $scope.untakenSurveys = response.data;
-  //         });
-  //     }
-  //
-  //     $scope.loadUntakenSurveys();
+    $scope.name = auth.first_name + ' ' + auth.last_name;
+    $scope.isMentor = false;
+    $(document).ready(function () {
+        if ($stateParams.toastMessage) Materialize.toast($stateParams.toastMessage, 4000);
+        for (var i = 0; i < auth.roles.length; i++) {
+            if (auth.roles[i].role === 'mentor') {
+                $scope.isMentor = true;
+            }
+        }
+    });
 
-  $scope.getUser = function () {
+    $scope.gotoTop = function () {
+        // set the location.hash to the id of
+        // the element you wish to scroll to.
+        $location.hash('top'); // top of body
 
-    $scope.surveys = userService.getUser();
-  };
-  $scope.getUser();
-  console.log($scope.surveysColumn1);
-  // $scope.getUntaken = function(studentId){
-  //   $scope.userData = userService.getUntaken('590cf0a10bc4105a51c14dd6');
-  //   if($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
-  //       $scope.noSurveys = true;
-  //   }
-  // }
-  // $scope.getUntaken();
-  // console.log('test')
+        $anchorScroll();
+    };
+
+    $scope.untakenSurveys = [];
+    $scope.loadUntakenSurveys = function () {
+        userService.getUntaken(auth._id).then(function (response) {
+            if (!response.data.hasOwnProperty('message')) {
+                response.data.forEach(function (e) {
+                    $scope.untakenSurveys.push(e);
+                });
+            }
+            // console.log($scope.untakenSurveys)
+            $scope.surveys = {
+                column1: [],
+                column2: []
+            };
+            for (var i = 0; i < $scope.untakenSurveys.length; i++) {
+                // console.log($scope.untakenSurveys)
+                if (i % 2 === 0) {
+                    $scope.surveys.column1.push($scope.untakenSurveys[i]);
+                    continue;
+                } else {
+                    $scope.surveys.column2.push($scope.untakenSurveys[i]);
+                    // console.log($scope.untakenSurveys[i])
+                }
+
+                return $scope.surveys;
+            }
+
+            // console.log($scope.surveys);
+        });
+    };
+
+    $scope.gotoTop();
+    $scope.loadUntakenSurveys();
+
+    // $scope.getUser = function(){
+    //   $scope.surveys = userService.getUser();
+    // }
+    // $scope.getUser();
+    // console.log($scope.surveysColumn1)
+    // $scope.getUntaken = function(studentId){
+    //   $scope.userData = userService.getUntaken('590cf0a10bc4105a51c14dd6');
+    //   if($scope.userData.surveysA.length == 0 && $scope.userData.surveysB.length == 0) {
+    //       $scope.noSurveys = true;
+    //   }
+    // }
+    // $scope.getUntaken();
+    // console.log('test')
 });
 'use strict';
 
@@ -629,29 +823,106 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 		}
 	};
 });
+// angular.module('surveyApp').service('userService', function() {
+//
+// var surveysColumn1 = [{}];
+// var surveysColumn2 = [{}];
+//   this.getUser = function () {
+//     var surveys = {
+//       column1: [],
+//       column2: []
+//     }
+//     for(var i=0;i < recentSurveys.length; i++){
+//           if(i%2 === 0){
+//
+//             surveys.column1.push(recentSurveys[i])
+//
+//
+//           } else  {
+//               surveys.column2.push(recentSurveys[i])
+//           }
+//
+//         }
+//
+//   return surveys
+//   }
+//
+//
+//   // this.getUser = function() {
+//   //   return recentSurveys
+//   // }
+//   var recentSurveys = [
+//       {
+//
+//           title: 'DM20-Brett Rheiner',
+//         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor sajdhjhasdkfhklj kjl jkasdhfklj a skljdf jkla kdjajsdh fklj asdf klasdf kjasdf kasdf kjsdf kaskjf kljasdf lkhasdjf klj asdfgakl rgfiuqohrou asdlkjl ;iasdh '
+//       },
+//       {
+//           title: 'DM20 - Week 2 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 3 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 4 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 5 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'Michael Memory - DM20 - Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Jquery Survey',
+// 					  description: 'lorem'
+//
+//       },
+//       {
+//           classTitle: 'DM21',
+//           title: 'DM20-MAXXiliion Rheiner',
+//         description: 'Mentor Survey on your personal mentor. 10 questions on your overall rating of your mentor'
+//       },
+//       {
+//           title: 'DM20 - Week 2 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 3 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 4 Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Week 5 Survey',
+// 					  description: 'lorem lasihdfo hhasdfoih oph asdfjhasldkjhfjkhaskldjhfklj hkljasdhf   kj hadjf haskjdh kjasd fkjhakldjf hklajsd klj hkajsdf khasj kdhfklj asdfklj askljdf hjakljasdkljh fklj asdfhjk'
+//       },
+//       {
+//           title: 'Michael Memory - DM20 - Survey',
+// 					  description: 'lorem'
+//       },
+//       {
+//           title: 'DM20 - Jquery Survey',
+// 					  description: 'lorem'
+//
+//       }
+//   ]
+//
+// })
+"use strict";
 'use strict';
 
-angular.module('surveyApp').service('userService', function () {
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, $stateParams, userService) {
 
-    var surveysColumn1 = [{}];
-    var surveysColumn2 = [{}];
-    this.getUser = function () {
-        var surveys = {
-            column1: [],
-            column2: []
-        };
-        for (var i = 0; i < recentSurveys.length; i++) {
-            if (i % 2 === 0) {
+	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
-                surveys.column1.push(recentSurveys[i]);
-            } else {
-                surveys.column2.push(recentSurveys[i]);
-            }
-        }
-
-        return surveys;
-    };
-
+<<<<<<< HEAD
     // this.getUser = function() {
     //   return recentSurveys
     // }
@@ -709,151 +980,141 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 
 	$scope.getSurveyById = function () {
 		$scope.userData = surveyService.getSurveyById();
+=======
+	$scope.readSurvey = function () {
+		userService.getSurvey($stateParams.surveyId).then(function (response) {
+			console.log('in takeSurveyCtrl');
+			console.log('in readSurvey');
+			console.log('response', response);
+			$scope.survey = response.data;
+		}).catch(function (err) {
+			console.error('err = ', err);
+			$state.go('user');
+		});
+>>>>>>> master
 	};
-
-	$scope.getSurveyById();
+	$scope.readSurvey();
 
 	$scope.getSliderValue = function (x) {};
 	$scope.submit = function () {
 		var incompleteQuestions = [];
 
-		for (var i = 0; i < $scope.userData.questions.length; i++) {
-			if ($scope.userData.questions[i].required) {
-				if ($scope.userData.questions[i].answer) {
-					$scope.userData.questions[i].incomplete = false;
+		for (var i = 0; i < $scope.survey.questions.length; i++) {
+			if ($scope.survey.questions[i].required) {
+				if ($scope.survey.questions[i].answer) {
+					$scope.survey.questions[i].incomplete = false;
 				} else {
 
-					$scope.userData.questions[i].incomplete = true;
-					incompleteQuestions.push($scope.userData.questions[i]);
+					$scope.survey.questions[i].incomplete = true;
+					incompleteQuestions.push($scope.survey.questions[i]);
 				}
 			}
 		}
 		if (incompleteQuestions.length > 0) {
 			$scope.unansweredQuestions = true;
 		} else {
-			surveyService.writeSurveyResults($scope.userData.questions).then(function () {
+			userService.writeSurveyResults($scope.survey.questions).then(function () {
 				$state.go('user');
 			});
 		}
-		console.log($scope.userData.questions);
+		console.log($scope.survey.questions);
 	};
 	$scope.getSliderValue();
-	// console.log($scope.userData)
+	// console.log($scope.survey)
 });
 "use strict";
 
 angular.module("surveyApp").service("authService", function ($http) {
-  // 
-  // this.login = function(user) {
-  //   return $http({
-  //     method: 'post',
-  //     url: '/api/login',
-  //     data: user
-  //   }).then(function(response) {
-  //     console.log('srevice ', response);
-  //     return response;
-  //   });
-  // };
 
-  this.logout = function () {
-    return $http({
-      method: 'get',
-      url: '/logout'
-    }).then(function (response) {
-      return response;
-    });
-  };
+    this.login = function (userData) {
+        console.log('userData = ', userData);
 
-  this.getCurrentUser = function () {
-    return $http({
-      method: 'GET',
-      url: '/me'
-    }).then(function (response) {
-      return response;
-    });
-  };
+        return $http({
+            method: 'POST',
+            url: '/api/login',
+            data: userData
+        });
+    };
 
-  this.registerUser = function (user) {
-    return $http({
-      method: 'POST',
-      url: '/register',
-      data: user
-    }).then(function (response) {
-      return response;
-    });
-  };
+    this.logout = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/logout'
+        });
+    };
 
-  this.editUser = function (id, user) {
-    return $http({
-      method: 'PUT',
-      url: "/user/" + id,
-      data: user
-    }).then(function (response) {
-      return response;
-    });
-  };
+    this.checkForAuth = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/current_user'
+        });
+    };
 
-  this.checkForAuth = function () {
-    return $http({
-      method: 'GET',
-      url: '/api/current_user'
-    });
-  };
+    this.checkForAdminAuth = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/current_admin_user'
+        });
+    };
 });
-// angular.module("surveyApp").service("userService", function($http) {
-//
-//
-//
-//     this.getUntaken = function(studentId) {
-//         return $http({
-//             method: 'GET',
-//             url: '/api/surveys/untaken/' + studentId
-//         });
-//     }
-//
-//     this.getSurvey = function(surveyId) {
-//         return $http({
-//             method: 'GET',
-//             url: '/api/surveys/' + surveyId
-//         });
-//     }
-//
-//     this.getTopic = function(topicId) {
-//     	return $http({
-//             method: 'GET',
-//             url: '/api/topics/' + topicId
-//         });
-//      }
-//
-//      this.writeSurveyResults = function(data) {
-//     	return $http({
-//             method: 'POST',
-//             url: '/api/surveys/results',
-//             data: data
-//         });
-//     }
-//
-//
-//
-//     // this.getUsers = function() {
-//     //   return $http({
-//     //     method: 'GET',
-//     //     url: '/user'
-//     //   }).then(function(response) {
-//     //     return response;
-//     //   });
-//     // };
-//     //
-//     // this.getUser = function(id) {
-//     //   return $http({
-//     //     method: 'GET',
-//     //     url: '/user?_id=' + id
-//     //   }).then(function(response) {
-//     //     return response;
-//     //   });
-//     // };
-// });
 "use strict";
+
+angular.module("surveyApp").service("userService", function ($http) {
+
+    this.getSurvey = function (surveyId) {
+        return $http({
+            method: 'GET',
+            url: '/api/surveys/' + surveyId
+        });
+    };
+
+    this.getTopic = function (topicId) {
+        return $http({
+            method: 'GET',
+            url: '/api/topics?_id=' + topicId
+        });
+    };
+
+    this.writeSurveyResults = function (data) {
+        return $http({
+            method: 'POST',
+            url: '/api/surveys/results',
+            data: data
+        });
+    };
+
+    this.getUntaken = function (studentId) {
+        return $http({
+            method: 'GET',
+            url: '/api/surveys/untaken/' + studentId
+        });
+    };
+});
+// .then(function(response) {
+//     console.log(response)
+//
+//   })
+// }
+
+
+//
+// this.getUsers = function() {
+//   return $http({
+//     method: 'GET',
+//     url: '/user'
+//   }).then(function(response) {
+//     return response;
+//   });
+// };
+//
+// this.getUser = function(id) {
+//   return $http({
+//     method: 'GET',
+//     url: '/user?_id=' + id
+//   }).then(function(response) {
+//     return response;
+//   });
+// };
 "use strict";
 
 angular.module("surveyApp").controller("navCtrl", function ($scope, authService, $state) {

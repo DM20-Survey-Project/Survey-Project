@@ -38,38 +38,22 @@ app.use(passport.session());
 
 
 
-// app.use(authMiddleware.validateQueryToken);
-// ///////// Auth Endpoints //////////
-// app.get('/auth/devmtn', passport.authenticate('devmtn'));
-// app.get('/auth/devmtn/callback', passport.authenticate('devmtn', { failureRedirect: '/#/' }), devmtnCtrl.loginSuccessRouter);
-// app.get('/api/logout', authCtrl.logout);
-//
-// function optionalCookieCheck(req, res, next) {
-//     if (req && req.cookies && req.cookies['jwtAuth']) {
-//         return passport.authenticate('jwt');
-//     } else {
-//         next();
-//     }
-// }
-// app.get('/api/current_user', authCtrl.current_user);
-// app.get('/api/current_admin_user', authCtrl.current_admin_user);
-// app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames)
-
-
-/////////// LOCAL LOGIN UNTIL DEVMTN //////////////
-app.post('/api/login', passport.authenticate('local-login'), authCtrl.successRespond);
-
-// Auth
-app.post('/api/signup', authCtrl.localSignup);
-
+app.use(authMiddleware.validateQueryToken);
+///////// Auth Endpoints //////////
+app.get('/auth/devmtn', passport.authenticate('devmtn'));
+app.get('/auth/devmtn/callback', passport.authenticate('devmtn', { failureRedirect: '/#/' }), devmtnCtrl.loginSuccessRouter);
 app.get('/api/logout', authCtrl.logout);
 
+function optionalCookieCheck(req, res, next) {
+    if (req && req.cookies && req.cookies['jwtAuth']) {
+        return passport.authenticate('jwt');
+    } else {
+        next();
+    }
+}
 app.get('/api/current_user', authCtrl.current_user);
-
 app.get('/api/current_admin_user', authCtrl.current_admin_user);
-
-
-
+app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames)
 
 
 
@@ -77,7 +61,7 @@ app.get('/api/current_admin_user', authCtrl.current_admin_user);
 
 
 ///////// Student Endpoints //////////
-app.get('/api/surveys/untaken/:student_id', studentSurveyCtrl.readUntaken);
+app.get('/api/surveys/untaken/:student_id', authCtrl.requireAuth, studentSurveyCtrl.readUntaken);
 app.get('/api/surveys/:id', authCtrl.requireAuth, studentSurveyCtrl.read);
 app.post('/api/surveys/results', authCtrl.requireAuth, studentSurveyCtrl.create);
 
@@ -117,7 +101,7 @@ app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 ///////// Cohort Endpoints //////////
 app.get('/api/admin/cohorts', authCtrl.requireAdminAuth, cohortCtrl.read);
 app.put('/api/admin/cohorts/:id', authCtrl.requireAdminAuth, cohortCtrl.update);
-app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
+// app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
 
 
 
@@ -136,21 +120,3 @@ mongoose.connection.once('open', function() {
         console.log('Listening on port ' + port);
     });
 });
-
-
-
-
-
-
-
-
-
-//////////INITILIZE APP////////////////////////////////////////
-
-/////////////MASSIVE SETUP ///////////////////////////////////
-
-///////////CONTROLLERS//////////////////////////////////////
-
-/////////////////////PRODUCTS ENDPOINTS//////////////////////
-
-//////////LISTEN/////////////////////////////////////

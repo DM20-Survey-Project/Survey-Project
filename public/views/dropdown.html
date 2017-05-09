@@ -2,7 +2,7 @@
 <h1 ng-show="isTemplate">Choose a Template</h1>
 <div class="admin-dropdown-container box-shadow">
     <div ng-hide="isTemplate" class="admin-send-survey-input" ng-click="show()">
-                <h3>{{selected.name}} - {{selected.location.city}}</h3>
+                <h3>{{selected.name}}</h3>
     </div>
     <div ng-show="isTemplate" class="admin-send-survey-input" ng-click="show()">
                 <h3>{{selected.title}} </h3>
@@ -18,10 +18,10 @@
             <div class="admin-dropdown-container-footer">
                 <input type="" name="" value="" ng-model="dropdownSearch">
                 <div ng-hide="isCohort" class="admin-home-button">
-                    <p>Add {{entities.type}}</p>
+                    <p>Add {{title}}</p>
                 </div>
                 <div ng-show="isCohort" class="admin-home-button">
-                    <p>Refresh {{entities.type}}s</p>
+                    <p>Refresh {{title}}s</p>
                 </div>
             </div>
         </div>
