@@ -1,6 +1,6 @@
 'use strict';
 
-liveangular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
+angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
 
     $urlRouterProvider.when('', '/');
 
