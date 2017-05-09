@@ -1,0 +1,38 @@
+
+
+@import "./variables";
+@import "./global.scss";
+@import "./adminStyles";
+@import "./userStyles.scss";
+
+
+.login-page-container {
+  position: absolute;
+	left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  h1 {
+    text-align: center
+  }
+  a {
+    text-decoration: none;
+  }
+}
+.login-page-button {
+  background-color: $blue;
+  position: relative;
+	padding: 10px;
+  text-decoration: none;
+  
+    p {
+      
+      text-align: center;
+      margin: 0;
+      color: $white;
+      font-size: 2em;
+    }
+  
+}
+.login-page-button:hover {
+  background-color: $blueHighlight
+}
