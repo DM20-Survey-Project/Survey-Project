@@ -484,14 +484,28 @@ dropdown-directive h2 {
   margin-bottom: 100px;
   cursor: pointer; }
 
-.loginPage {
+.login-page-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+  .login-page-container h1 {
+    text-align: center; }
+  .login-page-container a {
+    text-decoration: none; }
+
+.login-page-button {
   background-color: #25aae1;
-  height: 100px;
-  width: 10%;
   position: relative;
-  font-size: 60px;
-  top: 300px;
-  text-align: center;
-  left: 45%; }
+  padding: 10px;
+  text-decoration: none; }
+  .login-page-button p {
+    text-align: center;
+    margin: 0;
+    color: white;
+    font-size: 2em; }
+
+.login-page-button:hover {
+  background-color: #2BC3FF; }
 
 /*# sourceMappingURL=maps/styles.css.map */
