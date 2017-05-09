@@ -4,7 +4,7 @@ var resultsModel = require('.././models/ResultsModel');
 
 module.exports = {
 
-    create: function(req, res) {
+    create(req, res) {
 
         console.log('in studentSurveyCtrl');
         console.log('in create');
@@ -48,7 +48,7 @@ module.exports = {
         });
     },
 
-    read: function(req, res) {
+    read(req, res) {
         console.log('in studentSurveyCtrl');
         console.log('in read');
         console.log('req.params = ', req.params)
@@ -66,14 +66,12 @@ module.exports = {
             })
     },
 
-    readUntaken: function(req, res) {
+    readUntaken(req, res) {
         console.log('in studentSurveyCtrl');
         console.log('in readUntaken');
         console.log('req.params = ', req.params)
         surveysModel
-            .find({
-                usersUntaken: req.params.student_id
-            }, 'name description')
+            .find({ usersUntaken: req.params.student_id }, 'name description')
             .exec(function(err, result) {
                 console.log('err', err);
                 console.log('result', result);

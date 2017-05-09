@@ -2,90 +2,87 @@
 
 angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRouterProvider, $stateProvider) {
 
-  $urlRouterProvider.when('', '/');
+    $urlRouterProvider.when('', '/');
 
-  $stateProvider.state('user', {
-    templateUrl: 'views/user.html',
-    url: '/user',
-    params: { toastMessage: '' },
-    controller: 'userCtrl',
-    resolve: {
-      auth: function auth(authService, $state, $stateParams) {
-        return authService.checkForAuth().then(function (response) {
-          if (response.status === 200) {
-            return response.data;
-          }
-        }).catch(function (err) {
-          console.error('err = ', err);
-          $state.go('login', {
-            successRedirect: 'user'
-          });
-        });
-      }
-    }
+    $stateProvider.state('user', {
+        templateUrl: 'views/user.html',
+        url: '/user',
+        params: {
+            toastMessage: ''
+        },
+        controller: 'userCtrl',
+        resolve: {
+            auth: function auth(authService, $state, $stateParams) {
+                return authService.checkForAuth().then(function (response) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                }).catch(function (err) {
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
 
-  }).state('admin', {
-    templateUrl: 'views/admin.html',
-    url: '/admin',
-    controller: 'adminCtrl'
+    }).state('admin', {
+        templateUrl: 'views/admin.html',
+        url: '/admin',
+        controller: 'adminCtrl'
 
-  }).state('adminSendSurvey', {
-    templateUrl: 'views/adminSendSurvey.html',
-    url: '/admin/send-survey',
-    controller: 'adminSendSurveyCtrl'
+    }).state('adminSendSurvey', {
+        templateUrl: 'views/adminSendSurvey.html',
+        url: '/admin/send-survey',
+        controller: 'adminSendSurveyCtrl'
 
-  }).state('adminSendSurveyId', {
-    templateUrl: 'views/adminSendSurvey.html',
-    url: '/admin/send-survey/:id',
-    controller: 'adminSendSurveyCtrl'
+    }).state('adminSendSurveyId', {
+        templateUrl: 'views/adminSendSurvey.html',
+        url: '/admin/send-survey/:id',
+        controller: 'adminSendSurveyCtrl'
 
-  }).state('userSurveyPage', {
-    templateUrl: 'views/surveyPage.html',
-    url: '/user/surveyPage',
-    controller: 'userSurveyCtrl',
-    params: {
-      surveyId: ''
-    }
-    // resolve: {
-    //       // auth: function(authService, $state, $stateParams) {
-    //       //     return authService.checkForAuth()
-    //       //     .then(function( response ) {
-    //       //         if (response.status === 200) {
-    //       //             return response.data;
-    //       //         }
-    //       //     })
-    //       //     .catch(function(err) {
-    //       //         // For any error, send them back to admin login screen.
-    //       //         console.error('err = ', err);
-    //       //         $state.go('login', {
-    //       //             successRedirect: 'user'
-    //       //         });
-    //       //     });
-    //       // }
-    //   }
-  }).state('login', {
-    url: '/',
-    templateUrl: 'views/loginPage.html',
-    params: {
-      toastMessage: '',
-      successRedirect: ''
-    }
-  });
+    }).state('userSurveyPage', {
+        templateUrl: 'views/surveyPage.html',
+        url: '/user/surveyPage/:surveyId',
+        controller: 'userSurveyCtrl',
+        resolve: {
+            auth: function auth(authService, $state, $stateParams) {
+                return authService.checkForAuth().then(function (response) {
+                    if (response.status === 200) {
+                        return response.data;
+                    }
+                }).catch(function (err) {
+                    // For any error, send them back to admin landing screen.
+                    console.error('err = ', err);
+                    $state.go('login', {
+                        successRedirect: 'user'
+                    });
+                });
+            }
+        }
+    }).state('login', {
+        url: '/',
+        templateUrl: 'views/loginPage.html',
+        params: {
+            toastMessage: '',
+            successRedirect: ''
+        }
+    });
 
-  // .state('login', {
-  // url: '/',
-  // templateUrl: 'LocalAuth/views/login.html',
-  //     // params : {
-  //     //     toastMessage: '',
-  //     //     successRedirect: ''
-  //     // },
-  // controller: 'localLoginCtrl'
-  // })
-  // .state('signup', {
-  // url: '/signup',
-  // templateUrl: 'LocalAuth/views/signup.html',
-  // controller: 'localSignupCtrl'
-  // })
+    // .state('login', {
+    // url: '/',
+    // templateUrl: 'LocalAuth/views/login.html',
+    //     // params : {
+    //     //     toastMessage: '',
+    //     //     successRedirect: ''
+    //     // },
+    // controller: 'localLoginCtrl'
+    // })
+    // .state('signup', {
+    // url: '/signup',
+    // templateUrl: 'LocalAuth/views/signup.html',
+    // controller: 'localSignupCtrl'
+    // })
 
 });
 'use strict';
@@ -801,13 +798,12 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 			console.log('in readSurvey');
 			console.log('response', response);
 			$scope.survey = response.data;
-			$scope.initializeResults();
-			$scope.readTopic();
 		}).catch(function (err) {
 			console.error('err = ', err);
-			$state.go('student');
+			$state.go('user');
 		});
 	};
+	$scope.readSurvey();
 
 	$scope.getSliderValue = function (x) {
 
@@ -816,28 +812,28 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 	$scope.submit = function () {
 		var incompleteQuestions = [];
 
-		for (var i = 0; i < $scope.userData.questions.length; i++) {
-			if ($scope.userData.questions[i].required) {
-				if ($scope.userData.questions[i].answer) {
-					$scope.userData.questions[i].incomplete = false;
+		for (var i = 0; i < $scope.survey.questions.length; i++) {
+			if ($scope.survey.questions[i].required) {
+				if ($scope.survey.questions[i].answer) {
+					$scope.survey.questions[i].incomplete = false;
 				} else {
 
-					$scope.userData.questions[i].incomplete = true;
-					incompleteQuestions.push($scope.userData.questions[i]);
+					$scope.survey.questions[i].incomplete = true;
+					incompleteQuestions.push($scope.survey.questions[i]);
 				}
 			}
 		}
 		if (incompleteQuestions.length > 0) {
 			$scope.unansweredQuestions = true;
 		} else {
-			surveyService.writeSurveyResults($scope.userData.questions).then(function () {
+			userService.writeSurveyResults($scope.survey.questions).then(function () {
 				$state.go('user');
 			});
 		}
-		console.log($scope.userData.questions);
+		console.log($scope.survey.questions);
 	};
 	$scope.getSliderValue();
-	// console.log($scope.userData)
+	// console.log($scope.survey)
 });
 "use strict";
 
@@ -888,7 +884,7 @@ angular.module("surveyApp").service("userService", function ($http) {
     this.getTopic = function (topicId) {
         return $http({
             method: 'GET',
-            url: '/api/topics/' + topicId
+            url: '/api/topics?_id=' + topicId
         });
     };
 
@@ -909,7 +905,7 @@ angular.module("surveyApp").service("userService", function ($http) {
 });
 // .then(function(response) {
 //     console.log(response)
-//           
+//
 //   })
 // }
 
