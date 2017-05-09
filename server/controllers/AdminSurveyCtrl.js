@@ -6,8 +6,8 @@ const topicsModel = require('./../models/TopicsModel.js');
 const templatesModel = require('./../models/TemplatesModel');
 const mongoose = require('mongoose');
 // const _ = require('underscore');
-const ObjectId = mongoose.Types.ObjectId;
-const axios = require('axios');
+// const ObjectId = mongoose.Types.ObjectId;
+// const axios = require('axios');
 
 
 module.exports = {
@@ -63,7 +63,7 @@ module.exports = {
       var newSurvey = new surveysModel(req.body)
       var cohort_id = newSurvey.cohortSentTo;
         usersModel
-            .find({ 'cohort': cohort_id }, '_id')
+            .find({ 'cohortId': cohort_id })
             .exec(function(error, result) {
               console.log(result);
                 if (error) {

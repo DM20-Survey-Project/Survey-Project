@@ -1,10 +1,23 @@
-angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state, surveyService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state, $stateParams, userService) {
 
-	$scope.getSurveyById = function(){
-    $scope.userData = surveyService.getSurveyById();
-  }
 
-$scope.getSurveyById();
+	    console.log('$stateParams.surveyId = ', $stateParams.surveyId);
+
+			$scope.readSurvey = function() {
+       userService.getSurvey($stateParams.surveyId)
+       .then(function( response ) {
+            console.log('in takeSurveyCtrl');
+            console.log('in readSurvey')
+            console.log('response', response);
+            $scope.survey = response.data;
+            $scope.initializeResults();
+            $scope.readTopic();
+        })
+        .catch(function(err) {
+            console.error('err = ', err);
+            $state.go('student');
+        })
+    }
 
 $scope.getSliderValue = function(x) {
 

@@ -1,20 +1,5 @@
 const usersModel = require('./../models/UserModel');
 
-
-var checkRoles = function(user, role) {
-    for (var i = 0; i < user.roles.length; i++) {
-        if (user.roles[i] === role)
-            return true;
-    }
-    return false;
-}
-
-var setSignupDefaults = function(user) {
-    user.cohort = 350;
-    user.roles = ['student'];
-    return user;
-}
-
 module.exports = {
 
   successRespond(req, res) {
@@ -24,23 +9,8 @@ module.exports = {
 
   logout(req, res) {
     req.logout();
-    res.redirect('/!#/');
+    res.redirect('/#!/');
   },
-
-  localSignup: function(req, res) {
-    console.log('in localSignup');
-    console.log('req.body = ', req.body)
-    let user = setSignupDefaults(req.body);
-    console.log('user after setSignupDefaults = ', user)
-    let newUser = new usersModel(user);
-    // newUser.password = newUser.generateHash(newUser.password);
-    newUser.save(function(err, result) {
-        if (err)
-            return res.status(500).send(err);
-        else
-            res.send(result);
-    });
-},
 
   current_user(req, res) {
     if (req.isAuthenticated())

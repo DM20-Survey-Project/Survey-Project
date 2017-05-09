@@ -14,23 +14,23 @@ passport.use('devmtn', new DevmtnStrategy({
     jwtSecret: config.AUTH_CONFIG.jwtSecret
 }, function(jwtoken, user, done) {
     console.log("DEV USER: ", user);
-    if (!user.cohort) {
+    if (!user.cohortId) {
         // Add cohort 0 for people who do not have a cohort id
-        user.cohort = 0;
-        console.log('this user does not have a cohort id');
+        user.cohortId = 0;
+        // console.log('this user does not have a cohort id');
     }
 
     //Make sure we have that id in our database
     Cohort.findOne({
-        dmCohortId: user.cohort
+        dmCohortId: user.cohortId
     }).exec(function(findCohortErr, findCohortResult) {
         if (findCohortErr) {
             return done(findCohortErr);
         } else if (!findCohortResult) {
             //We Need to make the cohort first!
-            console.log('creating new cohort for id ', user.cohort);
+            console.log('creating new cohort for id ', user.cohortId);
             var newCohort = {
-                dmCohortId: user.cohort,
+                dmCohortId: user.cohortId,
             };
             Cohort.create(newCohort, function(createCohortErr, createdCohort) {
                 if (createCohortErr) {
@@ -41,7 +41,7 @@ passport.use('devmtn', new DevmtnStrategy({
             });
         } else {
             console.log('cohort exists');
-            finishLoginFunction(jwtoken, user, done, user.cohort);
+            finishLoginFunction(jwtoken, user, done, user.cohortId);
         }
     });
 
@@ -60,13 +60,13 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
         if (!foundUser) {
             var newUser = {
                 name: {
-                    first: user.firstName,
-                    last: user.lastName
+                    first: user.first_name,
+                    last: user.last_name
                 },
                 email: user.email,
                 dm_id: user.id.toString(),
                 roles: user.roles,
-                cohort: newId
+                cohortId: newId
             };
             User.create(newUser, function(createErr, createdUser) {
                 if (createErr) return done(createErr, null);
@@ -75,7 +75,7 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
             });
         } else {
             //Existing user found in my database
-            console.log('Welcome back, ' + foundUser.firstName + ' ' + foundUser.lastName);
+            console.log('Welcome back, ' + foundUser.name.first + ' ' + foundUser.name.last);
             console.log('USER DATA: ', user);
             foundUser.dm_id = user.id.toString();
             // Put this in an if statement so that our register page does not get overwritten
@@ -83,7 +83,7 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
             if (user.roles && user.roles.length > 0) {
                 console.log('Overwritting roles');
                 foundUser.roles = user.roles;
-            } else if (user.cohort) {
+            } else if (user.cohortId) {
                 foundUser.roles = [{
                     id: 6,
                     role: 'student'
@@ -91,8 +91,8 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
             }
             // //also update cohort (* if the system has one)
             // Commenting out until it gets updated appropriately.
-            if (user.cohort) {
-                foundUser.cohort = user.cohort;
+            if (user.cohortId) {
+                foundUser.cohort = user.cohortId;
             }
 
             //update roles from devmtn
@@ -128,10 +128,10 @@ var hasCustomRole = function(role, user) {
 
 module.exports = {
 
-  
+
     logout: function(req, res) {
         req.logout();
-        res.redirect('/#/');
+        res.redirect('/#!/');
     },
     loginSuccessRouter: function(req, res) {
         console.log("Login Success");
@@ -146,13 +146,13 @@ module.exports = {
             console.log("This person has roles: ", req.user.roles.length);
             if (Devmtn.checkRoles(req.user, 'admin')) {
                 console.log("This person is an admin, redirecting to admin page.");
-                res.redirect('/#/admin');
+                res.redirect('/#!/admin');
             } else if (Devmtn.checkRoles(req.user, 'student') || hasCustomRole('student', req.user)) {
                 console.log("This person is a student, redirecting to student page.")
-                res.redirect('/#/user/' + req.user._id);
+                res.redirect('/#!/user');
             } else if (Devmtn.checkRoles(req.user, 'mentor')) {
                 console.log("This person is a mentor, redirecting to student page.")
-                res.redirect('/#/user/' + req.user._id);
+                res.redirect('/#!/user/' + req.user._id);
             } else {
                 // Do something here to let them know they have no user role
             }
