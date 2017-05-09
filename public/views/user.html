@@ -17,22 +17,22 @@
 		</div>
 	</div> -->
 	<div class="user-surveys-left">
-		<div class="user-survey-container box-shadow" ng-repeat="survey in untakenSurveys">
+		<div class="user-survey-container box-shadow" ng-repeat="s in surveys.column1 track by $index">
 
-			<h2 class='testLook'>{{survey.name}}</h2>
-			<p>{{survey.description}}</p>
+			<h2 class='testLook'>{{s.name}}</h2>
+			<p>{{s.description}}</p>
 			<hr/>
-			<a ui-sref="userSurveyPage({surveyId: survey._id})"><div class="user-button">Take Survey</div></a>
+			<a ui-sref="userSurveyPage({surveyId: s._id})"><div class="user-button">Take Survey</div></a>
 		</div>
 	</div>
 
 	<div class="user-surveys-right">
-		<div class="user-survey-container box-shadow" ng-repeat="survey in userData.surveysB">
+		<div class="user-survey-container box-shadow" ng-repeat="s in surveys.column2 track by $index">
 
-			<h2 class='testLook'>{{survey.title}}</h2>
-			<p>{{survey.description}}</p>
+			<h2 class='testLook'>{{s.name}}</h2>
+			<p>{{s.description}}</p>
 			<hr/>
-			<a ui-sref="userSurveyPage({surveyId: survey._id})"><div class="user-button">Take Survey</div></a>
+			<a ui-sref="userSurveyPage({surveyId: s._id})"><div class="user-button">Take Survey</div></a>
 		</div>
 	</div>
 

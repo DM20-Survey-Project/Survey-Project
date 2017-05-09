@@ -1,0 +1,36 @@
+<div class="user-survey-box box-shadow" >
+
+	<h4 ng-class="{incomplete: question.incomplete == true}">{{question.questionText}}</h4>
+
+	<div ng-show="textAnswer">
+	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..." ng-model="textValue"></textarea>
+</div>
+
+
+
+<div ng-show="numberAnswer" class="user-numberAnswer">
+	<!-- <span  style="color:red;" id="slider-value"></span> -->
+<div class="user-rating-min">{{question.min.tag}}</div>
+
+<div class="user-thumb-slider">
+<div ng-bind-html="numberString"></div>
+<input type="range" min="{{question.min.value}}" max="{{question.max.value}}" value="1" name="slider"  ng-model="sliderValue" >
+<h3 class="display-value">{{sliderValue}}</h3>
+</div>
+
+<div class="user-rating-max">{{question.max.tag}}</div>
+<!-- <output for="slider" onforminput="value = foo.valueAsNumber;"></output> -->
+</div>
+
+
+
+	<div ng-show="booleanAnswer" class="user-answer">
+		<form action="">
+		<input type="radio" name="answer" value="true" >Yes
+		<input type="radio" name="answer" value="false" >No<br>
+</form>
+	</div>
+
+<!-- ng-click="answerno(question)" -->
+
+</div>

@@ -10,6 +10,10 @@ angular.module('surveyApp').service('entityService', function() {
                 response.push(cohorts)
                 break;
         
+            case 'topic':
+                response.push(topics)
+                break;
+        
             default:
                 break;
           }
@@ -20,7 +24,7 @@ angular.module('surveyApp').service('entityService', function() {
 
 
   var mentors = {
-        type: 'Mentor',
+        type: 'mentor',
         entities: [
       {
           name: 'Michael Memory',
@@ -146,7 +150,7 @@ angular.module('surveyApp').service('entityService', function() {
     }
 
   var cohorts = {
-        type: "Cohort",
+        type: "cohort",
         entities: [
         {
             name: 'DM20',
@@ -201,6 +205,37 @@ angular.module('surveyApp').service('entityService', function() {
               state: 'Utah'
 
           },
+        },
+    ]
+}
+
+var topics = {
+        type: "topic",
+        entities: [
+        {
+            name: 'Jquery',
+            id: 1
+            
+        },
+        {
+            name: 'Angular',
+            id: 2
+            
+        },
+        {
+            name: 'HTML/CSS',
+            id: 3
+            
+        },
+        {
+            name: 'React',
+            id: 4
+            
+        },
+        {
+            name: 'Mentoring',
+            id: 5
+            
         },
     ]
     }

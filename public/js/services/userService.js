@@ -1,14 +1,5 @@
 angular.module("surveyApp").service("userService", function($http) {
 
-
-
-    this.getUntaken = function(studentId) {
-        return $http({
-            method: 'GET',
-            url: '/api/surveys/untaken/' + studentId
-        });
-    }
-
     this.getSurvey = function(surveyId) {
         return $http({
             method: 'GET',
@@ -17,14 +8,14 @@ angular.module("surveyApp").service("userService", function($http) {
     }
 
     this.getTopic = function(topicId) {
-    	return $http({
+        return $http({
             method: 'GET',
-            url: '/api/topics/' + topicId
+            url: '/api/topics?_id=' + topicId
         });
-     }
+    }
 
-     this.writeSurveyResults = function(data) {
-    	return $http({
+    this.writeSurveyResults = function(data) {
+        return $http({
             method: 'POST',
             url: '/api/surveys/results',
             data: data
@@ -32,7 +23,21 @@ angular.module("surveyApp").service("userService", function($http) {
     }
 
 
+    this.getUntaken = function(studentId) {
+        return $http({
+            method: 'GET',
+            url: '/api/surveys/untaken/' + studentId
+        });
+      }
+    });
+      // .then(function(response) {
+      //     console.log(response)
+      //
+      //   })
+      // }
 
+
+    //
     // this.getUsers = function() {
     //   return $http({
     //     method: 'GET',
@@ -50,4 +55,3 @@ angular.module("surveyApp").service("userService", function($http) {
     //     return response;
     //   });
     // };
-});

@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  first_name: {type: 'String', required: true},
-  last_name: {type: 'String', required: true},
-  cohort:  {type: 'Number', required: true},
-  email: {type: 'String', required: true},
-  password: {type: 'String', required: true},
-  roles: [{type: 'String', required: true}]
+  email: {type: String, required: true, unique: true},
+  dm_id: {type: String},
+  cohortId:  {type: Number},
+  roles: {type: mongoose.Schema.Types.Mixed},
+  name: {
+    first: {type: String},
+    last: {type: String}
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
