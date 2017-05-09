@@ -219,6 +219,28 @@ dropdown-directive h2 {
   position: relative;
   left: 50%;
   transform: translate(-50%); }
+  .admin-send-survey-questions h2 {
+    text-align: center;
+    margin: 20px; }
+
+.admin-send-survey-description {
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%); }
+  .admin-send-survey-description h2 {
+    margin: 10px;
+    text-align: center; }
+  .admin-send-survey-description textarea {
+    width: 100%;
+    border-width: 0;
+    padding: 10px;
+    font-size: 1.2em; }
+  .admin-send-survey-description textarea:focus {
+    outline: none;
+    border-color: #25aae1;
+    border-width: 0; }
 
 .user-content {
   width: 100vw;
