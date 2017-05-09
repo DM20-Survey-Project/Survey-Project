@@ -10,8 +10,14 @@ const QuestionSchema = new Schema({
     enum: [ 'numeric', 'boolean', 'text' ]
   },
   required: { type: Boolean, required: true },
-  lowValue: { type: Number, min: 1 },
-  highValue: { type: Number, min: 1 }
+  min: {
+    value: Number,
+    tag: String
+  },
+  max: {
+    value: Number,
+    tag: String
+  }
 });
 
 module.exports = QuestionSchema
