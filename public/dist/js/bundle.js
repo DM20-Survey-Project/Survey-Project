@@ -100,13 +100,111 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 });
 'use strict';
 
+angular.module('surveyApp').directive('adminQuestionDirective', function () {
+	return {
+		templateUrl: "views/adminQuestion.html",
+		restrict: 'E',
+		scope: {
+			question: '='
+
+		},
+		controller: function controller($scope, $state) {
+
+			/////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
+			if ($scope.question.type == 'text') {
+				// $scope.numberAnswer = false;
+				$scope.textAnswer = true;
+			}
+			///////////ng-show=numberAnswer/false ///////////////////////////////////////
+			//////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
+			else if ($scope.question.type == 'numeric') {
+					$scope.numberAnswer = true;
+					$scope.numberString = '';
+				}
+
+				/////////ng-show=booleanAnswer/false /////////////////////////
+				else if ($scope.question.type == 'boolean') {
+
+						$scope.booleanAnswer = true;
+					} else {}
+		},
+		link: function link(scope, element, attributes) {
+			// scope.numberAnswer = true;
+		}
+	};
+});
+'use strict';
+
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
 
+  $scope.survey = {
+    entities: {}
+  };
+  $scope.submitDisabled = true;
+
   $scope.templates = templateService.getTemplates();
-  $scope.check = function () {
+
+  $scope.checkTemplate = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate();
-    console.log($scope.selectedTemplate);
+
+    $scope.survey.questions = $scope.selectedTemplate.template.questions;
+    $scope.survey.title = $scope.selectedTemplate.template.title;
+
+    //TODO fix this
+    $scope.survey.entities = {};
+    for (var i = 0; i < $scope.selectedTemplate.types.length; i++) {
+      $scope.survey.entities[$scope.selectedTemplate.types[i]];
+      if ($scope.survey.entities[$scope.selectedTemplate.types[i]]) {
+        console.log('!!!FOUND ONE!!!');
+      } else {
+        $scope.survey.entities[$scope.selectedTemplate.types[i]] = undefined;
+      }
+    }
+
+    $scope.entities = [];
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    $scope.checkCompleted();
+  };
+  $scope.check = function () {
+    $scope.survey.description = $scope.surveyDescription;
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    $scope.checkCompleted();
+    console.log($scope.survey);
+  };
+
+  $scope.checkCompleted = function () {
+    var incompleteVars = [];
+    for (var key in $scope.survey.entities) {
+      if ($scope.survey.entities.hasOwnProperty(key)) {
+        if (!$scope.survey.entities[key]) {
+          incompleteVars.push(key + ' not filled');
+        }
+      }
+    }
+    if (incompleteVars.length > 0) {
+      $scope.submitDisabled = true;
+      $scope.submitText = "Fill out all variables";
+    } else {
+      $scope.submitDisabled = false;
+      $scope.submitText = "Send Survey to " + $scope.survey.entities.cohort.name;
+    }
+  };
+  $scope.replaceTitle = function replaceTitle(title, entities) {
+
+    var titleArr = title.split(' ');
+    for (var key in entities) {
+      if (entities.hasOwnProperty(key)) {
+        if (entities[key]) {
+          for (var i = 0; i < titleArr.length; i++) {
+            if (titleArr[i].indexOf(key) != -1) {
+              titleArr.splice(i, 1, entities[key].name);
+            }
+          }
+        }
+      }
+    }
+    return titleArr.join(' ');
   };
 });
 'use strict';
@@ -118,7 +216,9 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
     scope: {
       entities: '=',
       title: '=',
-      check: '&'
+      check: '&',
+      checkTemplate: '&',
+      surveyEntities: '='
 
     },
     controller: function controller($scope, $state, templateService) {
@@ -137,13 +237,15 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
             if ($scope.entities[i].id == id) {
               $scope.selected = $scope.entities[i];
               templateService.giveSelected($scope.selected);
-              $scope.check();
+              $scope.checkTemplate();
             }
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
             if ($scope.entities.entities[i].id == id) {
               $scope.selected = $scope.entities.entities[i];
+              $scope.surveyEntities[$scope.entities.type] = $scope.selected;
+              $scope.check();
             }
           }
         }
@@ -174,6 +276,10 @@ angular.module('surveyApp').service('entityService', function () {
                     response.push(cohorts);
                     break;
 
+                case 'topic':
+                    response.push(topics);
+                    break;
+
                 default:
                     break;
             }
@@ -182,7 +288,7 @@ angular.module('surveyApp').service('entityService', function () {
     };
 
     var mentors = {
-        type: 'Mentor',
+        type: 'mentor',
         entities: [{
             name: 'Michael Memory',
             id: 1,
@@ -295,7 +401,7 @@ angular.module('surveyApp').service('entityService', function () {
     };
 
     var cohorts = {
-        type: "Cohort",
+        type: "cohort",
         entities: [{
             name: 'DM20',
             id: 1,
@@ -344,6 +450,31 @@ angular.module('surveyApp').service('entityService', function () {
                 state: 'Utah'
 
             }
+        }]
+    };
+
+    var topics = {
+        type: "topic",
+        entities: [{
+            name: 'Jquery',
+            id: 1
+
+        }, {
+            name: 'Angular',
+            id: 2
+
+        }, {
+            name: 'HTML/CSS',
+            id: 3
+
+        }, {
+            name: 'React',
+            id: 4
+
+        }, {
+            name: 'Mentoring',
+            id: 5
+
         }]
     };
 });
@@ -504,7 +635,7 @@ angular.module('surveyApp').service('templateService', function () {
         return parsedEntities;
     };
     var recentTemplates = [{
-        title: '$$cohort$$ - Unit 1 Survey',
+        title: '$$cohort$$ - $$topic$$ - Unit 1 Survey',
         id: 1,
         questions: [{
             questionText: 'How good is micahel memory at mentoring?',

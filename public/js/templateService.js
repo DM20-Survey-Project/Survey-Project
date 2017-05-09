@@ -45,7 +45,7 @@ angular.module('surveyApp').service('templateService', function() {
   }
   var recentTemplates = [
       {
-          title: '$$cohort$$ - Unit 1 Survey',
+          title: '$$cohort$$ - $$topic$$ - Unit 1 Survey',
           id: 1,
           questions: [
             {

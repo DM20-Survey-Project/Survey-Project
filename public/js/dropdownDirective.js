@@ -6,7 +6,9 @@ angular.module('surveyApp')
     scope: {
       entities: '=',
       title: '=',
-      check: '&'
+      check: '&',
+      checkTemplate: '&',
+      surveyEntities: '='
       
     },
     controller: function( $scope, $state, templateService ) {
@@ -26,7 +28,7 @@ angular.module('surveyApp')
             if ($scope.entities[i].id == id) {
               $scope.selected = $scope.entities[i]
               templateService.giveSelected($scope.selected)
-              $scope.check()
+              $scope.checkTemplate()
             }
             
           }
@@ -34,6 +36,8 @@ angular.module('surveyApp')
           for (var i = 0; i < $scope.entities.entities.length; i++) {
             if ($scope.entities.entities[i].id == id) {
               $scope.selected = $scope.entities.entities[i]
+              $scope.surveyEntities[$scope.entities.type] = $scope.selected
+              $scope.check()
             }
             
           }
