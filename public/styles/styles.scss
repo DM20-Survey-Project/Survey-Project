@@ -6,13 +6,33 @@
 @import "./userStyles.scss";
 
 
-.loginPage {
+.login-page-container {
+  position: absolute;
+	left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  h1 {
+    text-align: center
+  }
+  a {
+    text-decoration: none;
+  }
+}
+.login-page-button {
   background-color: $blue;
-  height: 100px;
-  width: 10%;
   position: relative;
-  font-size: 60px;
-  top: 300px;
-  text-align: center;
-  left: 45%;
+	padding: 10px;
+  text-decoration: none;
+  
+    p {
+      
+      text-align: center;
+      margin: 0;
+      color: $white;
+      font-size: 2em;
+    }
+  
+}
+.login-page-button:hover {
+  background-color: $blueHighlight
 }
