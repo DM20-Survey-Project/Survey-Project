@@ -703,7 +703,7 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
                     $scope.untakenSurveys.push(e);
                 });
             }
-            // console.log($scope.untakenSurveys)
+            console.log($scope.untakenSurveys);
             $scope.surveys = {
                 column1: [],
                 column2: []
@@ -715,6 +715,7 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
                     continue;
                 } else {
                     $scope.surveys.column2.push($scope.untakenSurveys[i]);
+                    continue;
                     // console.log($scope.untakenSurveys[i])
                 }
 
