@@ -1,5 +1,33 @@
-angular.module('surveyApp').service('surveyService', function() {
+angular.module('surveyApp').service('surveyService', function($http) {
 
+  this.getUntaken = function(studentId) {
+      return $http({
+          method: 'GET',
+          url: '/api/surveys/untaken/' + studentId
+      });
+  }
+
+  this.getSurvey = function(surveyId) {
+      return $http({
+          method: 'GET',
+          url: '/api/surveys/' + surveyId
+      });
+  }
+
+  this.getTopic = function(topicId) {
+    return $http({
+          method: 'GET',
+          url: '/api/topics/' + topicId
+      });
+   }
+
+   this.writeSurveyResults = function(data) {
+    return $http({
+          method: 'POST',
+          url: '/api/surveys/results',
+          data: data
+      });
+  }
 
   this.getRecentSurveys = function () {
       return recentSurveys
@@ -41,52 +69,60 @@ angular.module('surveyApp').service('surveyService', function() {
     title: 'DM20-WHATEVER',
     description: 'LOREMMMMMM',
     questions: [
-      {
-        questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'text',
-        required: true
+            {
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'text',
+                required: true
 
 
-      },{
-        questionTitle: 'uhwoueofhoeir?',
-        type: 'boolean',
-        required: true
+            },{
+                questionText: 'uhwoueofhoeir?',
+                type: 'boolean',
+                required: true
 
 
-      },{
-        questionTitle: 'How good is micahel memoryasdfring?',
-        type: 'number',
-        required: true,
-        min: {
-          value: 1,
-          tag: 'Very Poor'
-        },
-        max: {
-          value: 20,
-          tag: 'Very Good'
-        }
+            },{
+                questionText: 'How good is micahel memoryasdfring?',
+                type: 'numeric',
+                required: true,
+                min: {
+                value: 1,
+                tag: 'Very Poor'
+                },
+                max: {
+                value: 20,
+                tag: 'Very Good'
+                }
 
 
-      },{
-        questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'boolean',
-        required: true
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'boolean',
+                required: true
 
 
-      },{
-        questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'text',
-        required: true
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'text',
+                required: true
 
 
-      },{
-        questionTitle: 'How good is micahel memory at mentoring?',
-        type: 'number',
-        required: true
+            },{
+                questionText: 'How good is micahel memory at mentoring?',
+                type: 'numeric',
+                required: true,
+                min: {
+                value: 1,
+                tag: 'Very Bad'
+                },
+                max: {
+                value: 5,
+                tag: 'Very Great'
+                }
 
 
-      },
-    ]
+            },
+        ]
   }
 
   });
