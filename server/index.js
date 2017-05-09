@@ -101,7 +101,7 @@ app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 ///////// Cohort Endpoints //////////
 app.get('/api/admin/cohorts', authCtrl.requireAdminAuth, cohortCtrl.read);
 app.put('/api/admin/cohorts/:id', authCtrl.requireAdminAuth, cohortCtrl.update);
-app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
+// app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
 
 
 

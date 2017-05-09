@@ -1,6 +1,6 @@
 module.exports = {
   PORT: 3000,
-  MONGO_URI: 'mongodb://localhost:27017/survey-project',
+  MONGO_URI: 'mongodb://DM20SurveyGroup:dmsurveysproject@ds131099.mlab.com:31099/surveys-database',
   SESSION_SECRET: 'devmtnSurveysProject',
   AUTH_CONFIG: {
         app: 'surveysclone',
