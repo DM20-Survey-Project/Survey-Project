@@ -37,7 +37,6 @@ angular.module('surveyApp')
             if ($scope.entities.entities[i].id == id) {
               $scope.selected = $scope.entities.entities[i]
               $scope.surveyEntities[$scope.entities.type] = $scope.selected
-              console.log($scope.selected);
               $scope.check()
             }
             

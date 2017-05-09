@@ -21,7 +21,6 @@ angular.module('surveyApp').directive('adminQuestionDirective', function(){
 					$scope.numberAnswer = true;
 					$scope.numberString = '';
 
-					console.log($scope.sliderValue)
 				}
 
 	/////////ng-show=booleanAnswer/false /////////////////////////

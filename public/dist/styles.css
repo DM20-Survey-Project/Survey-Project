@@ -242,6 +242,27 @@ dropdown-directive h2 {
     border-color: #25aae1;
     border-width: 0; }
 
+.admin-send-survey-submit {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  width: 500px;
+  padding: 10px;
+  background-color: #383838;
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px; }
+
+.admin-send-survey-submit:hover {
+  background-color: #2BC3FF; }
+
+.admin-send-survey-submit:disabled {
+  background-color: #A0A0A0;
+  cursor: default; }
+
 .user-content {
   width: 100vw;
   background-color: #f4f4f4;
