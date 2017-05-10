@@ -1,5 +1,5 @@
-var localStrategy = require('passport-local').Strategy,
-    user = require('../models/UserModel');
+const localStrategy = require('passport-local').Strategy;
+const user = require('../models/UserModel');
 
 module.exports = function(passport) {
 
@@ -7,8 +7,6 @@ module.exports = function(passport) {
         console.log("user = ", user);
         done(null, user.id);
     });
-
-    // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         console.log("id = ", id);
         user.findById(id, function(err, user) {

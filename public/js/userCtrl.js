@@ -30,7 +30,10 @@ angular.module('surveyApp').controller('userCtrl', function($scope, $state, $sta
                         $scope.untakenSurveys.push(e);
                     })
                 }
-                // console.log($scope.untakenSurveys)
+                if ($scope.untakenSurveys.length === 0) {
+                  $scope.noSurveys = true;
+                }
+                console.log($scope.untakenSurveys)
                 $scope.surveys = {
                     column1: [],
                     column2: []
