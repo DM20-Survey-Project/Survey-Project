@@ -1,5 +1,5 @@
-var cohortModel = require('./../models/CohortModel');
-var axios = require('axios');
+const cohortModel = require('./../models/CohortModel');
+const axios = require('axios');
 
 module.exports = {
 

@@ -1,13 +1,11 @@
-var surveysModel = require('.././models/SurveysModel');
-var usersModel = require('.././models/UserModel');
-var resultsModel = require('.././models/ResultsModel');
+const surveysModel = require('.././models/SurveysModel');
+const usersModel = require('.././models/UserModel');
+const resultsModel = require('.././models/ResultsModel');
 
 module.exports = {
 
     create(req, res) {
-
-        console.log('in studentSurveyCtrl');
-        console.log('in create');
+        console.log('in studentSurveyCtrl create');
         console.log('req.body = ', req.body);
 
         var newResults = new resultsModel(req.body)
@@ -17,7 +15,7 @@ module.exports = {
             else {
                 var surveyUser = newResults._doc.user;
                 var survey = newResults._doc.survey;
-                console.log('after newResults.save');
+                console.log('after newResults save');
                 console.log('surveyUser', surveyUser);
                 console.log('survey', survey);
                 surveysModel
