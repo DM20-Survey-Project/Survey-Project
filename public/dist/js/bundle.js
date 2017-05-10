@@ -744,6 +744,7 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
                     continue;
                 } else {
                     $scope.surveys.column2.push($scope.untakenSurveys[i]);
+                    continue;
                     // console.log($scope.untakenSurveys[i])
                 }
 
@@ -928,7 +929,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 "use strict";
 'use strict';
 
-angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, $stateParams, userService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, authService, $stateParams, userService) {
 
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
@@ -963,11 +964,27 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 		if (incompleteQuestions.length > 0) {
 			$scope.unansweredQuestions = true;
 		} else {
-			userService.writeSurveyResults($scope.survey.questions).then(function () {
+			var results = {
+				surveyId: $scope.survey._id,
+				results: $scope.survey.questions
+
+			};
+			console.log('this is scope.survey', $scope.survey);
+			console.log('results', results);
+
+			userService.writeSurveyResults(results).then(function () {
 				$state.go('user');
 			});
 		}
 		console.log($scope.survey.questions);
+	};
+	$scope.logout = function () {
+		console.log('working');
+		authService.logout().then(function (response) {
+			if (response.status === 200) {
+				$state.go('login');
+			}
+		});
 	};
 	$scope.getSliderValue();
 	// console.log($scope.survey)

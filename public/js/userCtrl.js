@@ -42,6 +42,7 @@ angular.module('surveyApp').controller('userCtrl', function($scope, $state, $sta
                         continue;
                     } else {
                         $scope.surveys.column2.push($scope.untakenSurveys[i])
+                        continue;
                         // console.log($scope.untakenSurveys[i])
                     }
 

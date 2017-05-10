@@ -37,7 +37,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 					$scope.numberAssignAnswer = function(){
 						$scope.question.answer = $scope.sliderValue
 					}
-					
+
 				}
 
 	/////////ng-show=booleanAnswer/false /////////////////////////
@@ -49,5 +49,5 @@ angular.module('surveyApp').directive('userQuestionDirective', function(){
 	    link: function(scope, element, attributes ) {
 				// scope.numberAnswer = true;
 	    }
-	  }
+		}
 })
