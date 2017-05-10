@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const QuestionSchema = require('./../schema/QuestionSchema');
+const ResultsSchema = require('./../models/ResultsModel');
 const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({
@@ -9,11 +10,12 @@ const SurveySchema = new Schema({
   usersSentTo: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   usersUntaken: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   dateSent: { type: Date, required: true },
-  topic: { type: Schema.Types.ObjectId, ref: 'Topics' },
+  topic: { type: String },
   entities: {
 
   },
-  questions: [QuestionSchema]
+  questions: [QuestionSchema],
+  results: []
 });
 
 module.exports = mongoose.model('Surveys', SurveySchema);

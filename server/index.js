@@ -37,7 +37,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 app.use(authMiddleware.validateQueryToken);
 ///////// Auth Endpoints //////////
 app.get('/auth/devmtn', passport.authenticate('devmtn'));
