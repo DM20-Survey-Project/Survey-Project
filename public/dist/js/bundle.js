@@ -563,6 +563,10 @@ angular.module('surveyApp').service('surveyService', function ($http) {
         }]
     };
 });
+
+{
+    title: "$$cohort$$ - $$topic$$ - Unit 1 Survey";
+}
 'use strict';
 
 angular.module('surveyApp').service('templateService', function () {
