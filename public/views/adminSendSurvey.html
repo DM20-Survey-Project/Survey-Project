@@ -28,9 +28,9 @@
 
                 </div>
             </div>
-            <button type="" class="admin-send-survey-submit box-shadow" ng-show="selectedTemplate.template" ng-disabled="submitDisabled">{{submitText}}</button>
+            <button type="" ng-click="submitSurvey()" class="admin-send-survey-submit box-shadow" ng-show="selectedTemplate.template" ng-disabled="submitDisabled">{{submitText}}</button>
             <div ng-show="selectedTemplate.template" class="admin-send-survey-description">
-                <h2>{{survey.title}}</h2>
+                
                 <h2>Survey Description</h2>
                 <textarea rows="3" cols="" class=" box-shadow" placeholder="Type something here..." ng-change="check()" ng-model="surveyDescription"></textarea>
             </div>
