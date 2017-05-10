@@ -160,13 +160,17 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
 
     $scope.entities = [];
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
-    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
     $scope.checkCompleted();
   };
   $scope.check = function () {
     $scope.survey.description = $scope.surveyDescription;
-    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+
     $scope.checkCompleted();
+    console.log($scope.survey);
+  };
+
+  $scope.submitSurvey = function () {
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
     console.log($scope.survey);
   };
 
@@ -479,35 +483,6 @@ angular.module('surveyApp').service('entityService', function () {
 
 angular.module('surveyApp').service('surveyService', function ($http) {
 
-    this.getUntaken = function (studentId) {
-        return $http({
-            method: 'GET',
-            url: '/api/surveys/untaken/' + studentId
-        });
-    };
-
-    this.getSurvey = function (surveyId) {
-        return $http({
-            method: 'GET',
-            url: '/api/surveys/' + surveyId
-        });
-    };
-
-    this.getTopic = function (topicId) {
-        return $http({
-            method: 'GET',
-            url: '/api/topics/' + topicId
-        });
-    };
-
-    this.writeSurveyResults = function (data) {
-        return $http({
-            method: 'POST',
-            url: '/api/surveys/results',
-            data: data
-        });
-    };
-
     this.getRecentSurveys = function () {
         return recentSurveys;
     };
@@ -732,7 +707,10 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
                     $scope.untakenSurveys.push(e);
                 });
             }
-            // console.log($scope.untakenSurveys)
+            if ($scope.untakenSurveys.length === 0) {
+                $scope.noSurveys = true;
+            }
+            console.log($scope.untakenSurveys);
             $scope.surveys = {
                 column1: [],
                 column2: []
@@ -744,6 +722,7 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
                     continue;
                 } else {
                     $scope.surveys.column2.push($scope.untakenSurveys[i]);
+                    continue;
                     // console.log($scope.untakenSurveys[i])
                 }
 
@@ -919,7 +898,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 "use strict";
 'use strict';
 
-angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, $stateParams, userService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, authService, auth, $stateParams, userService) {
 
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
@@ -935,6 +914,30 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 		});
 	};
 	$scope.readSurvey();
+
+	// $scope.processForm = function() {
+	//            $scope.newResults.user = auth._id;
+	//            $scope.newResults.survey = $stateParams.surveyId;
+	//            $scope.newResults.topic = $scope.topicId;
+	//            console.log('newResults = ', $scope.newResults);
+	//            takeSurveyService.writeSurveyResults($scope.newResults)
+	//            .then(function(response) {
+	//                console.log('in takeSurveyCtrl');
+	//                console.log('in processForm');
+	//                console.log('response', response);
+	//                if (response.status === 200) {
+	//                    $state.go('user', {
+	//                        toastMessage: 'Survey Successfully Submitted'
+	//                    });
+	//                }
+	//             })
+	//            .catch(function(err) {
+	//            // For any error, send them back to admin login screen.
+	//                console.error('err = ', err);
+	//                $scope.errorMsg = 'Error Submitting Survey';
+	//            });
+	//        }
+
 
 	$scope.getSliderValue = function (x) {
 
@@ -957,14 +960,26 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 		if (incompleteQuestions.length > 0) {
 			$scope.unansweredQuestions = true;
 		} else {
-			userService.writeSurveyResults($scope.survey.questions).then(function () {
+			var results = {
+				surveyId: $scope.survey._id,
+				userId: auth._id,
+				results: $scope.survey.questions
+
+			};
+			console.log('this is scope.survey', $scope.survey);
+			console.log('results', results);
+
+			userService.writeSurveyResults(results).then(function () {
 				$state.go('user');
 			});
 		}
 		console.log($scope.survey.questions);
 	};
 	$scope.getSliderValue();
-	// console.log($scope.survey)
+	console.log($scope.survey);
+
+	// authService.
+
 });
 "use strict";
 

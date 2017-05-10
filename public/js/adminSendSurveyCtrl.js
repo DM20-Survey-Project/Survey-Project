@@ -28,14 +28,18 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, s
     
     $scope.entities = []
     $scope.entities = entityService.getEntities($scope.selectedTemplate.types)
-    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities)
     $scope.checkCompleted()
     
   }
   $scope.check = function () {
     $scope.survey.description = $scope.surveyDescription
-    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities)
+    
     $scope.checkCompleted()
+    console.log($scope.survey);
+  }
+
+  $scope.submitSurvey = function () {
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities)
     console.log($scope.survey);
   }
 

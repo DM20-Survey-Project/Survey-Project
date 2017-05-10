@@ -1,4 +1,4 @@
-angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state, $stateParams, userService) {
+angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state, authService, auth, $stateParams, userService) {
 
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
@@ -16,6 +16,32 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state
         })
     }
 		$scope.readSurvey();
+
+		// $scope.processForm = function() {
+	  //            $scope.newResults.user = auth._id;
+	  //            $scope.newResults.survey = $stateParams.surveyId;
+	  //            $scope.newResults.topic = $scope.topicId;
+	  //            console.log('newResults = ', $scope.newResults);
+	  //            takeSurveyService.writeSurveyResults($scope.newResults)
+	  //            .then(function(response) {
+	  //                console.log('in takeSurveyCtrl');
+	  //                console.log('in processForm');
+	  //                console.log('response', response);
+	  //                if (response.status === 200) {
+	  //                    $state.go('user', {
+	  //                        toastMessage: 'Survey Successfully Submitted'
+	  //                    });
+	  //                }
+	  //             })
+	  //            .catch(function(err) {
+	  //            // For any error, send them back to admin login screen.
+	  //                console.error('err = ', err);
+	  //                $scope.errorMsg = 'Error Submitting Survey';
+	  //            });
+	  //        }
+
+
+
 
 $scope.getSliderValue = function(x) {
 
@@ -43,8 +69,17 @@ var incompleteQuestions = [];
 		$scope.unansweredQuestions = true;
 
 	} else {
-		userService.writeSurveyResults($scope.survey.questions).then(function(){
-			$state.go('user')
+		var results = {
+            surveyId: $scope.survey._id,
+						userId: auth._id,
+            results: $scope.survey.questions
+
+        }
+        console.log('this is scope.survey',$scope.survey)
+        console.log('results',results )
+
+        userService.writeSurveyResults(results).then(function(){
+            $state.go('user')
 		});
 
 	}
@@ -52,5 +87,19 @@ var incompleteQuestions = [];
 
 }
 $scope.getSliderValue();
-// console.log($scope.survey)
+console.log($scope.survey)
+
+
+
+
+// authService.
+
+
+
+
+
+
+
+
+
 });

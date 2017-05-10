@@ -1,10 +1,10 @@
-var passport = require('passport'),
-    mongoose = require('mongoose'),
-    Devmtn = require('devmtn-auth'),
-    config = require('../config'),
-    DevmtnStrategy = Devmtn.Strategy,
-    User = require('../models/UserModel'),
-    Cohort = require('../models/CohortModel');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const Devmtn = require('devmtn-auth');
+const config = require('../config');
+const DevmtnStrategy = Devmtn.Strategy;
+const User = require('../models/UserModel');
+const Cohort = require('../models/CohortModel');
 
 //////// Set up passport using devmtn login strategy ////////
 passport.use('devmtn', new DevmtnStrategy({
@@ -30,7 +30,6 @@ passport.use('devmtn', new DevmtnStrategy({
             var newCohort = {
                 dmCohortId: user.cohortId,
             };
-//////// The creation of the new cohort ////////
             Cohort.create(newCohort, function(createCohortErr, createdCohort) {
                 if (createCohortErr) {
                     done(createCohortErr);

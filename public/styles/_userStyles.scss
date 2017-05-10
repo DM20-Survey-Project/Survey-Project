@@ -72,6 +72,10 @@
 
 .testLook {}
 
+.user-survey-title {
+  text-align: center;
+}
+
 .user-surveys-left {
     float: left;
     margin-left: 100px;
@@ -176,7 +180,7 @@
         padding: 7px;
         font-weight: 400;
         font-size: 1.2em;
-        
+
     }
 
     textarea {}
@@ -277,7 +281,7 @@
 .user-question-wrapper {
     padding-right: 300px;
     padding-left: 300px;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 .user-button-answers {
   position: relative;

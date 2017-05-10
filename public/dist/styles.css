@@ -318,6 +318,9 @@ dropdown-directive h2 {
     width: 80%;
     color: lightgrey; }
 
+.user-survey-title {
+  text-align: center; }
+
 .user-surveys-left {
   float: left;
   margin-left: 100px; }
@@ -470,7 +473,7 @@ dropdown-directive h2 {
 .user-question-wrapper {
   padding-right: 300px;
   padding-left: 300px;
-  padding-top: 100px; }
+  padding-top: 50px; }
 
 .user-button-answers {
   position: relative;
