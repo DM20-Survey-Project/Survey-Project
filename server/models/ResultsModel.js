@@ -6,7 +6,7 @@ const ResultsSchema = new Schema({
   survey: { type: Schema.Types.ObjectId, ref: 'Surveys' },
   user: { type: Schema.Types.ObjectId, ref: 'Users' },
   answers: [AnswerSchema],
-  topic: { type: Schema.Types.ObjectId, ref: 'Topics' },
+  topic: { type: String, ref: 'Topics' },
   archived: { type: Boolean, default: false }
 });
 

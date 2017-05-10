@@ -8,11 +8,12 @@
   <h1 class="user-survey-title">{{survey.name}}</h1>
   <p class="user-survey-title">{{survey.description}}</p>
 	<div class="user-question-wrapper">
-		<div ng-repeat="q in survey.questions">
-			<user-question-directive question = "q"></user-question-directive>
-
-		</div>
-	</div>
-  <div class="user-button-answers" ng-click="submit()" >Submit</div>
+    <form ng-submit="processForm()">
+      <div ng-repeat="q in survey.questions">
+			     <user-question-directive question = "q"></user-question-directive>
+		  </div>
+  <input class="user-button-answers" type="submit" >Submit</input>
+</form>
+</div>
 </div>
 <div class="footer"></div>

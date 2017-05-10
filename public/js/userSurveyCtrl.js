@@ -17,40 +17,76 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state
     }
 		$scope.readSurvey();
 
-$scope.getSliderValue = function(x) {
 
- console.log(x)
-}
-$scope.submit = function(){
-var incompleteQuestions = [];
+		$scope.processForm = function() {
+	         var allRequiredAnswered = $scope.checkForRequired();
+	         if (allRequiredAnswered) {
+	             $scope.newResults = $scope.convertValues()
+	             $scope.newResults.user = auth._id;
+	             $scope.newResults.survey = $stateParams.surveyId;
+	             $scope.newResults.topic = $scope.topicId;
+	             console.log('newResults = ', $scope.newResults);
+	             takeSurveyService.writeSurveyResults($scope.newResults)
+	             .then(function(response) {
+	                 console.log('in takeSurveyCtrl');
+	                 console.log('in processForm');
+	                 console.log('response', response);
+	                 if (response.status === 200) {
+	                     $state.go('user', {
+	                         toastMessage: 'Survey Successfully Submitted'
+	                     });
+	                 }
+	              })
+	             .catch(function(err) {
+	             // For any error, send them back to admin login screen.
+	                 console.error('err = ', err);
+	                 $scope.errorMsg = 'Error Submitting Survey';
+	             });
+	         }
+	         else {
+	         /*   alert('Need to answer all required questions shown in red');*/
+	             $('#validation_modal').openModal();
+	         }
+	     }
 
 
 
 
-	for (var i = 0; i < $scope.survey.questions.length; i++) {
-		if($scope.survey.questions[i].required ){
-			if($scope.survey.questions[i].answer){
-				$scope.survey.questions[i].incomplete = false;
-
-			} else {
-
-				$scope.survey.questions[i].incomplete = true;
-				incompleteQuestions.push($scope.survey.questions[i])
-			}
-		}
-	}
-	if(incompleteQuestions.length > 0 ){
-		$scope.unansweredQuestions = true;
-
-	} else {
-		userService.writeSurveyResults($scope.survey.questions).then(function(){
-			$state.go('user')
-		});
-
-	}
-	console.log($scope.survey.questions)
-
-}
-$scope.getSliderValue();
+//
+// $scope.getSliderValue = function(x) {
+//
+//  console.log(x)
+// }
+// $scope.submit = function(){
+// var incompleteQuestions = [];
+//
+//
+//
+//
+// 	for (var i = 0; i < $scope.survey.questions.length; i++) {
+// 		if($scope.survey.questions[i].required ){
+// 			if($scope.survey.questions[i].answer){
+// 				$scope.survey.questions[i].incomplete = false;
+//
+// 			} else {
+//
+// 				$scope.survey.questions[i].incomplete = true;
+// 				incompleteQuestions.push($scope.survey.questions[i])
+// 			}
+// 		}
+// 	}
+// 	if(incompleteQuestions.length > 0 ){
+// 		$scope.unansweredQuestions = true;
+//
+// 	} else {
+// 		userService.writeSurveyResults($scope.survey.questions).then(function(){
+// 			$state.go('user')
+// 		});
+//
+// 	}
+// 	console.log($scope.survey.questions)
+//
+// }
+// $scope.getSliderValue();
 // console.log($scope.survey)
 });
