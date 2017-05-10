@@ -2,15 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AnswerSchema = new Schema({
+  questionText: { type: String, required: true },
   type: {
     type: String,
     lowercase: true,
     required: true,
     enum: [ 'numeric', 'boolean', 'text' ]
   },
-  numericAnswer: { type: Number, min: 1 },
-  booleanAnswer: { type: Boolean },
-  textAnswer: { type: String }
+  required: { type: Boolean, required: true },
+  min: {
+    value: Number,
+    tag: String
+  },
+  max: {
+    value: Number,
+    tag: String
+  },
+  answer: { type: String }
 });
 
 module.exports = AnswerSchema;
