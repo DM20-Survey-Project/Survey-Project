@@ -20,6 +20,7 @@ const devmtnCtrl = require('./controllers/DevMtnAuthCtrl');
 const authCtrl = require('./controllers/AuthCtrl');
 const jwtAuthCtrl = require('./controllers/jwtAuthCtrl');
 const cohortCtrl = require('./controllers/CohortCtrl');
+const entitiesCtrl = require('./controllers/EntitiesCtrl');
 jwt = require
 require('./controllers/passport')(passport);
 
@@ -100,9 +101,13 @@ app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 ///////// Cohort Endpoints //////////
 app.get('/api/admin/cohorts', authCtrl.requireAdminAuth, cohortCtrl.read);
 app.put('/api/admin/cohorts/:id', authCtrl.requireAdminAuth, cohortCtrl.update);
-// app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
+app.get('/api/admin/checkDevMountainCohorts', cohortCtrl.checkDevMountain);
 
 
+///////// Entities Endpoints //////////
+app.get('/api/entities', entitiesCtrl.readByType);
+app.delete('/api/entities/:id', entitiesCtrl.delete);
+app.post('/api/entities', entitiesCtrl.create);
 
 
 
