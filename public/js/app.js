@@ -82,6 +82,11 @@
                     successRedirect: ''
                 }
             });
+            .state('adminTemplate', {
+              url: '/admin/adminTemplate',
+              templateUrl: "views/templatePage.html",
+              controller: 'templateCtrl'
+            });
 
 
         // .state('login', {

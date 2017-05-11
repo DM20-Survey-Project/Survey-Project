@@ -907,11 +907,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 "use strict";
 'use strict';
 
-<<<<<<< HEAD
-angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, authService, $stateParams, userService) {
-=======
 angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $state, authService, auth, $stateParams, userService) {
->>>>>>> master
 
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
@@ -928,9 +924,6 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 	};
 	$scope.readSurvey();
 
-<<<<<<< HEAD
-	$scope.getSliderValue = function (x) {};
-=======
 	// $scope.processForm = function() {
 	//            $scope.newResults.user = auth._id;
 	//            $scope.newResults.survey = $stateParams.surveyId;
@@ -955,11 +948,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 	//        }
 
 
-	$scope.getSliderValue = function (x) {
-
-		console.log(x);
-	};
->>>>>>> master
+	$scope.getSliderValue = function (x) {};
 	$scope.submit = function () {
 		var incompleteQuestions = [];
 
@@ -978,11 +967,9 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 			$scope.unansweredQuestions = true;
 		} else {
 			var results = {
+
 				surveyId: $scope.survey._id,
-<<<<<<< HEAD
-=======
 				userId: auth._id,
->>>>>>> master
 				results: $scope.survey.questions
 
 			};
