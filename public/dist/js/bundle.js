@@ -97,6 +97,26 @@ angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyServ
 });
 'use strict';
 
+angular.module('surveyApp').directive('adminModalDirective', function () {
+	return {
+		templateUrl: "views/adminModal.html",
+		restrict: 'E',
+		scope: {
+			action: '=',
+			deleteSubject: '=',
+			close: '&'
+		},
+		controller: function controller($scope, $state) {
+			console.log($scope.deleteSubject);
+			$scope.delete = function () {
+				$scope.close();
+			};
+		},
+		link: function link(scope, element, attributes) {}
+	};
+});
+'use strict';
+
 angular.module('surveyApp').directive('adminQuestionDirective', function () {
 	return {
 		templateUrl: "views/adminQuestion.html",
@@ -132,12 +152,47 @@ angular.module('surveyApp').directive('adminQuestionDirective', function () {
 });
 'use strict';
 
-angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, surveyService, templateService, entityService) {
+angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, $state, surveyService, templateService, entityService) {
 
   $scope.survey = {
     entities: {}
   };
   $scope.submitDisabled = true;
+  $scope.modalActive = false;
+  $scope.modalType = 'delete';
+  $scope.testModalDeleteSubject = {
+    name: 'Bingo Jackson',
+    id: 4,
+    type: 'mentor',
+    location: {
+      city: 'Salt Lake City',
+      state: 'Utah'
+
+    }
+  };
+
+  $scope.test2ModalDeleteSubject = {
+    name: 'Angular',
+    id: 4,
+    type: 'topic',
+    location: {
+      city: 'Salt Lake City',
+      state: 'Utah'
+
+    }
+  };
+
+  $scope.closeModal = function () {
+    $scope.modalActive = false;
+  };
+  $scope.openModal = function (type, deleteSubject) {
+    $scope.modalType = type;
+    console.log(deleteSubject);
+    if (type === 'delete') {
+      $scope.modalDeleteSubject = deleteSubject;
+    }
+    $scope.modalActive = true;
+  };
 
   $scope.templates = templateService.getTemplates();
 
@@ -175,7 +230,9 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
     $scope.survey.usersTaken = [];
     $scope.survey.cohortSentTo = $scope.survey.entities.cohort.id;
     $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
-    surveyService.sendSurvey($scope.survey);
+    surveyService.sendSurvey($scope.survey).then(function () {
+      $state.go('admin');
+    });
     console.log($scope.survey);
   };
 
@@ -224,13 +281,14 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       title: '=',
       check: '&',
       checkTemplate: '&',
-      survey: '='
+      survey: '=',
+      openModal: '&'
 
     },
     controller: function controller($scope, $state, templateService) {
       $scope.isCohort = false;
       $scope.isTemplate = false;
-
+      $scope.openModal = $scope.openModal();
       if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {
@@ -298,6 +356,7 @@ angular.module('surveyApp').service('entityService', function () {
         entities: [{
             name: 'Michael Memory',
             id: 1,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -307,6 +366,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Max Rodewald',
             id: 2,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -316,6 +376,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Brett Gardiner',
             id: 3,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -325,6 +386,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Bingo Jackson',
             id: 4,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -334,6 +396,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'HeeHaw Horseman',
             id: 5,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -343,6 +406,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Gunsmoke',
             id: 6,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -352,6 +416,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Michael Memory',
             id: 7,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -361,6 +426,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Max Rodewald',
             id: 8,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -370,6 +436,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Brett Gardiner',
             id: 9,
+            type: 'mentor',
             location: {
                 city: 'Provo',
                 state: 'Utah'
@@ -379,6 +446,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Bingo Jackson',
             id: 10,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -388,6 +456,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'HeeHaw Horseman',
             id: 11,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -397,6 +466,7 @@ angular.module('surveyApp').service('entityService', function () {
         }, {
             name: 'Gunsmoke',
             id: 12,
+            type: 'mentor',
             location: {
                 city: 'Salt Lake City',
                 state: 'Utah'
@@ -471,23 +541,28 @@ angular.module('surveyApp').service('entityService', function () {
         type: "topic",
         entities: [{
             name: 'Jquery',
-            id: 1
+            id: 1,
+            type: 'topic'
 
         }, {
             name: 'Angular',
-            id: 2
+            id: 2,
+            type: 'topic'
 
         }, {
             name: 'HTML/CSS',
-            id: 3
+            id: 3,
+            type: 'topic'
 
         }, {
             name: 'React',
-            id: 4
+            id: 4,
+            type: 'topic'
 
         }, {
             name: 'Mentoring',
-            id: 5
+            id: 5,
+            type: 'topic'
 
         }]
     };

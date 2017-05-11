@@ -10,9 +10,9 @@
     <div ng-show="shown" class="admin-dropdown-hidden box-shadow">
         <div ng-if="!isTemplate">
             <div class="admin-dropdown-entity-container">
-                <div class="admin-dropdown-entity" ng-click="select(entity.id)" ng-repeat="entity in entities.entities | filter:dropdownSearch">
-                    <p>{{entity.name}} - {{entity.location.city}}</p>
-                    <i class="fa fa-times" aria-hidden="true"></i>
+                <div class="admin-dropdown-entity"  ng-repeat="entity in entities.entities | filter:dropdownSearch">
+                    <p ng-click="select(entity.id)">{{entity.name}} - {{entity.location.city}}</p>
+                    <i class="fa fa-times" aria-hidden="true" ng-click="openModal('delete', entity)"></i>
                 </div>
             </div>
             <div class="admin-dropdown-container-footer">
@@ -27,8 +27,8 @@
         </div>
         <div ng-if="isTemplate">
             <div class="admin-dropdown-entity-container">
-                <div class="admin-dropdown-entity" ng-click="select(entity.id)" ng-repeat="entity in entities | filter:dropdownSearch">
-                    <p>{{entity.title}}</p>
+                <div class="admin-dropdown-entity"  ng-repeat="entity in entities | filter:dropdownSearch">
+                    <p ng-click="select(entity.id)">{{entity.title}}</p>
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
             </div>

@@ -1,9 +1,44 @@
-angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, surveyService, templateService, entityService) {
+angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $state, surveyService, templateService, entityService) {
   
   $scope.survey = {
     entities: {}
   };
   $scope.submitDisabled = true
+  $scope.modalActive = false
+  $scope.modalType = 'delete'
+  $scope.testModalDeleteSubject = {
+     name: 'Bingo Jackson',
+          id: 4,
+          type: 'mentor',
+          location: {
+              city: 'Salt Lake City',
+              state: 'Utah'
+
+          },
+  }
+
+  $scope.test2ModalDeleteSubject = {
+     name: 'Angular',
+          id: 4,
+          type: 'topic',
+          location: {
+              city: 'Salt Lake City',
+              state: 'Utah'
+
+          },
+  }
+
+  $scope.closeModal = function () {
+    $scope.modalActive = false;
+  }
+  $scope.openModal = function (type, deleteSubject) {
+    $scope.modalType = type
+    console.log(deleteSubject);
+    if (type === 'delete') {
+      $scope.modalDeleteSubject = deleteSubject
+    }
+    $scope.modalActive = true;
+  }
 
   $scope.templates = templateService.getTemplates()
 
@@ -44,7 +79,9 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, s
     $scope.survey.usersTaken = []
     $scope.survey.cohortSentTo = $scope.survey.entities.cohort.id
     $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities)
-    surveyService.sendSurvey($scope.survey)
+    surveyService.sendSurvey($scope.survey).then(function () {
+      $state.go('admin')
+    })
     console.log($scope.survey);
   }
 

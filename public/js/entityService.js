@@ -29,6 +29,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Michael Memory',
           id: 1,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -39,6 +40,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Max Rodewald',
           id: 2,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -49,6 +51,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Brett Gardiner',
           id: 3,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -59,6 +62,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Bingo Jackson',
           id: 4,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -69,6 +73,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'HeeHaw Horseman',
           id: 5,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -79,6 +84,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Gunsmoke',
           id: 6,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -89,6 +95,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Michael Memory',
           id: 7,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -99,6 +106,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Max Rodewald',
           id: 8,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -109,6 +117,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Brett Gardiner',
           id: 9,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -119,6 +128,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Bingo Jackson',
           id: 10,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -129,6 +139,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'HeeHaw Horseman',
           id: 11,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -139,6 +150,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Gunsmoke',
           id: 12,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -223,30 +235,36 @@ var topics = {
         entities: [
         {
             name: 'Jquery',
-            id: 1
+            id: 1,
+            type: 'topic',
             
         },
         {
             name: 'Angular',
-            id: 2
+            id: 2,
+            type: 'topic',
             
         },
         {
             name: 'HTML/CSS',
-            id: 3
+            id: 3,
+            type: 'topic',
             
         },
         {
             name: 'React',
-            id: 4
+            id: 4,
+            type: 'topic',
             
         },
         {
             name: 'Mentoring',
-            id: 5
+            id: 5,
+            type: 'topic',
             
         },
     ]
     }
   
 })
+

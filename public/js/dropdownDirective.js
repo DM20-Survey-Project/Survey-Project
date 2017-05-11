@@ -8,13 +8,14 @@ angular.module('surveyApp')
       title: '=',
       check: '&',
       checkTemplate: '&',
-      survey: '='
+      survey: '=',
+      openModal: '&'
       
     },
     controller: function( $scope, $state, templateService ) {
       $scope.isCohort = false
       $scope.isTemplate = false;
-
+      $scope.openModal = $scope.openModal()
       if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {

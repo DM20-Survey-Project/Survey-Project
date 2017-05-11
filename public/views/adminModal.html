@@ -1,0 +1,15 @@
+<div class="admin-modal-background">
+    <div ng-show="action === 'create'" class="admin-add-modal-container">
+        <h1>Hello I am test</h1>
+    </div>
+
+    <div ng-show="action === 'delete'" class="admin-delete-modal-container">
+        <p>Are you sure you want to permanently delete <b>{{deleteSubject.name}}</b> from <b>{{deleteSubject.type.charAt(0).toUpperCase() + deleteSubject.type.slice(1)}}s</b>?</p>
+        <div class="admin-delete-button " ng-click="delete()">
+            Delete
+        </div>
+        <div class="admin-cancel-button" ng-click="close()">
+            Cancel
+        </div>
+    </div>
+</div>

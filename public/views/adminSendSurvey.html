@@ -1,3 +1,4 @@
+<div ng-class="{blur: modalActive}">
 <div class="header">
     <div class="content admin-header">
         <a ui-sref="admin">
@@ -18,6 +19,7 @@
 </div>
 <div class="min-height">
     <div class="content">
+        
         <div class="admin-send-survey-dropdowns">
             
             <div ng-show="selectedTemplate.template.questions" class="admin-send-survey-questions">
@@ -40,7 +42,7 @@
             <div ng-repeat="type in entities">
                 <div class="admin-dropdown-box-templates">
                     
-                    <dropdown-directive entities="type" survey="survey" title="type.type.charAt(0).toUpperCase() + type.type.slice(1)" check-template="checkTemplate()" check="check()"></dropdown-directive>
+                    <dropdown-directive entities="type" survey="survey" title="type.type.charAt(0).toUpperCase() + type.type.slice(1)" check-template="checkTemplate()" check="check()" open-modal="openModal"></dropdown-directive>
                 </div>
             </div>
             <div class="admin-dropdown-box-templates">
@@ -48,13 +50,18 @@
                 <dropdown-directive entities="templates" title="'Template'" check-template="checkTemplate()" check="check()"></dropdown-directive>
             </div>
         </div>
-
+<button type="" ng-click="openModal('delete', testModalDeleteSubject )">test</button>
+<button type="" ng-click="openModal('delete', test2ModalDeleteSubject )">test2</button>
         
         
     </div>
 
     
 </div>
+
 <div class="footer">
     
 </div>
+
+</div>
+<admin-modal-directive ng-show="modalActive" action="modalType" delete-subject="modalDeleteSubject" close="closeModal()"></admin-modal-directive>
