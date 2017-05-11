@@ -162,6 +162,15 @@ angular.module('surveyApp').service('entityService', function() {
           },
         },
         {
+            name: 'DMTEST',
+            id: 350,
+            location: {
+              city: 'Provo',
+              state: 'Utah'
+
+          },
+        },
+        {
             name: 'DM19',
             id: 2,
             location: {

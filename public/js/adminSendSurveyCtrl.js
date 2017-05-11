@@ -39,7 +39,12 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, s
   }
 
   $scope.submitSurvey = function () {
+    $scope.survey.results = [];
+    $scope.survey.usersSentTo = []
+    $scope.survey.usersTaken = []
+    $scope.survey.cohortSentTo = $scope.survey.entities.cohort.id
     $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities)
+    surveyService.sendSurvey($scope.survey)
     console.log($scope.survey);
   }
 
