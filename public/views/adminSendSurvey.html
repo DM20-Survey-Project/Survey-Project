@@ -40,7 +40,7 @@
             <div ng-repeat="type in entities">
                 <div class="admin-dropdown-box-templates">
                     
-                    <dropdown-directive entities="type" survey-entities="survey.entities" title="type.type.charAt(0).toUpperCase() + type.type.slice(1)" check-template="checkTemplate()" check="check()"></dropdown-directive>
+                    <dropdown-directive entities="type" survey="survey" title="type.type.charAt(0).toUpperCase() + type.type.slice(1)" check-template="checkTemplate()" check="check()"></dropdown-directive>
                 </div>
             </div>
             <div class="admin-dropdown-box-templates">

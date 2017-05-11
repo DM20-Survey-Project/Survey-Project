@@ -170,7 +170,12 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
   };
 
   $scope.submitSurvey = function () {
+    $scope.survey.results = [];
+    $scope.survey.usersSentTo = [];
+    $scope.survey.usersTaken = [];
+    $scope.survey.cohortSentTo = $scope.survey.entities.cohort.id;
     $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    surveyService.sendSurvey($scope.survey);
     console.log($scope.survey);
   };
 
@@ -219,7 +224,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       title: '=',
       check: '&',
       checkTemplate: '&',
-      surveyEntities: '='
+      survey: '='
 
     },
     controller: function controller($scope, $state, templateService) {
@@ -245,7 +250,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
             if ($scope.entities.entities[i].id == id) {
               $scope.selected = $scope.entities.entities[i];
-              $scope.surveyEntities[$scope.entities.type] = $scope.selected;
+              $scope.survey.entities[$scope.entities.type] = $scope.selected;
               $scope.check();
             }
           }
@@ -412,6 +417,14 @@ angular.module('surveyApp').service('entityService', function () {
 
             }
         }, {
+            name: 'DMTEST',
+            id: 350,
+            location: {
+                city: 'Provo',
+                state: 'Utah'
+
+            }
+        }, {
             name: 'DM19',
             id: 2,
             location: {
@@ -482,6 +495,14 @@ angular.module('surveyApp').service('entityService', function () {
 'use strict';
 
 angular.module('surveyApp').service('surveyService', function ($http) {
+
+    this.sendSurvey = function (data) {
+        return $http({
+            method: 'POST',
+            url: '/api/admin/surveys',
+            data: data
+        });
+    };
 
     this.getRecentSurveys = function () {
         return recentSurveys;
@@ -563,6 +584,10 @@ angular.module('surveyApp').service('surveyService', function ($http) {
         }]
     };
 });
+
+{
+    title: "$$cohort$$ - $$topic$$ - Unit 1 Survey";
+}
 'use strict';
 
 angular.module('surveyApp').service('templateService', function () {
