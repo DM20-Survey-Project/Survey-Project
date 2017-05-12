@@ -20,6 +20,7 @@ const devmtnCtrl = require('./controllers/DevMtnAuthCtrl');
 const authCtrl = require('./controllers/AuthCtrl');
 const jwtAuthCtrl = require('./controllers/jwtAuthCtrl');
 const cohortCtrl = require('./controllers/CohortCtrl');
+const entitiesCtrl = require('./controllers/EntitiesCtrl');
 jwt = require
 require('./controllers/passport')(passport);
 
@@ -52,7 +53,6 @@ function optionalCookieCheck(req, res, next) {
 }
 app.get('/api/current_user', authCtrl.current_user);
 app.get('/api/current_admin_user', authCtrl.current_admin_user);
-app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames)
 
 
 
@@ -77,9 +77,11 @@ app.get('/api/admin/surveyfilter', adminSurveyCtrl.readFilterOptions);
 app.post('/api/admin/surveys', adminSurveyCtrl.create);
 
 ///////// Template Endpoints //////////
-app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames);
-app.get('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.read);
-app.post('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.create);
+
+app.get('/api/admin/templates', templatesCtrl.readNames);
+app.get('/api/admin/templates/:id', templatesCtrl.read);
+app.post('/api/admin/templates', templatesCtrl.create);
+
 app.put('/api/admin/templates/:id', templatesCtrl.update);
 app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
 
@@ -100,9 +102,13 @@ app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 ///////// Cohort Endpoints //////////
 app.get('/api/admin/cohorts', authCtrl.requireAdminAuth, cohortCtrl.read);
 app.put('/api/admin/cohorts/:id', authCtrl.requireAdminAuth, cohortCtrl.update);
-// app.get('/api/admin/checkDevMountainCohorts', authCtrl.requireAdminAuth, cohortCtrl.checkDevMountain);
+app.get('/api/admin/checkDevMountainCohorts', cohortCtrl.checkDevMountain);
 
 
+///////// Entities Endpoints //////////
+app.post('/api/entities', entitiesCtrl.readByType);
+app.delete('/api/entities/:id', entitiesCtrl.delete);
+app.post('/api/addentity', entitiesCtrl.create);
 
 
 

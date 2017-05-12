@@ -8,13 +8,16 @@ angular.module('surveyApp')
       title: '=',
       check: '&',
       checkTemplate: '&',
-      surveyEntities: '='
+
+      survey: '=',
+      openModal: '&'
+
 
     },
     controller: function( $scope, $state, templateService ) {
       $scope.isCohort = false
       $scope.isTemplate = false;
-
+      $scope.openModal = $scope.openModal()
       if ($scope.title === 'Cohort') {
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {
@@ -34,9 +37,9 @@ angular.module('surveyApp')
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
-            if ($scope.entities.entities[i].id == id) {
+            if ($scope.entities.entities[i]._id == id) {
               $scope.selected = $scope.entities.entities[i]
-              $scope.surveyEntities[$scope.entities.type] = $scope.selected
+              $scope.survey.entities[$scope.entities.type] = $scope.selected
               $scope.check()
             }
 

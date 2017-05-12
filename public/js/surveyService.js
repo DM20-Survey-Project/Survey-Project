@@ -1,8 +1,14 @@
 angular.module('surveyApp').service('surveyService', function($http) {
 
-this.updateTemplate = function(data,id){
 
-return $http({
+    this.sendSurvey = function(data) {
+        return $http({
+            method: 'POST',
+            url: '/api/admin/surveys',
+            data: data
+        });
+    }
+
 
   method: 'PUT',
   url: '/api/admin/templates/' + data.id,
@@ -108,3 +114,7 @@ return $http({
   }
 
   });
+
+{
+    title: "$$cohort$$ - $$topic$$ - Unit 1 Survey"
+}

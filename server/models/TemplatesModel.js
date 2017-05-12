@@ -3,8 +3,7 @@ const QuestionSchema = require('./../schema/QuestionSchema');
 const Schema = mongoose.Schema;
 
 const TemplatesSchema = new Schema({
-  name: { type: String, required: true },
-  description: { type: String },
+  title: { type: String, required: true },
   questions: [QuestionSchema]
 });
 
