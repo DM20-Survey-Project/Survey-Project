@@ -1,26 +1,39 @@
-angular.module('surveyApp').service('entityService', function() {
-  this.getEntities = function (requestedEntites) {
-      var response = []
-      for (var i = 0; i < requestedEntites.length; i++) {
-          switch (requestedEntites[i]) {
-            case 'mentor':
-                response.push(mentors)
-                break;
-            case 'cohort':
-                response.push(cohorts)
-                break;
-        
-            case 'topic':
-                response.push(topics)
-                break;
-        
-            default:
-                break;
-          }
-          
+angular.module('surveyApp').service('entityService', function($http) {
+  this.getEntities = function(data) {
+      var entityPackage = {
+          types: data
       }
-      return response
-  }
+        return $http({
+            method: 'POST',
+            url: '/api/entities',
+            data: entityPackage
+        }).then(function (response) {
+            console.log(response.data);
+            return response
+        })
+    }
+    this.addEntity = function(data) {
+      
+        return $http({
+            method: 'POST',
+            url: '/api/addentity',
+            data: data
+        }).then(function (response) {
+            console.log(response.data);
+            return response
+        })
+    }
+
+    this.deleteEntity = function(data) {
+      
+        return $http({
+            method: 'DELETE',
+            url: '/api/entities/' + data
+        }).then(function (response) {
+            console.log(response.data);
+            return response
+        })
+    }
 
 
   var mentors = {
@@ -29,6 +42,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Michael Memory',
           id: 1,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -39,6 +53,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Max Rodewald',
           id: 2,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -49,6 +64,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Brett Gardiner',
           id: 3,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -59,6 +75,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Bingo Jackson',
           id: 4,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -69,6 +86,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'HeeHaw Horseman',
           id: 5,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -79,6 +97,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Gunsmoke',
           id: 6,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -89,6 +108,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Michael Memory',
           id: 7,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -99,6 +119,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Max Rodewald',
           id: 8,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -109,6 +130,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Brett Gardiner',
           id: 9,
+          type: 'mentor',
           location: {
               city: 'Provo',
               state: 'Utah'
@@ -119,6 +141,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Bingo Jackson',
           id: 10,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -129,6 +152,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'HeeHaw Horseman',
           id: 11,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -139,6 +163,7 @@ angular.module('surveyApp').service('entityService', function() {
       {
           name: 'Gunsmoke',
           id: 12,
+          type: 'mentor',
           location: {
               city: 'Salt Lake City',
               state: 'Utah'
@@ -223,30 +248,36 @@ var topics = {
         entities: [
         {
             name: 'Jquery',
-            id: 1
+            id: 1,
+            type: 'topic',
             
         },
         {
             name: 'Angular',
-            id: 2
+            id: 2,
+            type: 'topic',
             
         },
         {
             name: 'HTML/CSS',
-            id: 3
+            id: 3,
+            type: 'topic',
             
         },
         {
             name: 'React',
-            id: 4
+            id: 4,
+            type: 'topic',
             
         },
         {
             name: 'Mentoring',
-            id: 5
+            id: 5,
+            type: 'topic',
             
         },
     ]
     }
   
 })
+

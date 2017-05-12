@@ -105,9 +105,9 @@ app.get('/api/admin/checkDevMountainCohorts', cohortCtrl.checkDevMountain);
 
 
 ///////// Entities Endpoints //////////
-app.get('/api/entities', entitiesCtrl.readByType);
+app.post('/api/entities', entitiesCtrl.readByType);
 app.delete('/api/entities/:id', entitiesCtrl.delete);
-app.post('/api/entities', entitiesCtrl.create);
+app.post('/api/addentity', entitiesCtrl.create);
 
 
 
