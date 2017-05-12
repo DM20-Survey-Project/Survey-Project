@@ -26,7 +26,7 @@ angular.module('surveyApp')
       $scope.select = function (id) {
         if ($scope.isTemplate) {
           for (var i = 0; i < $scope.entities.length; i++) {
-            if ($scope.entities[i].id == id) {
+            if ($scope.entities[i]._id == id) {
               $scope.selected = $scope.entities[i]
               templateService.giveSelected($scope.selected)
               $scope.checkTemplate()

@@ -53,7 +53,7 @@ function optionalCookieCheck(req, res, next) {
 }
 app.get('/api/current_user', authCtrl.current_user);
 app.get('/api/current_admin_user', authCtrl.current_admin_user);
-app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames)
+app.get('/api/admin/templates',  templatesCtrl.readNames)
 
 
 

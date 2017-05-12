@@ -8,31 +8,12 @@ angular.module('surveyApp').service('surveyService', function($http) {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  this.getRecentSurveys = function () {
-      return recentSurveys
-  }
+    this.getSurveys = function () {
+      return $http({
+            method: 'GET',
+            url: '/api/admin/surveys',
+        });
+    }
   this.getSurveyById = function () {
     return survey
   }
