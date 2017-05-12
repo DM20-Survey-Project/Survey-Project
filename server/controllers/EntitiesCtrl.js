@@ -6,6 +6,7 @@ module.exports = {
 
     create(req, res) {
         console.log('Creating new entity...');
+        console.log(req.body);
         let newEntity = new entitiesModel(req.body)
         newEntity.save((err, result) => {
             if (err)
@@ -17,9 +18,9 @@ module.exports = {
 
     readByType(req, res) {
         console.log('Reading entity by type...');
-
-        var entities = ['topic', 'mentor', 'cohort'];
-        var package = [];
+        console.log(req.body);
+        var entities = req.body.types;
+        var entityPackage = [];
         var index = -1;
         for (var i = 0; i < entities.length; i++) {
           index++
@@ -35,9 +36,9 @@ module.exports = {
                           type: 'cohort',
                           entities: result
                       }
-                      package.push(cohortPayload)
-                      if (package.length === entities.length) {
-                          res.send(package)
+                      entityPackage.push(cohortPayload)
+                      if (entityPackage.length === entities.length) {
+                          res.send(entityPackage)
                       }
                     }
                   })
@@ -65,12 +66,12 @@ module.exports = {
                             }
                           }
                             // console.log('Payload ', payload)
-                            package.push(payload)
+                            entityPackage.push(payload)
                             // index++
-                            if (package.length === entities.length) {
+                            if (entityPackage.length === entities.length) {
                                 // console.log('Package ', package)
                                 // console.log('index', result[0])
-                                res.send(package)
+                                res.send(entityPackage)
                             }
                         }
                     })

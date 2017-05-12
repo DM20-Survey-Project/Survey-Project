@@ -293,8 +293,10 @@ dropdown-directive {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: $white;
+	width: 500px;
 	h1 {
 		display: inline-block;
+		margin: 5px;
 	}
 }
 .admin-delete-modal-container {
@@ -325,6 +327,25 @@ dropdown-directive {
 	background-color: $redHighlight;
 	
 }
+.admin-submit-button {
+	background-color: $blue;
+	padding: 7px;
+	color: $white;
+	border-radius: 4px;
+	float: right;
+	margin: 0 4px;
+	cursor: pointer;
+	border: none;
+	font-size: 1em;
+}
+.admin-submit-button:hover {
+	background-color: $blueHighlight;
+	
+}
+.admin-submit-button:disabled {
+	background-color: $lightGreyHighlight;
+	
+}
 .admin-cancel-button {
 	background-color: $lightGrey;
 	padding: 7px;
@@ -338,4 +359,11 @@ dropdown-directive {
 .admin-cancel-button:hover {
 	background-color: $lightGreyHighlight;
 	
+}
+.admin-modal-input {
+	display: block;
+	height: 35px;
+	padding: 7px;
+	font-size: 1.2em;
+	margin: 5px;
 }

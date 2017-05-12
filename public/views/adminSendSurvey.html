@@ -50,8 +50,6 @@
                 <dropdown-directive entities="templates" title="'Template'" check-template="checkTemplate()" check="check()"></dropdown-directive>
             </div>
         </div>
-<button type="" ng-click="openModal('delete', testModalDeleteSubject )">test</button>
-<button type="" ng-click="openModal('delete', test2ModalDeleteSubject )">test2</button>
         
         
     </div>
@@ -64,4 +62,4 @@
 </div>
 
 </div>
-<admin-modal-directive ng-show="modalActive" action="modalType" delete-subject="modalDeleteSubject" close="closeModal()"></admin-modal-directive>
+<admin-modal-directive ng-show="modalActive" action="modalType" subject="modalSubject" close="closeModal()" delete-entity="deleteEntity" add-entity="addEntity"></admin-modal-directive>

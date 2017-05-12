@@ -1,10 +1,19 @@
 <div class="admin-modal-background">
     <div ng-show="action === 'create'" class="admin-add-modal-container">
-        <h1>Hello I am test</h1>
+        <h1>Add a new {{subject.charAt(0).toUpperCase() + subject.slice(1)}}:</h1>
+        <input type="" placeholder="Name" class="admin-modal-input" ng-model="entity.name" ng-change="check()">
+        <input type="" placeholder="City" class="admin-modal-input" ng-show="subject === 'mentor' || subject === 'instructor'" ng-model="entity.location.city" ng-change="check()">
+        <input type="" placeholder="State" class="admin-modal-input" ng-show="subject === 'mentor' || subject === 'instructor'" ng-model="entity.location.state" ng-change="check()">
+        <button class="admin-submit-button " ng-disabled="submitDisabled" ng-click="submit()">
+            Submit
+        </button>
+        <div class="admin-cancel-button" ng-click="close()">
+            Cancel
+        </div>
     </div>
 
     <div ng-show="action === 'delete'" class="admin-delete-modal-container">
-        <p>Are you sure you want to permanently delete <b>{{deleteSubject.name}}</b> from <b>{{deleteSubject.type.charAt(0).toUpperCase() + deleteSubject.type.slice(1)}}s</b>?</p>
+        <p>Are you sure you want to permanently delete <b>{{subject.name}}</b> from <b>{{subject.type.charAt(0).toUpperCase() + subject.type.slice(1)}}s</b>?</p>
         <div class="admin-delete-button " ng-click="delete()">
             Delete
         </div>

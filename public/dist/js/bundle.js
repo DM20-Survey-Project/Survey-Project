@@ -103,12 +103,36 @@ angular.module('surveyApp').directive('adminModalDirective', function () {
 		restrict: 'E',
 		scope: {
 			action: '=',
-			deleteSubject: '=',
-			close: '&'
+			subject: '=',
+			close: '&',
+			deleteEntity: '&',
+			addEntity: '&'
 		},
 		controller: function controller($scope, $state) {
+			$scope.entity = {};
+			$scope.submitDisabled = true;
+			$scope.check = function () {
+				if ($scope.entity.name.length < 4) {
+					$scope.submitDisabled = true;
+				} else {
+					$scope.submitDisabled = false;
+				}
+			};
 			console.log($scope.deleteSubject);
+			$scope.deleteEntity = $scope.deleteEntity();
+			$scope.addEntity = $scope.addEntity();
+			if ($scope.subject === 'mentor' || $scope.subject === 'instructor') {
+				console.log();
+				$scope.location = true;
+			}
+			$scope.submit = function () {
+				console.log($scope.entity);
+				$scope.entity.type = $scope.subject;
+				$scope.addEntity($scope.entity);
+				$scope.close();
+			};
 			$scope.delete = function () {
+				$scope.deleteEntity($scope.subject._id);
 				$scope.close();
 			};
 		},
@@ -185,15 +209,30 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
   $scope.closeModal = function () {
     $scope.modalActive = false;
   };
-  $scope.openModal = function (type, deleteSubject) {
+  $scope.openModal = function (type, subject) {
     $scope.modalType = type;
-    console.log(deleteSubject);
-    if (type === 'delete') {
-      $scope.modalDeleteSubject = deleteSubject;
-    }
+    console.log(subject);
+    $scope.modalSubject = subject;
+
     $scope.modalActive = true;
   };
 
+  $scope.deleteEntity = function (id) {
+    entityService.deleteEntity(id).then(function () {
+      entityService.getEntities($scope.selectedTemplate.types).then(function (response) {
+        $scope.entities = response.data;
+      });
+    });
+  };
+
+  $scope.addEntity = function (obj) {
+    console.log(obj);
+    entityService.addEntity(obj).then(function () {
+      entityService.getEntities($scope.selectedTemplate.types).then(function (response) {
+        $scope.entities = response.data;
+      });
+    });
+  };
   $scope.templates = templateService.getTemplates();
 
   $scope.checkTemplate = function () {
@@ -214,7 +253,9 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
     }
 
     $scope.entities = [];
-    $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
+    entityService.getEntities($scope.selectedTemplate.types).then(function (response) {
+      $scope.entities = response.data;
+    });
     $scope.checkCompleted();
   };
   $scope.check = function () {
@@ -228,7 +269,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
     $scope.survey.results = [];
     $scope.survey.usersSentTo = [];
     $scope.survey.usersTaken = [];
-    $scope.survey.cohortSentTo = $scope.survey.entities.cohort.id;
+    $scope.survey.cohortSentTo = $scope.survey.entities.cohort.dmCohortId;
     $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
     surveyService.sendSurvey($scope.survey).then(function () {
       $state.go('admin');
@@ -306,7 +347,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
-            if ($scope.entities.entities[i].id == id) {
+            if ($scope.entities.entities[i]._id == id) {
               $scope.selected = $scope.entities.entities[i];
               $scope.survey.entities[$scope.entities.type] = $scope.selected;
               $scope.check();
@@ -328,27 +369,41 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
 });
 'use strict';
 
-angular.module('surveyApp').service('entityService', function () {
-    this.getEntities = function (requestedEntites) {
-        var response = [];
-        for (var i = 0; i < requestedEntites.length; i++) {
-            switch (requestedEntites[i]) {
-                case 'mentor':
-                    response.push(mentors);
-                    break;
-                case 'cohort':
-                    response.push(cohorts);
-                    break;
+angular.module('surveyApp').service('entityService', function ($http) {
+    this.getEntities = function (data) {
+        var entityPackage = {
+            types: data
+        };
+        return $http({
+            method: 'POST',
+            url: '/api/entities',
+            data: entityPackage
+        }).then(function (response) {
+            console.log(response.data);
+            return response;
+        });
+    };
+    this.addEntity = function (data) {
 
-                case 'topic':
-                    response.push(topics);
-                    break;
+        return $http({
+            method: 'POST',
+            url: '/api/addentity',
+            data: data
+        }).then(function (response) {
+            console.log(response.data);
+            return response;
+        });
+    };
 
-                default:
-                    break;
-            }
-        }
-        return response;
+    this.deleteEntity = function (data) {
+
+        return $http({
+            method: 'DELETE',
+            url: '/api/entities/' + data
+        }).then(function (response) {
+            console.log(response.data);
+            return response;
+        });
     };
 
     var mentors = {

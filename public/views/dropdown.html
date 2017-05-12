@@ -11,13 +11,13 @@
         <div ng-if="!isTemplate">
             <div class="admin-dropdown-entity-container">
                 <div class="admin-dropdown-entity"  ng-repeat="entity in entities.entities | filter:dropdownSearch">
-                    <p ng-click="select(entity.id)">{{entity.name}} - {{entity.location.city}}</p>
-                    <i class="fa fa-times" aria-hidden="true" ng-click="openModal('delete', entity)"></i>
+                    <p ng-click="select(entity._id)">{{entity.name}} - {{entity.location.city}}</p>
+                    <i class="fa fa-times" aria-hidden="true" ng-hide="isCohort" ng-click="openModal('delete', entity)"></i>
                 </div>
             </div>
             <div class="admin-dropdown-container-footer">
                 <input type="" name="" value="" ng-model="dropdownSearch">
-                <div ng-hide="isCohort" class="admin-home-button">
+                <div ng-hide="isCohort" class="admin-home-button" ng-click="openModal('create', entities.type)">
                     <p>Add {{title}}</p>
                 </div>
                 <div ng-show="isCohort" class="admin-home-button">
