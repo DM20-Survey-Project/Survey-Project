@@ -81,11 +81,13 @@
                     toastMessage: '',
                     successRedirect: ''
                 }
-            });
-            .state('adminTemplate', {
-              url: '/admin/adminTemplate',
-              templateUrl: "views/templatePage.html",
+            })
+            .state('templates', {
+              url: '/admin/templates',
+              templateUrl: "views/templates.html",
               controller: 'templateCtrl'
+
+
             });
 
 

@@ -1,28 +1,15 @@
 angular.module('surveyApp').service('surveyService', function($http) {
 
+this.updateTemplate = function(data,id){
 
+return $http({
 
+  method: 'PUT',
+  url: '/api/admin/templates/' + data.id,
+  data: data
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
+}
 
   this.getRecentSurveys = function () {
       return recentSurveys

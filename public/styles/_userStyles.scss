@@ -100,7 +100,7 @@
 
 .user-button {
     padding: 7px;
-    background-color: $blue;
+    background-color: #25aae1;
     color: white;
     display: inline-block;
     position: relative;
@@ -258,6 +258,7 @@
   float: left;
   margin: 2px;
   margin-right: 7px;
+  text-align: center;
 
 }
 .user-rating-max {
@@ -266,6 +267,7 @@
   float:right;
   margin: 2px;
   margin-left: 7px;
+  text-align: center;
 }
 .user-thumb-slider {
   display: inline-block;
@@ -294,4 +296,14 @@ left: 50%;
 padding: 7px;
 margin-bottom: 100px;
 cursor: pointer;
+margin-top: 50px;
+border: none;
+
+}
+.user-button-answers:hover {
+  background-color: $blueHighlight;
+}
+.user-button-answers:disabled {
+  background-color: $lightGrey;
+  cursor: default;
 }

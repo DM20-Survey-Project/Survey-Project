@@ -80,7 +80,7 @@ app.post('/api/admin/surveys', adminSurveyCtrl.create);
 app.get('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.readNames);
 app.get('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.read);
 app.post('/api/admin/templates', authCtrl.requireAdminAuth, templatesCtrl.create);
-app.put('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.update);
+app.put('/api/admin/templates/:id', templatesCtrl.update);
 app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
 
 ///////// Topics Endpoints //////////

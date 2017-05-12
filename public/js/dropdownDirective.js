@@ -9,7 +9,7 @@ angular.module('surveyApp')
       check: '&',
       checkTemplate: '&',
       surveyEntities: '='
-      
+
     },
     controller: function( $scope, $state, templateService ) {
       $scope.isCohort = false
@@ -30,7 +30,7 @@ angular.module('surveyApp')
               templateService.giveSelected($scope.selected)
               $scope.checkTemplate()
             }
-            
+
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
@@ -39,12 +39,13 @@ angular.module('surveyApp')
               $scope.surveyEntities[$scope.entities.type] = $scope.selected
               $scope.check()
             }
-            
+
           }
         }
         $scope.show();
       }
       $scope.show = function () {
+        console.log('working')
         if ($scope.shown) {
           $scope.shown = false
         } else {

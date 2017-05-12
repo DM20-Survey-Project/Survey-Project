@@ -8,50 +8,49 @@
             <h2>Send Survey</h2>
             </div>
         </a>
-        
-        <a ui-sref='templates'>
         <div class="admin-header-button">
             <h2>Edit Templates</h2>
-          </a>
-
         </div>
         <div class="admin-header-button">
             <h2>View Results</h2>
         </div>
     </div>
 </div>
+
 <div class="min-height">
     <div class="content">
         <div class="admin-send-survey-dropdowns">
 
             <div ng-show="selectedTemplate.template.questions" class="admin-send-survey-questions">
-                <h2>Question Preview</h2>
+
+                <h2 ><input ng-change="needCohort()" ng-model="selectedTemplate.template.title" placeholder="Survey Name"  style="text-align: center; height:40px;width:260px;"></h2>
                 <div ng-repeat="question in selectedTemplate.template.questions">
 
-                    <admin-question-directive question = "question"></admin-question-directive>
+                    <template-directive question = "question"></template-directive>
 
                 </div>
             </div>
-            <button type="" ng-click="submitSurvey()" class="admin-send-survey-submit box-shadow" ng-show="selectedTemplate.template" ng-disabled="submitDisabled">{{submitText}}</button>
-            <div ng-show="selectedTemplate.template" class="admin-send-survey-description">
 
-                <h2>Survey Description</h2>
-                <textarea rows="3" cols="" class=" box-shadow" placeholder="Type something here..." ng-change="check()" ng-model="surveyDescription"></textarea>
-            </div>
+
             <div ng-show="selectedTemplate.template" class="admin-send-survey-name">
 
             </div>
-            <div ng-repeat="type in entities">
+
+            <!-- <div ng-repeat="type in entities">
                 <div class="admin-dropdown-box-templates">
 
                     <dropdown-directive entities="type" survey-entities="survey.entities" title="type.type.charAt(0).toUpperCase() + type.type.slice(1)" check-template="checkTemplate()" check="check()"></dropdown-directive>
                 </div>
-            </div>
+            </div> -->
+
             <div class="admin-dropdown-box-templates">
 
                 <dropdown-directive entities="templates" title="'Template'" check-template="checkTemplate()" check="check()"></dropdown-directive>
             </div>
+
+
         </div>
+        <button class="user-button-answers" ng-show="selectedTemplate" ng-click="save()" ng-disabled="submitDisabled">{{submitText}}</button>
 
 
 
