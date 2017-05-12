@@ -59,27 +59,28 @@ module.exports = {
     // },
 
     create(req, res) {
-      console.log('Admin survey creation');
-//////// Set variables to hold our survey contents ////////
-      var newSurvey = new surveysModel(req.body)
-      var cohort_id = newSurvey.cohortSentTo;
-//////// Create survey for a specific cohort, set an array to hold all users sent to and users untaken from that cohort ////////
+        console.log('Admin survey creation');
+        //////// Set variables to hold our survey contents ////////
+        var newSurvey = new surveysModel(req.body)
+        var cohort_id = newSurvey.cohortSentTo;
+        surveysModel.find({ 'dateSent': new Date() })
+        //////// Create survey for a specific cohort, set an array to hold all users sent to and users untaken from that cohort ////////
         usersModel
             .find({ 'cohortId': cohort_id })
             .exec(function(error, result) {
-              console.log(result);
+                console.log(result);
                 if (error) {
                     return res.status(500).send(error);
                 } else {
                     newSurvey._doc.usersSentTo = [];
                     newSurvey._doc.usersUntaken = [];
-//////// Push the found users by their cohortId into the arrays ////////
+                    //////// Push the found users by their cohortId into the arrays ////////
                     result.forEach(function(resul, index, array) {
                         newSurvey._doc.usersSentTo.push(resul._doc._id);
                         newSurvey._doc.usersUntaken.push(resul._doc._id);
 
                     })
-//////// Save the survey if no errors ////////
+                    //////// Save the survey if no errors ////////
                     newSurvey.save(function(er, re) {
                         if (er)
                             return res.status(500).send(er);
@@ -91,7 +92,82 @@ module.exports = {
 
     },
 
-read: function(req, res) {
+    //     read(req, res) {
+    //         console.log('Admin read surveys');
+    // //////// If survey was sent to a cohort, split
+    //         if (req.query.cohortSentTo) {
+    //             let filteredQuery = Object.keys(req.query).reduce(function(prev, cur) {
+    //                 let ary = req.query[cur].split(',');
+    //                 console.log(ary)
+    //                 if (cur == 'topic') {
+    //                     if (ary.length > 1) {
+    //                         prev[cur] = {
+    //                             $in: ary.map(function(x) {
+    //                                 return new ObjectId(x);
+    //                             })
+    //                         }
+    //                     } else {
+    //                         prev[cur] = ObjectId(req.query[cur]);
+    //                     }
+    //                 } else {
+    //                     if (ary.length > 1) {
+    //                         prev[cur] = { $in: ary }
+    //                     } else {
+    //                         prev[cur] = req.query[cur]
+    //                     }
+    //                 }
+    //                 return prev;
+    //             }, {});
+    //             surveysModel.find(filteredQuery)
+    //                 .sort("-dateSent")
+    //                 .limit(50)
+    //                 .exec(function(err, result) {
+    //                     if (err) {
+    //                         console.log('Error reading survey: ', err)
+    //                         return res.status(500).send(err);
+    //                     } else {
+    //                         return res.send(result)
+    //                     }
+    //                 })
+    //         } else if (req.query.campus) {
+    //             cohortModel
+    //                 .find({
+    //                     'location.city': req.query.campus
+    //                 })
+    //                 .exec(function(err, result) {
+    //                     if (err) console.log(err);
+    //                     let cohortsIds = [];
+    //
+    //                     result.forEach(function(c) {
+    //                         if (!cohortsIds.indexOf(c.dmCohortId) > -1) {
+    //                             cohortsIds.push(c.cohort);
+    //                         }
+    //                     });
+    //                     surveysModel.find({
+    //                             cohortSentTo: {
+    //                                 $in: cohort
+    //                             }
+    //                         })
+    //                         .sort('-dateSent')
+    //                         .limit(30)
+    //                         .exec(function(err, surveyResult) {
+    //                             if (err) console.log(err)
+    //                             res.send(surveyResult);
+    //                         });
+    //                 });
+    //         } else {
+    //             cohortModel.find(req.query)
+    //                 .exec(function(err, result) {
+    //                     if (err) {
+    //                         console.log('error cohort req query: ', err);
+    //                         return res.status(500).send(err);
+    //                     } else {
+    //                         res.send(result);
+    //                     }
+    //                 });
+    //         }
+    //     },
+    read: function(req, res) {
         console.log('in adminSurveyCtrl');
         console.log('in read');
         console.log('req.query', req.query)
@@ -186,22 +262,22 @@ read: function(req, res) {
 
     readOne(req, res) {
         console.log('Admin read survey by ID');
-//////// Search surveys model to find a survey with a matching ID ////////
+        //////// Search surveys model to find a survey with a matching ID ////////
         surveysModel.findById(req.params.id)
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading admin survey by ID ', err);
                     return res.status(500).send(err);
                 } else {
-                res.send(result);
-                console.log('reading admin survey by ID success');
-              }
+                    res.send(result);
+                    console.log('reading admin survey by ID success');
+                }
             });
     },
 
     readNamesAndDates(req, res) {
         console.log('Admin read survey names and dates');
-//////// Go to surveys model and pull name and date sent, sort them in descending order ////////
+        //////// Go to surveys model and pull name and date sent, sort them in descending order ////////
         surveysModel.find({}, 'name dateSent')
             .sort({
                 dateSent: 'desc'
@@ -218,8 +294,10 @@ read: function(req, res) {
 
     readResults(req, res) {
         console.log('Admin read survey results');
-//////// Pull a survey by ID from the results model ////////
-        resultsModel.find({ survey: req.params.id })
+        //////// Pull a survey by ID from the results model ////////
+        resultsModel.find({
+                survey: req.params.id
+            })
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading admin survey results');
@@ -249,16 +327,20 @@ read: function(req, res) {
 
     readSentTo(req, res) {
         console.log('Admin read who survey was sent to');
-//////// Go into surveys model, grab a survey by ID and displays usersSentTo ////////
+        //////// Go into surveys model, grab a survey by ID and displays usersSentTo ////////
         surveysModel.findById(req.params.survey_id, 'usersSentTo')
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading who survey was sent to');
                     return res.status(500).send(err);
                 } else {
-//////// If theres no error go into users and find user ID and see if it matches any in Users sent to, if it does give first and last names ////////
+                    //////// If theres no error go into users and find user ID and see if it matches any in Users sent to, if it does give first and last names ////////
                     usersModel
-                        .find({ '_id': { $in: result._doc.usersSentTo }}, 'firstName lastName')
+                        .find({
+                            '_id': {
+                                $in: result._doc.usersSentTo
+                            }
+                        }, 'firstName lastName')
                         .exec((er, re) => {
                             if (er) {
                                 return res.status(500).send(er);
@@ -272,19 +354,22 @@ read: function(req, res) {
 
     readUntaken(req, res) {
         console.log('Admin read who has not taken survey');
-//////// search surveys model by a surveys ID and pull the usersUntaken and the cohort it was sent to ////////
+        //////// search surveys model by a surveys ID and pull the usersUntaken and the cohort it was sent to ////////
         surveysModel.findById(req.params.survey_id, 'usersUntaken cohortSentTo')
             .exec((err, result) => {
                 if (err) {
                     console.log('error reading users who have not taken survey');
                     return res.status(500).send(err);
                 } else {
-//////// No errors search users ID and check to see if they are NOT in the array of usersUntaken, but in the cohort the survey was sent to ////////
+                    //////// No errors search users ID and check to see if they are NOT in the array of usersUntaken, but in the cohort the survey was sent to ////////
                     usersModel
                         .find({
-                          '_id': { $nin: result._doc.usersUntaken },
-                          'cohortId': result._doc.cohortSentTo },
-                          'first_name last_name')
+                                '_id': {
+                                    $nin: result._doc.usersUntaken
+                                },
+                                'cohortId': result._doc.cohortSentTo
+                            },
+                            'first_name last_name')
                         .exec((er, re) => {
                             if (er)
                                 return res.status(500).send(er);
@@ -295,22 +380,22 @@ read: function(req, res) {
             });
     },
     readAnalyticsResults(req, res) {
-//////// Search cohort model and find an ID matching the requested ID ////////
+        //////// Search cohort model and find an ID matching the requested ID ////////
         cohortModel.findOne({
             dmCohortId: req.params.id
         }, function(err, results) {
-//////// Send the results of the found survey ////////
+            //////// Send the results of the found survey ////////
             console.log(req.params.id, '\n\n', results);
             res.send(results);
         })
     },
     readFilterOptions(req, res) {
-//////// Search a cohort by the requested query and give back Id, name, nickname, location, and weather the cohort is active or not ////////
+        //////// Search a cohort by the requested query and give back Id, name, nickname, location, and weather the cohort is active or not ////////
         cohortModel.find(req.query).select("dmCohortId name nickname location active").exec(function(err, cohorts) {
             cohorts = _.groupBy(cohorts, function(x) {
                 return x.location.city;
             });
-//////// Find a topic name and ID and send back cohorts and topics ////////
+            //////// Find a topic name and ID and send back cohorts and topics ////////
             topicsModel.find({}).select("_id name").exec(function(err, topics) {
                 if (err) {
                     return res.sendStats(500);
