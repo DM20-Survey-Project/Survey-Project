@@ -89,8 +89,13 @@ angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRo
 
 angular.module('surveyApp').controller('adminCtrl', function ($scope, surveyService, templateService) {
   $scope.test = 'Hello, I am a test';
-  $scope.surveys = surveyService.getRecentSurveys();
-  $scope.templates = templateService.getRecentTemplates();
+  surveyService.getSurveys().then(function (response) {
+    console.log(response.data);
+    $scope.surveys = response.data;
+  });
+  templateService.getTemplates().then(function (response) {
+    $scope.templates = response.data;
+  });
   $scope.test = function () {
     return { 'width': '10%' };
   };
@@ -233,7 +238,10 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
       });
     });
   };
-  $scope.templates = templateService.getTemplates();
+  templateService.getTemplates().then(function (response) {
+    console.log(response.data);
+    $scope.templates = response.data;
+  });
 
   $scope.checkTemplate = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate();
@@ -326,7 +334,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       openModal: '&'
 
     },
-    controller: function controller($scope, $state, templateService) {
+    controller: function controller($scope, $state, templateService, $timeout) {
       $scope.isCohort = false;
       $scope.isTemplate = false;
       $scope.openModal = $scope.openModal();
@@ -339,7 +347,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       $scope.select = function (id) {
         if ($scope.isTemplate) {
           for (var i = 0; i < $scope.entities.length; i++) {
-            if ($scope.entities[i].id == id) {
+            if ($scope.entities[i]._id == id) {
               $scope.selected = $scope.entities[i];
               templateService.giveSelected($scope.selected);
               $scope.checkTemplate();
@@ -363,6 +371,19 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
           $scope.shown = true;
         }
       };
+      function pullStateParams() {
+        if ($scope.entities) {
+          if ($scope.isTemplate) {
+            if ($state.params.id) {
+              $scope.select($state.params.id);
+              $scope.show();
+            }
+          }
+        } else {}
+      }
+      $scope.$watch('entities', function () {
+        pullStateParams();
+      });
     },
     link: function link(scope, element, attributes) {}
   };
@@ -634,8 +655,11 @@ angular.module('surveyApp').service('surveyService', function ($http) {
         });
     };
 
-    this.getRecentSurveys = function () {
-        return recentSurveys;
+    this.getSurveys = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/admin/surveys'
+        });
     };
     this.getSurveyById = function () {
         return survey;
@@ -720,12 +744,15 @@ angular.module('surveyApp').service('surveyService', function ($http) {
 }
 'use strict';
 
-angular.module('surveyApp').service('templateService', function () {
+angular.module('surveyApp').service('templateService', function ($http) {
     this.getRecentTemplates = function () {
         return recentTemplates;
     };
     this.getTemplates = function () {
-        return recentTemplates;
+        return $http({
+            method: 'GET',
+            url: '/api/admin/templates'
+        });
     };
     var currentTemplate = {};
     this.getSelectedTemplate = function () {
