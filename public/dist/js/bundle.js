@@ -334,7 +334,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       openModal: '&'
 
     },
-    controller: function controller($scope, $state, templateService) {
+    controller: function controller($scope, $state, templateService, $timeout) {
       $scope.isCohort = false;
       $scope.isTemplate = false;
       $scope.openModal = $scope.openModal();
@@ -371,6 +371,19 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
           $scope.shown = true;
         }
       };
+      function pullStateParams() {
+        if ($scope.entities) {
+          if ($scope.isTemplate) {
+            if ($state.params.id) {
+              $scope.select($state.params.id);
+              $scope.show();
+            }
+          }
+        } else {}
+      }
+      $scope.$watch('entities', function () {
+        pullStateParams();
+      });
     },
     link: function link(scope, element, attributes) {}
   };

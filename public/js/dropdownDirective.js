@@ -12,7 +12,7 @@ angular.module('surveyApp')
       openModal: '&'
       
     },
-    controller: function( $scope, $state, templateService ) {
+    controller: function( $scope, $state, templateService, $timeout ) {
       $scope.isCohort = false
       $scope.isTemplate = false;
       $scope.openModal = $scope.openModal()
@@ -20,8 +20,9 @@ angular.module('surveyApp')
         $scope.isCohort = true;
       } else if ($scope.title === 'Template') {
         $scope.isTemplate = true;
+        
       }
-
+      
 
       $scope.select = function (id) {
         if ($scope.isTemplate) {
@@ -52,8 +53,23 @@ angular.module('surveyApp')
           $scope.shown = true
         }
       }
+     function pullStateParams() {
+        if ($scope.entities) {
+          if ($scope.isTemplate) {
+            if ($state.params.id) {
+              $scope.select($state.params.id)
+              $scope.show()
+            }
+          }
+        } else {
+        }
+     }
+     $scope.$watch('entities', function () {
+       pullStateParams()
+     })
     },
     link: function(scope, element, attributes ) {
+      
     }
   }
 });

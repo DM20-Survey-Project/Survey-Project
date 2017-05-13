@@ -22,9 +22,11 @@
             <h1>Recent Templates</h1>
             <div class="admin-template-entry box-shadow" ng-repeat="template in templates">
                 <h3>{{template.title}}</h3>
-                <div class="admin-home-button">
-                    <p>Send Survey</p>
-                </div>
+                <a ui-sref="adminSendSurveyId({id: template._id})">
+                    <div class="admin-home-button">
+                        <p>Send Survey</p>
+                    </div>
+                </a>
                 
             </div>
         </div>
