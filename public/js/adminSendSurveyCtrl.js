@@ -1,5 +1,5 @@
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $state, surveyService, templateService, entityService) {
-  
+
   $scope.survey = {
     entities: {}
   };
@@ -35,7 +35,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
     $scope.modalType = type
     console.log(subject);
       $scope.modalSubject = subject
-    
+
     $scope.modalActive = true;
   }
 
@@ -45,7 +45,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
         $scope.entities = response.data
       })
     })
-    
+
   }
 
   $scope.addEntity = function (obj) {
@@ -76,20 +76,20 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
       } else {
         $scope.survey.entities[$scope.selectedTemplate.types[i]] = undefined;
       }
-      
-      
+
+
     }
-    
+
     $scope.entities = []
     entityService.getEntities($scope.selectedTemplate.types).then(function (response) {
       $scope.entities = response.data
     })
     $scope.checkCompleted()
-    
+
   }
   $scope.check = function () {
     $scope.survey.description = $scope.surveyDescription
-    
+
     $scope.checkCompleted()
     console.log($scope.survey);
   }
@@ -113,7 +113,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
         if (!$scope.survey.entities[key]) {
           incompleteVars.push(key + ' not filled')
         }
-        
+
       }
     }
     if (incompleteVars.length > 0) {
@@ -123,10 +123,10 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
       $scope.submitDisabled = false;
       $scope.submitText = "Send Survey to " + $scope.survey.entities.cohort.name
     }
-    
+
   }
   $scope.replaceTitle = function replaceTitle(title, entities) {
-    
+
     var titleArr = title.split(' ')
     for (var key in entities) {
         if (entities.hasOwnProperty(key)) {
@@ -135,12 +135,12 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
                 if (titleArr[i].indexOf(key) != -1) {
                     titleArr.splice(i,1,entities[key].name)
                 }
-                
+
             }
            }
         }
     }
     return titleArr.join(' ')
-      
+
   }
 })

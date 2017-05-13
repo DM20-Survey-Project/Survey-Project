@@ -31,7 +31,7 @@ module.exports = {
     readNames(req, res) {
       console.log('Reading template names');
       templatesModel.find({}, 'title questions')
-        .sort({ name: 'asc' })
+        .sort({ title: 'asc' })
         .exec((err, result) => {
           if (err) {
             console.log('Error reading template name');

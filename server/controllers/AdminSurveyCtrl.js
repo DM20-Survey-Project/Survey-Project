@@ -61,9 +61,9 @@ module.exports = {
     create(req, res) {
         console.log('Admin survey creation');
         //////// Set variables to hold our survey contents ////////
+        req.body.dateSent = Date.now();
         var newSurvey = new surveysModel(req.body)
         var cohort_id = newSurvey.cohortSentTo;
-        surveysModel.find({ 'dateSent': new Date() })
         //////// Create survey for a specific cohort, set an array to hold all users sent to and users untaken from that cohort ////////
         usersModel
             .find({ 'cohortId': cohort_id })
@@ -173,6 +173,7 @@ module.exports = {
         console.log('req.query', req.query)
         surveysModel
             .find(req.query)
+            .sort({ dateSent: 'desc' })
             .exec(function(err, result) {
                 console.log('err', err);
                 console.log('result', result);
