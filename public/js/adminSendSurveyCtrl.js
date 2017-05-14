@@ -1,4 +1,6 @@
+
 angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $state, surveyService, templateService, entityService) {
+
 
   $scope.survey = {
     entities: {}
@@ -87,6 +89,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
     $scope.checkCompleted()
 
   }
+
   $scope.check = function () {
     $scope.survey.description = $scope.surveyDescription
 

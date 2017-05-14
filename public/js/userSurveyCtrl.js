@@ -1,5 +1,6 @@
 angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state, authService, auth, $stateParams, userService) {
 
+
 	console.log('$stateParams.surveyId = ', $stateParams.surveyId);
 
 			$scope.readSurvey = function() {
@@ -45,7 +46,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function($scope, $state
 
 $scope.getSliderValue = function(x) {
 
- console.log(x)
+
 }
 $scope.submit = function(){
 var incompleteQuestions = [];
@@ -70,6 +71,7 @@ var incompleteQuestions = [];
 
 	} else {
 		var results = {
+
             surveyId: $scope.survey._id,
 						userId: auth._id,
             results: $scope.survey.questions
@@ -80,11 +82,21 @@ var incompleteQuestions = [];
 
         userService.writeSurveyResults(results).then(function(){
             $state.go('user')
+
 		});
 
 	}
 	console.log($scope.survey.questions)
 
+}
+$scope.logout = function(){
+	console.log('working')
+	authService.logout()
+	 .then(function( response ) {
+				if (response.status === 200) {
+						$state.go('login');
+				}
+		});
 }
 $scope.getSliderValue();
 console.log($scope.survey)

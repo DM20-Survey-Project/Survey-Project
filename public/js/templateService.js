@@ -2,12 +2,19 @@ angular.module('surveyApp').service('templateService', function($http) {
   this.getRecentTemplates = function () {
       return recentTemplates
   }
-  this.getTemplates = function () {
+this.getTemplates = function () {
       return $http({
             method: 'GET',
-            url: '/api/admin/templates',
-        });
+            url: '/api/admin/templates'
+        })
   }
+this.updateTemplate = function(id){
+  return $http({
+    method: 'PUT',
+    url: '/api/admin/templates/'+ id
+  })
+}
+
   var currentTemplate = {
 
   }
@@ -21,14 +28,14 @@ angular.module('surveyApp').service('templateService', function($http) {
   this.parseTitle = function (title) {
     var parsing = false
     var parseStrArr = []
-    
+
 
     var titleArr = title.split('')
     var parsedEntities = []
     for (var i = 0; i < titleArr.length; i++) {
-        
+
         if (parsing) {
-            
+
             if (titleArr[i] !== '$') {
                 parseStrArr.push(titleArr[i])
             } else {
@@ -42,7 +49,7 @@ angular.module('surveyApp').service('templateService', function($http) {
                 parsing = true
             }
         }
-        
+
     }
     return parsedEntities
   }
