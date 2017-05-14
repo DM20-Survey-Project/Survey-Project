@@ -28,7 +28,7 @@
         <div ng-if="isTemplate">
             <div class="admin-dropdown-entity-container">
                 <div class="admin-dropdown-entity"  ng-repeat="entity in entities | filter:dropdownSearch">
-                    <p ng-click="select(entity.id)">{{entity.title}}</p>
+                    <p ng-click="select(entity._id)">{{entity.title}}</p>
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
             </div>

@@ -61,9 +61,9 @@ module.exports = {
     create(req, res) {
         console.log('Admin survey creation');
         //////// Set variables to hold our survey contents ////////
+        req.body.dateSent = Date.now();
         var newSurvey = new surveysModel(req.body)
         var cohort_id = newSurvey.cohortSentTo;
-        surveysModel.find({ 'dateSent': new Date() })
         //////// Create survey for a specific cohort, set an array to hold all users sent to and users untaken from that cohort ////////
         usersModel
             .find({ 'cohortId': cohort_id })
@@ -173,6 +173,7 @@ module.exports = {
         console.log('req.query', req.query)
         surveysModel
             .find(req.query)
+            .sort({ dateSent: 'desc' })
             .exec(function(err, result) {
                 console.log('err', err);
                 console.log('result', result);
@@ -184,6 +185,81 @@ module.exports = {
                 }
             })
     },
+//     read(req, res) {
+//         console.log('Admin read surveys');
+// //////// If survey was sent to a cohort, split
+//         if (req.query.cohortSentTo) {
+//             let filteredQuery = Object.keys(req.query).reduce(function(prev, cur) {
+//                 let ary = req.query[cur].split(',');
+//                 console.log(ary)
+//                 if (cur == 'topic') {
+//                     if (ary.length > 1) {
+//                         prev[cur] = {
+//                             $in: ary.map(function(x) {
+//                                 return new ObjectId(x);
+//                             })
+//                         }
+//                     } else {
+//                         prev[cur] = ObjectId(req.query[cur]);
+//                     }
+//                 } else {
+//                     if (ary.length > 1) {
+//                         prev[cur] = { $in: ary }
+//                     } else {
+//                         prev[cur] = req.query[cur]
+//                     }
+//                 }
+//                 return prev;
+//             }, {});
+//             surveysModel.find(filteredQuery)
+//                 .sort("-dateSent")
+//                 .limit(50)
+//                 .exec(function(err, result) {
+//                     if (err) {
+//                         console.log('Error reading survey: ', err)
+//                         return res.status(500).send(err);
+//                     } else {
+//                         return res.send(result)
+//                     }
+//                 })
+//         } else if (req.query.campus) {
+//             cohortModel
+//                 .find({
+//                     'location.city': req.query.campus
+//                 })
+//                 .exec(function(err, result) {
+//                     if (err) console.log(err);
+//                     let cohortsIds = [];
+
+//                     result.forEach(function(c) {
+//                         if (!cohortsIds.indexOf(c.dmCohortId) > -1) {
+//                             cohortsIds.push(c.cohort);
+//                         }
+//                     });
+//                     surveysModel.find({
+//                             cohortSentTo: {
+//                                 $in: cohort
+//                             }
+//                         })
+//                         .sort('-dateSent')
+//                         .limit(30)
+//                         .exec(function(err, surveyResult) {
+//                             if (err) console.log(err)
+//                             res.send(surveyResult);
+//                         });
+//                 });
+//         } else {
+//             cohortModel.find(req.query)
+//                 .exec(function(err, result) {
+//                     if (err) {
+//                         console.log('error cohort req query: ', err);
+//                         return res.status(500).send(err);
+//                     } else {
+//                         res.send(result);
+//                     }
+//                 });
+//         }
+//     },
 
     readOne(req, res) {
         console.log('Admin read survey by ID');
