@@ -1,4 +1,4 @@
-angular.module('surveyApp', ['ui.router', 'ngSanitize'])
+ angular.module('surveyApp', ['ui.router', 'ngSanitize'])
 
     .config(function($urlRouterProvider, $stateProvider) {
 
@@ -81,6 +81,13 @@ angular.module('surveyApp', ['ui.router', 'ngSanitize'])
                     toastMessage: '',
                     successRedirect: ''
                 }
+            })
+            .state('templates', {
+              url: '/admin/templates',
+              templateUrl: "views/templates.html",
+              controller: 'templateCtrl'
+
+
             });
 
 

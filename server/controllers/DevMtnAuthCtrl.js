@@ -13,7 +13,7 @@ passport.use('devmtn', new DevmtnStrategy({
     callbackURL: config.AUTH_CONFIG.callbackURL,
     jwtSecret: config.AUTH_CONFIG.jwtSecret
 }, function(jwtoken, user, done) {
-    console.log("DEV USER: ", user);
+    // console.log("DEV USER: ", user);
 //////// If user does not have a cohort auto assign cohort 0 ////////
     if (!user.cohortId) {
         user.cohortId = 0;
@@ -26,7 +26,7 @@ passport.use('devmtn', new DevmtnStrategy({
             return done(findCohortErr);
         } else if (!findCohortResult) {
 //////// If no cohort exists build a new one ////////
-            console.log('creating new cohort for id ', user.cohortId);
+            // console.log('creating new cohort for id ', user.cohortId);
             var newCohort = {
                 dmCohortId: user.cohortId,
             };
@@ -38,7 +38,7 @@ passport.use('devmtn', new DevmtnStrategy({
                 }
             });
         } else {
-            console.log('cohort exists');
+            // console.log('cohort exists');
             finishLoginFunction(jwtoken, user, done, user.cohortId);
         }
     });
@@ -51,7 +51,7 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
     User.findOne({
         email: user.email
     }, function(findErr, foundUser) {
-        console.log("Here is the user being passed from the User Collection in our db " + foundUser)
+        // console.log("Here is the user being passed from the User Collection in our db " + foundUser)
         if (findErr) return done(findErr, false);
 
 //////// If we cant find a user, create a new one ////////
@@ -68,18 +68,18 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
             };
             User.create(newUser, function(createErr, createdUser) {
                 if (createErr) return done(createErr, null);
-                console.log("Welcome to our new user, ", createdUser);
+                // console.log("Welcome to our new user, ", createdUser);
                 return done(null, createdUser);
             });
         } else {
 //////// If a user was found, welcome back with their name and
-            console.log('Welcome back, ' + foundUser.name.first + ' ' + foundUser.name.last);
-            console.log('USER DATA: ', user);
+            // console.log('Welcome back, ' + foundUser.name.first + ' ' + foundUser.name.last);
+            // console.log('USER DATA: ', user);
             foundUser.dm_id = user.id.toString();
             // Put this in an if statement so that our register page does not get overwritten
             // every time an unknown user logs in.
             if (user.roles && user.roles.length > 0) {
-                console.log('Overwritting roles');
+                // console.log('Overwritting roles');
                 foundUser.roles = user.roles;
             } else if (user.cohortId) {
                 foundUser.roles = [{ id: 6, role: 'student' }];
@@ -93,10 +93,10 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
             //update roles from devmtn
             User.findByIdAndUpdate(foundUser._id, foundUser, function(updErr, updRes) {
                 if (updErr) {
-                    console.error('Error updating the user roles: ', updErr);
+                    // console.error('Error updating the user roles: ', updErr);
                     return done(null, foundUser);
                 } else {
-                    console.log('Successfully updated user roles: ', updRes);
+                    // console.log('Successfully updated user roles: ', updRes);
                     //Make sure the id's still match up
                     return done(null, foundUser);
                 }
@@ -130,24 +130,24 @@ module.exports = {
     },
 //////// Login success take them to their user page ////////
     loginSuccessRouter: function(req, res) {
-        console.log("Login Success");
-        console.log('The User: ', req.user);
+        // console.log("Login Success");
+        // console.log('The User: ', req.user);
 
 //////// Check a users roles and redirect them to the proper page ////////
         if (req.user.roles) {
             if (req.user.roles.length === 0) {
-                console.log("WARNING: This person has NO roles: ", req.user.roles.length);
+                // console.log("WARNING: This person has NO roles: ", req.user.roles.length);
                 res.redirect('/#/norole');
             }
-            console.log("This person has roles: ", req.user.roles.length);
+            // console.log("This person has roles: ", req.user.roles.length);
             if (Devmtn.checkRoles(req.user, 'admin')) {
-                console.log("This person is an admin, redirecting to admin page.");
+                // console.log("This person is an admin, redirecting to admin page.");
                 res.redirect('/#!/admin');
             } else if (Devmtn.checkRoles(req.user, 'student') || hasCustomRole('student', req.user)) {
-                console.log("This person is a student, redirecting to student page.")
+                // console.log("This person is a student, redirecting to student page.")
                 res.redirect('/#!/user');
             } else if (Devmtn.checkRoles(req.user, 'mentor')) {
-                console.log("This person is a mentor, redirecting to student page.")
+                // console.log("This person is a mentor, redirecting to student page.")
                 res.redirect('/#!/user/' + req.user._id);
             } else {
                 // Do something here to let them know they have no user role
@@ -157,7 +157,7 @@ module.exports = {
 
 //////// Get the current user if authenticated ////////
     currentUser: function(req, res) {
-        console.log('CURRENT USER: ', req.user);
+        // console.log('CURRENT USER: ', req.user);
         //Return the currently logged in user
         if (req.isAuthenticated()) {
             res.json(req.user);
@@ -167,7 +167,7 @@ module.exports = {
     },
 //////// Require a role of "Admin" ////////
     requireAdminRole: function(req, res, next) {
-        console.log(req.user);
+        // console.log(req.user);
         //only call next if the user has admin status
         if (req.isAuthenticated() && req.user.isAdmin) {
             next();

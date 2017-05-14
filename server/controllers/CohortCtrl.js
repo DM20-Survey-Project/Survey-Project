@@ -46,7 +46,7 @@ module.exports = {
         };
         if(e.short_name) update.name = e.short_name;
         var qry = {dmCohortId:e.id}
-        cohortModel.findOneAndUpdate(qry, update, {upsert:true}, function(err, result){
+        cohortModel.findOneAndUpdate(qry, update, {upsert:true}, (err, result) =>{
           if(err){
             console.error(err);
           }

@@ -8,26 +8,35 @@
             <h2>Send Survey</h2>
             </div>
         </a>
+
+        <a ui-sref='templates'>
         <div class="admin-header-button">
             <h2>Edit Templates</h2>
+          </a>
+
         </div>
         <div class="admin-header-button">
             <h2>View Results</h2>
         </div>
     </div>
 </div>
+
+
+
 <div class="min-height">
     <div class="content">
         <div class="admin-recent-templates">
             <h1>Recent Templates</h1>
             <div class="admin-template-entry box-shadow" ng-repeat="template in templates">
                 <h3>{{template.title}}</h3>
+
                 <a ui-sref="adminSendSurveyId({id: template._id})">
                     <div class="admin-home-button">
                         <p>Send Survey</p>
                     </div>
                 </a>
-                
+
+
             </div>
         </div>
         <div class="admin-recent-surveys">
@@ -37,15 +46,17 @@
                 <div class="admin-home-button">
                     <p>Results</p>
                 </div>
-                
+
+
                 <div ng-style="{ 'width': '{{100 - (survey.usersUntaken.length * (100 / survey.usersSentTo.length))}}%' }" class="admin-progress-bar">
-                    
+
+
                 </div>
-                
+
             </div>
         </div>
     </div>
 </div>
 <div class="footer">
-    
+
 </div>
