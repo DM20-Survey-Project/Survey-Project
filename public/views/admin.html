@@ -29,21 +29,27 @@
             <h1>Recent Templates</h1>
             <div class="admin-template-entry box-shadow" ng-repeat="template in templates">
                 <h3>{{template.title}}</h3>
-                <div class="admin-home-button">
-                    <p>Send Survey</p>
-                </div>
+
+                <a ui-sref="adminSendSurveyId({id: template._id})">
+                    <div class="admin-home-button">
+                        <p>Send Survey</p>
+                    </div>
+                </a>
+
 
             </div>
         </div>
         <div class="admin-recent-surveys">
             <h1>Recent Surveys</h1>
-            <div class="admin-survey-entry box-shadow" ng-repeat="survey in surveys">
+            <div class="admin-survey-entry box-shadow" ng-repeat="survey in surveys | limitTo: 8">
                 <h3>{{survey.title}}</h3>
                 <div class="admin-home-button">
                     <p>Results</p>
                 </div>
 
-                <div ng-style="{ 'width': '{{survey.percentComplete}}%' }" class="admin-progress-bar">
+
+                <div ng-style="{ 'width': '{{100 - (survey.usersUntaken.length * (100 / survey.usersSentTo.length))}}%' }" class="admin-progress-bar">
+
 
                 </div>
 

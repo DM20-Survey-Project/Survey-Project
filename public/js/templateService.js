@@ -1,9 +1,12 @@
-angular.module('surveyApp').service('templateService', function() {
+angular.module('surveyApp').service('templateService', function($http) {
   this.getRecentTemplates = function () {
       return recentTemplates
   }
   this.getTemplates = function () {
-      return recentTemplates
+      return $http({
+            method: 'GET',
+            url: '/api/admin/templates',
+        });
   }
   var currentTemplate = {
 
