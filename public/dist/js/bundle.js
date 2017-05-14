@@ -698,6 +698,7 @@ angular.module('surveyApp').service('surveyService', function ($http) {
             url: '/api/admin/surveys'
         });
     };
+
     this.getSurveyById = function () {
         return survey;
     };
@@ -781,13 +782,12 @@ angular.module('surveyApp').service('surveyService', function ($http) {
 }
 'use strict';
 
-<<<<<<< HEAD
 angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyService, templateService, entityService, $state) {
 
-  $scope.save = function () {
-    console.log($scope.selectedTemplate.template);
+  $scope.save = function (id) {
+    console.log($scope.selectedTemplate.template._id);
 
-    surveyService.updateTemplate($scope.selectedTemplate.template).then(function () {
+    templateService.updateTemplate($scope.selectedTemplate.template).then(function () {
       $state.go('admin');
     });
   };
@@ -800,6 +800,9 @@ angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyS
       $scope.submitText = 'Save Template';
     }
   };
+  templateService.getTemplates().then(function (v) {
+    $scope.templates = v.data;
+  });
 
   $scope.survey = {
     entities: {}
@@ -907,10 +910,7 @@ angular.module('surveyApp').directive('templateDirective', function () {
 });
 'use strict';
 
-angular.module('surveyApp').service('templateService', function () {
-=======
 angular.module('surveyApp').service('templateService', function ($http) {
->>>>>>> master
     this.getRecentTemplates = function () {
         return recentTemplates;
     };
@@ -920,6 +920,13 @@ angular.module('surveyApp').service('templateService', function ($http) {
             url: '/api/admin/templates'
         });
     };
+    this.updateTemplate = function (id) {
+        return $http({
+            method: 'PUT',
+            url: '/api/admin/templates/' + id
+        });
+    };
+
     var currentTemplate = {};
     this.getSelectedTemplate = function () {
         return currentTemplate;

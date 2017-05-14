@@ -1,10 +1,10 @@
 angular.module('surveyApp').controller('templateCtrl', function($scope, surveyService, templateService, entityService, $state) {
 
 
-  $scope.save = function(){
-    console.log($scope.selectedTemplate.template)
+  $scope.save = function(id){
+    console.log($scope.selectedTemplate.template._id)
 
-    surveyService.updateTemplate($scope.selectedTemplate.template).then(function(){
+    templateService.updateTemplate($scope.selectedTemplate.template).then(function(){
       $state.go('admin')
     })
 
@@ -19,6 +19,9 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
       $scope.submitText = 'Save Template';
     }
   }
+  templateService.getTemplates().then(function(v){
+    $scope.templates =  v.data
+  })
 
 
 
