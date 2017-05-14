@@ -357,6 +357,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       title: '=',
       check: '&',
       checkTemplate: '&',
+
       survey: '=',
       openModal: '&'
 
@@ -662,22 +663,11 @@ angular.module('surveyApp').service('entityService', function ($http) {
 
 angular.module('surveyApp').service('surveyService', function ($http) {
 
-<<<<<<< HEAD
-    this.updateTemplate = function (data, id) {
-
-        return $http({
-
-            method: 'PUT',
-            url: '/api/admin/templates/' + data.id,
-            data: data
-
-=======
     this.sendSurvey = function (data) {
         return $http({
             method: 'POST',
             url: '/api/admin/surveys',
             data: data
->>>>>>> master
         });
     };
 
