@@ -784,9 +784,7 @@ angular.module('surveyApp').service('surveyService', function ($http) {
 
 angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyService, templateService, entityService, $state) {
 
-  $scope.save = function (id) {
-    console.log($scope.selectedTemplate.template._id);
-
+  $scope.save = function (data) {
     templateService.updateTemplate($scope.selectedTemplate.template).then(function () {
       $state.go('admin');
     });
@@ -920,10 +918,11 @@ angular.module('surveyApp').service('templateService', function ($http) {
             url: '/api/admin/templates'
         });
     };
-    this.updateTemplate = function (id) {
+    this.updateTemplate = function (data) {
         return $http({
             method: 'PUT',
-            url: '/api/admin/templates/' + id
+            url: '/api/admin/templates/' + data._id,
+            data: data
         });
     };
 
