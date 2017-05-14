@@ -2,9 +2,9 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
 
 
   $scope.save = function(data){
-    console.log($scope.selectedTemplate.template._id)
 
-    templateService.updateTemplate($scope.selectedTemplate.template.data).then(function(){
+    templateService.updateTemplate($scope.selectedTemplate.template).then(function(){
+
       $state.go('admin')
     })
 

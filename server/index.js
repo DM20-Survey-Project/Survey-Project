@@ -81,7 +81,6 @@ app.post('/api/admin/surveys', adminSurveyCtrl.create);
 app.get('/api/admin/templates', templatesCtrl.readNames);
 app.get('/api/admin/templates/:id', templatesCtrl.read);
 app.post('/api/admin/templates', templatesCtrl.create);
-
 app.put('/api/admin/templates/:id', templatesCtrl.update);
 
 app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
