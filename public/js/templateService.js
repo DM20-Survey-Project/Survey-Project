@@ -8,10 +8,11 @@ this.getTemplates = function () {
             url: '/api/admin/templates'
         })
   }
-this.updateTemplate = function(id){
+this.updateTemplate = function(data) {
   return $http({
     method: 'PUT',
-    url: '/api/admin/templates/'+ id
+    url: '/api/admin/templates/' + data._id,
+    data: data
   })
 }
 

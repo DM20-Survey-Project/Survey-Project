@@ -50,22 +50,22 @@ module.exports = {
               }
             }
             result.save((er, re) => {
-              if (er)
+              if (er) {
                 return res.status(500).send(er);
-              else
+              } else {
                 res.send(re);
+              }
             });
           }
         });
     },
     delete(req, res) {
-      console.log('Deleting template...');
+      console.log('Deleting template');
       templatesModel.findByIdAndRemove(req.params.id)
         .exec((err, result) => {
           if (err) {
             return res.status(500).send(err);
-          }
-          else {
+          } else {
             res.send(result);
           };
         })
