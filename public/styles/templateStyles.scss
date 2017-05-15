@@ -1,0 +1,377 @@
+.admin-header {
+	position: relative;
+	height: 100px;
+
+	a {
+		text-decoration: none;
+	}
+
+
+
+}
+.admin-logo {
+	height: 90px;
+	float: left;
+	position: relative;
+	top: 50%;
+	padding: 7px;
+	transform: translate(0, -50%);
+}
+.admin-test {
+
+	height: 100px;
+	width: 100px;
+	background-color: $white;
+}
+.admin-header-button {
+	float: left;
+	position: relative;
+	top: 50%;
+	padding: 7px;
+	
+	transform: translate(0, -50%);
+	margin-left: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	h2 {
+		color: $white;
+		margin: 0;
+		font-weight: 400;
+	}
+}
+.admin-header-button:hover {
+	background-color: $blue;
+}
+
+.admin-recent-surveys {
+	float: right;
+
+	h1 {
+		text-align: center;
+		color: $grey;
+	}
+
+}
+.admin-survey-entry {
+	background-color: $white;
+	position: relative;
+	margin-top: 10px;
+	width: 500px;
+	min-height: 70px;
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	h3 {
+		max-width: 320px;
+		margin: 0;
+		display: inline-block;
+		color: $grey;
+	}
+}
+.admin-recent-templates {
+	float: left;
+
+	h1 {
+		text-align: center;
+		color: $grey;
+	}
+
+}
+.admin-template-entry {
+	background-color: $white;
+	position: relative;
+	margin-top: 10px;
+	width: 500px;
+	min-height: 70px;
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	h3 {
+		max-width: 320px;
+		display: inline-block;
+		margin: 0;
+		color: $grey;
+	}
+}
+.admin-progress-bar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 4px;
+	background-color: $blue;
+}
+.admin-home-button {
+	float: right;
+	background-color: $blue;
+	// position: relative;
+	// top: 50%;
+	padding: 7px;
+	// transform: translate(0, -50%);
+	cursor: pointer;
+	p {
+		color: $white;
+		margin: 0;
+		font-weight: 400;
+		font-size: 1.1em;
+	}
+}
+.admin-home-button:hover {
+	background-color: $blueHighlight;
+}
+.admin-send-survey-input {
+	width: 100%;
+	position: relative;
+	padding: 10px;
+	background-color: $white;
+	border: 1px solid #A0A0A0;
+	min-height: 48px;
+	cursor: pointer;
+	h3 {
+		margin: 0;
+	}
+}
+.admin-send-survey-dropdowns {
+	display: flex;
+	flex-direction: column-reverse;
+}
+.admin-dropdown-box-entities {
+	width: 400px;
+	position: relative;
+	float: left;
+}
+.admin-dropdown-box-templates {
+	width: 500px;
+	position: relative;
+	display: inline-block;
+	left: 50%;
+	transform: translate(-50%)
+}
+
+.admin-dropdown-container {
+	background-color: $white;
+	width: 100%;
+
+}
+dropdown-directive {
+	h1, h2 {
+		text-align: center
+	}
+	h2 {
+		margin: 10px;
+	}
+}
+.admin-dropdown-entity-container {
+	height: 300px;
+	overflow: auto;
+}
+.admin-dropdown-entity-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+.admin-dropdown-entity-container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+	background-color: $blue;
+}
+.admin-dropdown-entity {
+	padding: 0 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	p {
+		float: left;
+		width: 90%;
+	}
+	i {
+		cursor: pointer;
+		color: #d8d8d8;
+	}
+
+}
+.admin-dropdown-entity:hover {
+	background-color: $blue;
+	p {
+		color: $white;
+	}
+	i {
+		color: $grey;
+	}
+	i:hover {
+		color: $red;
+	}
+}
+.admin-dropdown-container-footer {
+	margin: 0 15px;
+	padding: 15px 0;
+	border-top: 1px solid #A0A0A0;
+	input {
+		width: 60%;
+		height: 38px;
+		font-size: 1.2em
+	}
+}
+.admin-dropdown-hidden {
+	position: absolute;
+	width: 100%;
+	background-color: $white;
+	z-index: 2;
+}
+.admin-send-survey-questions {
+	width: 500px;
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+	h2 {
+		text-align: center;
+		margin: 20px;
+	}
+
+}
+.admin-send-survey-description {
+	width: 500px;
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+
+	h2 {
+		margin: 10px;
+		text-align: center;
+	}
+
+	textarea {
+		width: 100%;
+		border-width: 0;
+		padding: 10px;
+		font-size: 1.2em;
+	}
+
+	textarea:focus {
+		outline: none;
+		border-color: $blue;
+		border-width: 0;
+	}
+}
+.admin-send-survey-submit {
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+	width: 500px;
+	padding: 10px;
+	background-color: $grey;
+	color: $white;
+	font-size: 1.2em;
+	border: none;
+	cursor: pointer;
+	margin-top: 30px;
+}
+
+.admin-send-survey-submit:hover {
+	background-color: $blueHighlight
+}
+.admin-send-survey-submit:disabled {
+	background-color: $lightGrey;
+	cursor: default;
+}
+
+
+.blur {
+	filter: blur(3px);
+}
+.admin-modal-background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(5, 5, 5, 0.6);
+	border: 4px solid rgba(5, 5, 5, 0.5);
+}
+.admin-add-modal-container {
+	border-radius: 5px;
+	padding: 10px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: $white;
+	width: 500px;
+	h1 {
+		display: inline-block;
+		margin: 5px;
+	}
+}
+.admin-delete-modal-container {
+	border-radius: 5px;
+	padding: 10px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: $white;
+	max-width: 500px;
+	p {
+		font-size: 1.2em;
+		margin: 5px;
+		max-width: 400px;
+	}
+}
+.admin-delete-button {
+	background-color: $red;
+	padding: 7px;
+	color: $white;
+	border-radius: 4px;
+	float: right;
+	margin: 0 4px;
+	cursor: pointer;
+}
+.admin-delete-button:hover {
+	background-color: $redHighlight;
+
+}
+.admin-submit-button {
+	background-color: $blue;
+	padding: 7px;
+	color: $white;
+	border-radius: 4px;
+	float: right;
+	margin: 0 4px;
+	cursor: pointer;
+	border: none;
+	font-size: 1em;
+}
+.admin-submit-button:hover {
+	background-color: $blueHighlight;
+
+}
+.admin-submit-button:disabled {
+	background-color: $lightGreyHighlight;
+
+}
+.admin-cancel-button {
+	background-color: $lightGrey;
+	padding: 7px;
+	color: $white;
+	border-radius: 4px;
+	float: right;
+	margin: 0 4px;
+	cursor: pointer;
+
+}
+.admin-cancel-button:hover {
+	background-color: $lightGreyHighlight;
+
+}
+.admin-modal-input {
+	display: block;
+	height: 35px;
+	padding: 7px;
+	font-size: 1.2em;
+	margin: 5px;
+}
