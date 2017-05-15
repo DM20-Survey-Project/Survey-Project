@@ -6,7 +6,7 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
       $state.go('admin')
     })
 
-w
+
   }
   $scope.needCohort = function(){
     if($scope.selectedTemplate.template.title.indexOf('$$cohort$$') === -1){

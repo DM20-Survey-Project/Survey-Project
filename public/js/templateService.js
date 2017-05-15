@@ -9,9 +9,10 @@ this.getTemplates = function () {
         })
   }
 this.updateTemplate = function(data) {
+  console.log(data);
   return $http({
-    method: 'PUT',
-    url: '/api/admin/templates/' + data._id,
+    method: 'POST',
+    url: '/api/admin/templates',
     data: data
   })
 }
