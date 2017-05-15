@@ -19,6 +19,12 @@
 
 <div class="min-height">
     <div class="content">
+      <div class="admin-choices box-shadow" ng-show="selectedTemplate">
+        <h4>Add New:</h4>
+        <ul ng-click="newQuestion('numeric')">Numeric</ul>
+        <ul ng-click="newQuestion('text')">Text</ul>
+        <ul ng-click="newQuestion('boolean')">Boolean</ul>
+      </div>
         <div class="admin-send-survey-dropdowns">
 
             <div ng-show="selectedTemplate.template.questions" class="admin-send-survey-questions">
@@ -26,7 +32,7 @@
                 <h2 ><input ng-change="needCohort()" ng-model="selectedTemplate.template.title" placeholder="Survey Name"  style="text-align: center; height:40px;width:260px;"></h2>
                 <div ng-repeat="question in selectedTemplate.template.questions">
 
-                    <template-directive question = "question"></template-directive>
+                    <template-directive index="$index" question = "question" remove-question="removeQuestion"></template-directive>
 
                 </div>
             </div>
@@ -45,7 +51,7 @@
 
             <div class="admin-dropdown-box-templates">
 
-                <dropdown-directive entities="templates" title="'Template'" check-template="checkTemplate()" check="check()"></dropdown-directive>
+                <template-selector-directive entities="templates" title="'Template'" check-template="checkTemplate()" check="check()" new-template="newTemplate()"></template-selector-directive>
             </div>
 
 

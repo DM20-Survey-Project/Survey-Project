@@ -34,12 +34,9 @@
             </div>
             <div class="admin-dropdown-container-footer">
                 <input type="" name="" value="" ng-model="dropdownSearch">
-
-                <a ui-sref="templates">
-                  <div ng-hide="isCohort" class="admin-home-button">
-                      <p>Add Template</p>
-                  </div>
-                </a>
+                <div ng-hide="isCohort" class="admin-home-button" ng-click="addNew()">
+                    <p>Add Template</p>
+                </div>
             </div>
         </div>
     </div>

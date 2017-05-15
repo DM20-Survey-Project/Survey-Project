@@ -1,9 +1,13 @@
 
 
 @import "./variables";
+
 @import "./global.scss";
-@import "./adminStyles";
+
+// @import "./_adminStyles";
 @import "./userStyles.scss";
+@import "./templateStyles.scss";
+
 
 
 .login-page-container {
@@ -23,15 +27,15 @@
   position: relative;
 	padding: 10px;
   text-decoration: none;
-  
+
     p {
-      
+
       text-align: center;
       margin: 0;
       color: $white;
       font-size: 2em;
     }
-  
+
 }
 .login-page-button:hover {
   background-color: $blueHighlight

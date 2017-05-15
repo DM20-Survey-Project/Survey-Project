@@ -307,3 +307,37 @@ border: none;
   background-color: $lightGrey;
   cursor: default;
 }
+.admin-choices {
+position: fixed;
+top: 30%;
+
+background-color: white;
+  h4 {
+    margin: 4px;
+    text-align: center;
+  }
+  ul {
+    padding: 7px 20px;
+  margin: 0;
+    text-align: center;
+  cursor: pointer;
+}
+ul:hover {
+  background-color: $blue;
+  color: white;
+}
+}
+.admin-delete-question {
+  padding: 10px;
+  color: white;
+  background-color: $red;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+.admin-delete-question:hover {
+  background-color: $redHighlight
+}

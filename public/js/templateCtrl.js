@@ -21,6 +21,27 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
     $scope.templates =  v.data
   })
 
+  $scope.newQuestion = function(type){
+    var question = {
+      questionText: '',
+      type: type,
+      required: false,
+      min: {
+      value: 1,
+      tag: ''
+      },
+      max: {
+      value: 10,
+      tag: ''
+      }
+    }
+    $scope.selectedTemplate.template.questions.push(question)
+
+  }
+  $scope.removeQuestion = function(index){
+      $scope.selectedTemplate.template.questions.splice(index, 1)
+  }
+
 
 
 
@@ -97,6 +118,17 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
         }
     }
     return titleArr.join(' ')
+
+  }
+  $scope.newTemplate = function () {
+    $scope.selectedTemplate = {
+
+    }
+    $scope.selectedTemplate.template = {
+      title: 'Title Here',
+      questions: []
+    }
+    $scope.needCohort();
 
   }
 
