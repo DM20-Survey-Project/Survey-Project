@@ -77,6 +77,11 @@ angular.module('surveyApp', ['ui.router', 'ngSanitize']).config(function ($urlRo
             toastMessage: '',
             successRedirect: ''
         }
+    }).state('templates', {
+        url: '/admin/templates',
+        templateUrl: "views/templates.html",
+        controller: 'templateCtrl'
+
     });
 
     // .state('login', {
@@ -348,6 +353,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
     });
     $scope.checkCompleted();
   };
+
   $scope.check = function () {
     $scope.survey.description = $scope.surveyDescription;
 
@@ -401,6 +407,35 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function ($scope, 
     return titleArr.join(' ');
   };
 });
+// angular.module('surveyApp').controller('templateCtrl', function($scope,  $state, $stateParams,surveyService, templateService, entityService){
+//
+// 	$scope.checkTemplate = function () {
+// 		$scope.selectedTemplate = templateService.getSelectedTemplate()
+//
+// 		$scope.survey.questions = $scope.selectedTemplate.template.questions
+// 		$scope.survey.title = $scope.selectedTemplate.template.title
+//
+// 		//TODO fix this
+// 		$scope.survey.entities = {}
+// 		for (var i = 0; i < $scope.selectedTemplate.types.length; i++) {
+// 			$scope.survey.entities[$scope.selectedTemplate.types[i]]
+// 			if ($scope.survey.entities[$scope.selectedTemplate.types[i]]) {
+// 				console.log('!!!FOUND ONE!!!');
+// 			} else {
+// 				$scope.survey.entities[$scope.selectedTemplate.types[i]] = undefined;
+// 			}
+//
+//
+// 		}
+//
+// 		$scope.entities = []
+// 		$scope.entities = entityService.getEntities($scope.selectedTemplate.types)
+// 		$scope.checkCompleted()
+//
+// 	}
+//
+// });
+"use strict";
 'use strict';
 
 angular.module('surveyApp').directive('dropdownDirective', function () {
@@ -412,6 +447,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
       title: '=',
       check: '&',
       checkTemplate: '&',
+
       survey: '=',
       openModal: '&'
 
@@ -447,6 +483,7 @@ angular.module('surveyApp').directive('dropdownDirective', function () {
         $scope.show();
       };
       $scope.show = function () {
+        console.log('working');
         if ($scope.shown) {
           $scope.shown = false;
         } else {
@@ -743,6 +780,7 @@ angular.module('surveyApp').service('surveyService', function ($http) {
             url: '/api/admin/surveys'
         });
     };
+
     this.getSurveyById = function () {
         return survey;
     };
@@ -826,6 +864,132 @@ angular.module('surveyApp').service('surveyService', function ($http) {
 }
 'use strict';
 
+angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyService, templateService, entityService, $state) {
+
+  $scope.save = function (data) {
+    templateService.updateTemplate($scope.selectedTemplate.template).then(function () {
+      $state.go('admin');
+    });
+  };
+  $scope.needCohort = function () {
+    if ($scope.selectedTemplate.template.title.indexOf('$$cohort$$') === -1) {
+      $scope.submitDisabled = true;
+      $scope.submitText = 'Include $$cohort$$';
+    } else {
+      $scope.submitDisabled = false;
+      $scope.submitText = 'Save Template';
+    }
+  };
+  templateService.getTemplates().then(function (v) {
+    $scope.templates = v.data;
+  });
+
+  $scope.survey = {
+    entities: {}
+  };
+  $scope.submitDisabled = true;
+
+  $scope.templates = templateService.getTemplates();
+
+  $scope.checkTemplate = function () {
+    $scope.selectedTemplate = templateService.getSelectedTemplate();
+    // console.log(selectedTemplate.template.questions)
+    $scope.survey.questions = $scope.selectedTemplate.template.questions;
+    $scope.survey.title = $scope.selectedTemplate.template.title;
+
+    //TODO fix this
+    $scope.survey.entities = {};
+    for (var i = 0; i < $scope.selectedTemplate.types.length; i++) {
+      $scope.survey.entities[$scope.selectedTemplate.types[i]];
+      if ($scope.survey.entities[$scope.selectedTemplate.types[i]]) {
+        console.log('!!!FOUND ONE!!!');
+      } else {
+        $scope.survey.entities[$scope.selectedTemplate.types[i]] = undefined;
+      }
+    }
+
+    $scope.entities = [];
+    $scope.entities = entityService.getEntities($scope.selectedTemplate.types);
+    $scope.checkCompleted();
+    $scope.needCohort();
+  };
+
+  $scope.check = function () {
+    $scope.survey.description = $scope.surveyDescription;
+
+    $scope.checkCompleted();
+    console.log($scope.survey);
+  };
+
+  $scope.submitSurvey = function () {
+    $scope.survey.title = $scope.replaceTitle($scope.survey.title, $scope.survey.entities);
+    console.log($scope.survey);
+  };
+
+  $scope.checkCompleted = function () {
+    var incompleteVars = [];
+    for (var key in $scope.survey.entities) {
+      if ($scope.survey.entities.hasOwnProperty(key)) {
+        if (!$scope.survey.entities[key]) {
+          incompleteVars.push(key + ' not filled');
+        }
+      }
+    }
+  };
+  $scope.replaceTitle = function replaceTitle(title, entities) {
+
+    var titleArr = title.split(' ');
+    for (var key in entities) {
+      if (entities.hasOwnProperty(key)) {
+        if (entities[key]) {
+          for (var i = 0; i < titleArr.length; i++) {
+            if (titleArr[i].indexOf(key) != -1) {
+              titleArr.splice(i, 1, entities[key].name);
+            }
+          }
+        }
+      }
+    }
+    return titleArr.join(' ');
+  };
+});
+'use strict';
+
+angular.module('surveyApp').directive('templateDirective', function () {
+	return {
+		templateUrl: "views/templateDirective.html",
+		restrict: 'E',
+		scope: {
+			question: '='
+
+		},
+		controller: function controller($scope, $state) {
+
+			/////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
+			if ($scope.question.type == 'text') {
+				// $scope.numberAnswer = false;
+				$scope.textAnswer = true;
+			}
+			///////////ng-show=numberAnswer/false ///////////////////////////////////////
+			//////////ng-change="numberAssignAnswer()" ng-model="sliderValue"/////////////////////////////////////
+			else if ($scope.question.type == 'numeric') {
+					$scope.numberAnswer = true;
+					$scope.numberString = '';
+				}
+
+				/////////ng-show=booleanAnswer/false /////////////////////////
+				else if ($scope.question.type == 'boolean') {
+
+						$scope.booleanAnswer = true;
+					} else {}
+		},
+		link: function link(scope, element, attributes) {
+			// scope.numberAnswer = true;
+		}
+	};
+});
+'use strict';
+
 angular.module('surveyApp').service('templateService', function ($http) {
     this.getRecentTemplates = function () {
         return recentTemplates;
@@ -836,6 +1000,14 @@ angular.module('surveyApp').service('templateService', function ($http) {
             url: '/api/admin/templates'
         });
     };
+    this.updateTemplate = function (data) {
+        return $http({
+            method: 'PUT',
+            url: '/api/admin/templates/' + data._id,
+            data: data
+        });
+    };
+
     var currentTemplate = {};
     this.getSelectedTemplate = function () {
         return currentTemplate;
@@ -1000,6 +1172,15 @@ angular.module('surveyApp').controller('userCtrl', function ($scope, $state, $st
     $scope.gotoTop();
     $scope.loadUntakenSurveys();
 
+    $scope.logout = function () {
+        console.log('working');
+        authService.logout().then(function (response) {
+            if (response.status === 200) {
+                $state.go('login');
+            }
+        });
+    };
+
     // $scope.getUser = function(){
     //   $scope.surveys = userService.getUser();
     // }
@@ -1053,7 +1234,6 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 					$scope.numberAssignAnswer = function () {
 						$scope.question.answer = $scope.sliderValue;
 					};
-					console.log($scope.sliderValue);
 				}
 
 				/////////ng-show=booleanAnswer/false /////////////////////////
@@ -1067,6 +1247,7 @@ angular.module('surveyApp').directive('userQuestionDirective', function () {
 		}
 	};
 });
+
 // angular.module('surveyApp').service('userService', function() {
 //
 // var surveysColumn1 = [{}];
@@ -1203,10 +1384,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 	//        }
 
 
-	$scope.getSliderValue = function (x) {
-
-		console.log(x);
-	};
+	$scope.getSliderValue = function (x) {};
 	$scope.submit = function () {
 		var incompleteQuestions = [];
 
@@ -1225,6 +1403,7 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 			$scope.unansweredQuestions = true;
 		} else {
 			var results = {
+
 				surveyId: $scope.survey._id,
 				userId: auth._id,
 				results: $scope.survey.questions
@@ -1238,6 +1417,14 @@ angular.module('surveyApp').controller('userSurveyCtrl', function ($scope, $stat
 			});
 		}
 		console.log($scope.survey.questions);
+	};
+	$scope.logout = function () {
+		console.log('working');
+		authService.logout().then(function (response) {
+			if (response.status === 200) {
+				$state.go('login');
+			}
+		});
 	};
 	$scope.getSliderValue();
 	console.log($scope.survey);

@@ -8,9 +8,11 @@ angular.module('surveyApp')
       title: '=',
       check: '&',
       checkTemplate: '&',
+
       survey: '=',
       openModal: '&'
-      
+
+
     },
     controller: function( $scope, $state, templateService, $timeout ) {
       $scope.isCohort = false
@@ -32,7 +34,7 @@ angular.module('surveyApp')
               templateService.giveSelected($scope.selected)
               $scope.checkTemplate()
             }
-            
+
           }
         } else {
           for (var i = 0; i < $scope.entities.entities.length; i++) {
@@ -41,12 +43,13 @@ angular.module('surveyApp')
               $scope.survey.entities[$scope.entities.type] = $scope.selected
               $scope.check()
             }
-            
+
           }
         }
         $scope.show();
       }
       $scope.show = function () {
+        console.log('working')
         if ($scope.shown) {
           $scope.shown = false
         } else {

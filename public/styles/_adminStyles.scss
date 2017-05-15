@@ -2,7 +2,12 @@
 .admin-header {
 	position: relative;
 	height: 100px;
-	
+
+	a {
+		text-decoration: none;
+	}
+
+
 
 }
 .admin-logo {
@@ -27,6 +32,7 @@
 	transform: translate(0, -50%);
 	margin-left: 30px;
 	cursor: pointer;
+	text-decoration: none;
 	h2 {
 		color: $white;
 		margin: 0;
@@ -168,7 +174,7 @@ dropdown-directive {
 
 .admin-dropdown-entity-container::-webkit-scrollbar-thumb {
     border-radius: 3px;
-	background-color: $blue; 
+	background-color: $blue;
 }
 .admin-dropdown-entity {
 	padding: 0 15px;
@@ -184,7 +190,7 @@ dropdown-directive {
 		cursor: pointer;
 		color: #d8d8d8;
 	}
-	
+
 }
 .admin-dropdown-entity:hover {
 	background-color: $blue;
@@ -224,6 +230,7 @@ dropdown-directive {
 		text-align: center;
 		margin: 20px;
 	}
+
 }
 .admin-send-survey-description {
 	width: 500px;
@@ -272,6 +279,7 @@ dropdown-directive {
 	background-color: $lightGrey;
 	cursor: default;
 }
+
 
 .blur {
 	filter: blur(3px);
@@ -325,7 +333,7 @@ dropdown-directive {
 }
 .admin-delete-button:hover {
 	background-color: $redHighlight;
-	
+
 }
 .admin-submit-button {
 	background-color: $blue;
@@ -340,11 +348,11 @@ dropdown-directive {
 }
 .admin-submit-button:hover {
 	background-color: $blueHighlight;
-	
+
 }
 .admin-submit-button:disabled {
 	background-color: $lightGreyHighlight;
-	
+
 }
 .admin-cancel-button {
 	background-color: $lightGrey;
@@ -354,11 +362,11 @@ dropdown-directive {
 	float: right;
 	margin: 0 4px;
 	cursor: pointer;
-	
+
 }
 .admin-cancel-button:hover {
 	background-color: $lightGreyHighlight;
-	
+
 }
 .admin-modal-input {
 	display: block;
@@ -367,7 +375,6 @@ dropdown-directive {
 	font-size: 1.2em;
 	margin: 5px;
 }
-
 .admin-results-survey-list {
 	position: absolute;
 	right: 0;
@@ -538,3 +545,4 @@ dropdown-directive {
 	background-color: $blueHighlight;
 	color: white;
 }
+
