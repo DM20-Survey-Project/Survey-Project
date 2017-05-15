@@ -49,6 +49,20 @@ angular.module('surveyApp', ['ui.router', 'ngSanitize'])
                 controller: 'adminSendSurveyCtrl'
 
             })
+
+            .state('adminResults', {
+                templateUrl: 'views/adminResults.html',
+                url: '/admin/results',
+                controller: 'adminResultsCtrl'
+
+            })
+            .state('adminResultsId', {
+                templateUrl: 'views/adminResults.html',
+                url: '/admin/results/:id',
+                controller: 'adminResultsCtrl'
+
+            })
+
             .state('userSurveyPage', {
                 templateUrl: 'views/surveyPage.html',
                 url: '/user/surveyPage/:surveyId',

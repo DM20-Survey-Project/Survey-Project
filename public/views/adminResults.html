@@ -1,0 +1,68 @@
+<div class="header">
+    <div class="content admin-header">
+        <a ui-sref="admin">
+            <img class="admin-logo" src="./devmountain-logo.png" alt="devmountain logo">
+        </a>
+        <a ui-sref="adminSendSurvey">
+            <div class="admin-header-button">
+            <h2>Send Survey</h2>
+            </div>
+        </a>
+        <a ui-sref="adminSendSurvey">
+            <div class="admin-header-button">
+            <h2>Edit Templates</h2>
+            </div>
+        </a>
+        <a ui-sref="adminResults">
+            <div class="admin-header-button">
+            <h2>Results</h2>
+            </div>
+        </a>
+    </div>
+</div>
+<div >
+    <div >
+        <table class="admin-results-table">
+            <tr class="admin-header-row">
+                <td  ng-repeat="question in selectedSurvey.questions">{{question.questionText}}</td>
+            </tr>
+            <tr class="admin-results-row" ng-repeat="resultArr in selectedSurvey.results">
+                <td ng-repeat="result in resultArr">{{result.answer}}</td>
+            </tr>
+            <tr class="admin-results-row" ng-repeat="resultArr in selectedSurvey.usersUntaken">
+                <td ng-repeat="question in selectedSurvey.questions">-</td>
+            </tr>
+            <tr class="admin-footer-row">
+                <td  ng-repeat="question in selectedSurvey.questions"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="admin-results-selector-panel box-shadow" ng-class="{ adminLeft: panelHidden == true }">
+        <div class="admin-hide-button" ng-click="hide()">
+            <div>
+                
+            </div>
+        </div>
+        <div class="admin-results-survey-list ">
+            <div class="admin-results-survey-container">
+                <div ng-repeat="survey in surveys | filter:locationFilter | filter: surveySearch">
+                    
+                    <div class="admin-results-survey-item " ng-click="select(survey._id)">
+                        <h3>{{survey.title}}</h3> 
+                    </div>
+                </div>
+                </div>
+
+            
+        </div>
+        <div class="admin-results-search-container">
+            <div class="admin-results-location-container">
+                <div class="admin-results-location" ng-repeat="location in locations" ng-click="selectLocation($index)" ng-class="{adminActive: locationObj[$index]}">
+                    <h3>{{location}}</h3>
+                </div>
+            </div>
+            <input class="admin-results-search" ng-model="surveySearch.title">
+        </div>  
+    </div>
+    
+</div>
