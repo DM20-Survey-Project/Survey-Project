@@ -911,6 +911,36 @@ body {
   background-color: #A0A0A0;
   cursor: default; }
 
+.admin-choices {
+  position: fixed;
+  top: 30%;
+  background-color: white; }
+  .admin-choices h4 {
+    margin: 4px;
+    text-align: center; }
+  .admin-choices ul {
+    padding: 7px 20px;
+    margin: 0;
+    text-align: center;
+    cursor: pointer; }
+  .admin-choices ul:hover {
+    background-color: #25aae1;
+    color: white; }
+
+.admin-delete-question {
+  padding: 10px;
+  color: white;
+  background-color: #d9534f;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 5;
+  cursor: pointer; }
+
+.admin-delete-question:hover {
+  background-color: #ff5b56; }
+
 .login-page-container {
   position: absolute;
   left: 50%;
@@ -934,7 +964,6 @@ body {
 
 .login-page-button:hover {
   background-color: #2BC3FF; }
-
 
 
 /*# sourceMappingURL=maps/styles.css.map */

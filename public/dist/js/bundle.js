@@ -785,11 +785,11 @@ angular.module('surveyApp').service('surveyService', function ($http) {
 angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyService, templateService, entityService, $state) {
 
   $scope.save = function (data) {
-
     templateService.updateTemplate($scope.selectedTemplate.template).then(function () {
-
       $state.go('admin');
     });
+
+    w;
   };
   $scope.needCohort = function () {
     if ($scope.selectedTemplate.template.title.indexOf('$$cohort$$') === -1) {
@@ -803,6 +803,26 @@ angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyS
   templateService.getTemplates().then(function (v) {
     $scope.templates = v.data;
   });
+
+  $scope.newQuestion = function (type) {
+    var question = {
+      questionText: '',
+      type: type,
+      required: false,
+      min: {
+        value: 1,
+        tag: ''
+      },
+      max: {
+        value: 10,
+        tag: ''
+      }
+    };
+    $scope.selectedTemplate.template.questions.push(question);
+  };
+  $scope.removeQuestion = function (index) {
+    $scope.selectedTemplate.template.questions.splice(index, 1);
+  };
 
   $scope.survey = {
     entities: {}
@@ -872,6 +892,14 @@ angular.module('surveyApp').controller('templateCtrl', function ($scope, surveyS
     }
     return titleArr.join(' ');
   };
+  $scope.newTemplate = function () {
+    $scope.selectedTemplate = {};
+    $scope.selectedTemplate.template = {
+      title: 'Title Here',
+      questions: []
+    };
+    $scope.needCohort();
+  };
 });
 'use strict';
 
@@ -880,11 +908,13 @@ angular.module('surveyApp').directive('templateDirective', function () {
 		templateUrl: "views/templateDirective.html",
 		restrict: 'E',
 		scope: {
-			question: '='
-
+			question: '=',
+			removeQuestion: '&',
+			index: '='
 		},
 		controller: function controller($scope, $state) {
 
+			$scope.removeQuestion = $scope.removeQuestion();
 			/////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
 			if ($scope.question.type == 'text') {
 				// $scope.numberAnswer = false;
@@ -907,6 +937,81 @@ angular.module('surveyApp').directive('templateDirective', function () {
 			// scope.numberAnswer = true;
 		}
 	};
+});
+'use strict';
+
+angular.module('surveyApp').directive('templateSelectorDirective', function () {
+  return {
+    templateUrl: "views/templateSelector.html",
+    restrict: 'E',
+    scope: {
+      entities: '=',
+      title: '=',
+      check: '&',
+      checkTemplate: '&',
+      newTemplate: '&',
+      survey: '=',
+      openModal: '&'
+
+    },
+    controller: function controller($scope, $state, templateService, $timeout) {
+      $scope.isCohort = false;
+      $scope.isTemplate = false;
+      $scope.openModal = $scope.openModal();
+      if ($scope.title === 'Cohort') {
+        $scope.isCohort = true;
+      } else if ($scope.title === 'Template') {
+        $scope.isTemplate = true;
+      }
+
+      $scope.addNew = function () {
+        $scope.newTemplate();
+        $scope.show();
+      };
+      $scope.select = function (id) {
+        if ($scope.isTemplate) {
+          for (var i = 0; i < $scope.entities.length; i++) {
+            if ($scope.entities[i]._id == id) {
+              $scope.selected = $scope.entities[i];
+              templateService.giveSelected($scope.selected);
+              $scope.checkTemplate();
+            }
+          }
+        } else {
+          for (var i = 0; i < $scope.entities.entities.length; i++) {
+            if ($scope.entities.entities[i]._id == id) {
+              $scope.selected = $scope.entities.entities[i];
+              $scope.survey.entities[$scope.entities.type] = $scope.selected;
+              $scope.check();
+            }
+          }
+        }
+        $scope.show();
+      };
+      $scope.show = function () {
+        console.log('working');
+        if ($scope.shown) {
+          $scope.shown = false;
+        } else {
+          $scope.shown = true;
+        }
+      };
+      function pullStateParams() {
+        if ($scope.entities) {
+          if ($scope.isTemplate) {
+            if ($state.params.id) {
+              $scope.select($state.params.id);
+              $scope.show();
+            }
+          }
+        } else {}
+      }
+      $scope.$watch('entities', function () {
+        pullStateParams();
+      });
+    },
+    link: function link(scope, element, attributes) {}
+  };
 });
 'use strict';
 
