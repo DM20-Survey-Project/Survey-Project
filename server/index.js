@@ -77,11 +77,11 @@ app.get('/api/admin/surveyfilter', adminSurveyCtrl.readFilterOptions);
 app.post('/api/admin/surveys', adminSurveyCtrl.create);
 
 ///////// Template Endpoints //////////
-
 app.get('/api/admin/templates', templatesCtrl.readNames);
 app.get('/api/admin/templates/:id', templatesCtrl.read);
-app.post('/api/admin/templates', templatesCtrl.create);
-app.put('/api/admin/templates/:id', templatesCtrl.update);
+
+app.post('/api/admin/templates', templatesCtrl.createOrUpdate);
+// app.put('/api/admin/templates/:id', templatesCtrl.update);
 
 app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
 
@@ -95,7 +95,7 @@ app.delete('/api/admind/topics/:id', authCtrl.requireAdminAuth, topicsCtrl.delet
 ///////// User Endpoints //////////
 app.get('/api/admin/users',  userCtrl.read);
 app.get('/api/admin/users/cohort/:cohort_id', authCtrl.requireAdminAuth, userCtrl.readUsersInCohort);
-app.post('/api/admin/users', authCtrl.requireAdminAuth, userCtrl.create);
+app.post('/api/admin/users', userCtrl.create);
 app.put('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.update);
 app.delete('/api/admin/users/:id', authCtrl.requireAdminAuth, userCtrl.delete);
 
