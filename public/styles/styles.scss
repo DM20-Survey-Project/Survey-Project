@@ -1,9 +1,13 @@
 
 
 @import "./variables";
+
 @import "./global.scss";
+
 // @import "./_adminStyles";
 @import "./userStyles.scss";
+@import "./templateStyles.scss";
+
 
 
 .login-page-container {

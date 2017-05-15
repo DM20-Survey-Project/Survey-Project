@@ -274,6 +274,349 @@ body {
   background-color: #A0A0A0;
   cursor: default; }
 
+.admin-header {
+  position: relative;
+  height: 100px; }
+
+.admin-header a {
+  text-decoration: none; }
+
+.admin-logo {
+  height: 90px;
+  float: left;
+  position: relative;
+  top: 50%;
+  padding: 7px;
+  transform: translate(0, -50%); }
+
+.admin-test {
+  height: 100px;
+  width: 100px;
+  background-color: #fff; }
+
+.admin-header-button {
+  float: left;
+  position: relative;
+  top: 50%;
+  padding: 7px;
+  transform: translate(0, -50%);
+  margin-left: 30px;
+  cursor: pointer;
+  text-decoration: none; }
+
+.admin-header-button h2 {
+  color: #fff;
+  margin: 0;
+  font-weight: 400; }
+
+.admin-header-button:hover {
+  background-color: #25aae1; }
+
+.admin-recent-surveys {
+  float: right; }
+
+.admin-recent-surveys h1 {
+  text-align: center;
+  color: #383838; }
+
+.admin-survey-entry {
+  background-color: #fff;
+  position: relative;
+  margin-top: 10px;
+  width: 500px;
+  min-height: 70px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.admin-survey-entry h3 {
+  max-width: 320px;
+  margin: 0;
+  display: inline-block;
+  color: #383838; }
+
+.admin-recent-templates {
+  float: left; }
+
+.admin-recent-templates h1 {
+  text-align: center;
+  color: #383838; }
+
+.admin-template-entry {
+  background-color: #fff;
+  position: relative;
+  margin-top: 10px;
+  width: 500px;
+  min-height: 70px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.admin-template-entry h3 {
+  max-width: 320px;
+  display: inline-block;
+  margin: 0;
+  color: #383838; }
+
+.admin-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: #25aae1; }
+
+.admin-home-button {
+  float: right;
+  background-color: #25aae1;
+  padding: 7px;
+  cursor: pointer; }
+
+.admin-home-button p {
+  color: #fff;
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.1em; }
+
+.admin-home-button:hover {
+  background-color: #2BC3FF; }
+
+.admin-send-survey-input {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #A0A0A0;
+  min-height: 48px;
+  cursor: pointer; }
+
+.admin-send-survey-input h3 {
+  margin: 0; }
+
+.admin-send-survey-dropdowns {
+  display: flex;
+  flex-direction: column-reverse; }
+
+.admin-dropdown-box-entities {
+  width: 400px;
+  position: relative;
+  float: left; }
+
+.admin-dropdown-box-templates {
+  width: 500px;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translate(-50%); }
+
+.admin-dropdown-container {
+  background-color: #fff;
+  width: 100%; }
+
+dropdown-directive h1, dropdown-directive h2 {
+  text-align: center; }
+
+dropdown-directive h2 {
+  margin: 10px; }
+
+.admin-dropdown-entity-container {
+  height: 300px;
+  overflow: auto; }
+
+.admin-dropdown-entity-container::-webkit-scrollbar {
+  width: 6px; }
+
+.admin-dropdown-entity-container::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #25aae1; }
+
+.admin-dropdown-entity {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer; }
+
+.admin-dropdown-entity p {
+  float: left;
+  width: 90%; }
+
+.admin-dropdown-entity i {
+  cursor: pointer;
+  color: #d8d8d8; }
+
+.admin-dropdown-entity:hover {
+  background-color: #25aae1; }
+
+.admin-dropdown-entity:hover p {
+  color: #fff; }
+
+.admin-dropdown-entity:hover i {
+  color: #383838; }
+
+.admin-dropdown-entity:hover i:hover {
+  color: #d9534f; }
+
+.admin-dropdown-container-footer {
+  margin: 0 15px;
+  padding: 15px 0;
+  border-top: 1px solid #A0A0A0; }
+
+.admin-dropdown-container-footer input {
+  width: 60%;
+  height: 38px;
+  font-size: 1.2em; }
+
+.admin-dropdown-hidden {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  z-index: 2; }
+
+.admin-send-survey-questions {
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%); }
+
+.admin-send-survey-questions h2 {
+  text-align: center;
+  margin: 20px; }
+
+.admin-send-survey-description {
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%); }
+
+.admin-send-survey-description h2 {
+  margin: 10px;
+  text-align: center; }
+
+.admin-send-survey-description textarea {
+  width: 100%;
+  border-width: 0;
+  padding: 10px;
+  font-size: 1.2em; }
+
+.admin-send-survey-description textarea:focus {
+  outline: none;
+  border-color: #25aae1;
+  border-width: 0; }
+
+.admin-send-survey-submit {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  width: 500px;
+  padding: 10px;
+  background-color: #383838;
+  color: #fff;
+  font-size: 1.2em;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px; }
+
+.admin-send-survey-submit:hover {
+  background-color: #2BC3FF; }
+
+.admin-send-survey-submit:disabled {
+  background-color: #A0A0A0;
+  cursor: default; }
+
+.blur {
+  filter: blur(3px); }
+
+.admin-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(5, 5, 5, 0.6);
+  border: 4px solid rgba(5, 5, 5, 0.5); }
+
+.admin-add-modal-container {
+  border-radius: 5px;
+  padding: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 500px; }
+
+.admin-add-modal-container h1 {
+  display: inline-block;
+  margin: 5px; }
+
+.admin-delete-modal-container {
+  border-radius: 5px;
+  padding: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: 500px; }
+
+.admin-delete-modal-container p {
+  font-size: 1.2em;
+  margin: 5px;
+  max-width: 400px; }
+
+.admin-delete-button {
+  background-color: #d9534f;
+  padding: 7px;
+  color: #fff;
+  border-radius: 4px;
+  float: right;
+  margin: 0 4px;
+  cursor: pointer; }
+
+.admin-delete-button:hover {
+  background-color: #ff5b56; }
+
+.admin-submit-button {
+  background-color: #25aae1;
+  padding: 7px;
+  color: #fff;
+  border-radius: 4px;
+  float: right;
+  margin: 0 4px;
+  cursor: pointer;
+  border: none;
+  font-size: 1em; }
+
+.admin-submit-button:hover {
+  background-color: #2BC3FF; }
+
+.admin-submit-button:disabled {
+  background-color: #c4c4c4; }
+
+.admin-cancel-button {
+  background-color: #A0A0A0;
+  padding: 7px;
+  color: #fff;
+  border-radius: 4px;
+  float: right;
+  margin: 0 4px;
+  cursor: pointer; }
+
+.admin-cancel-button:hover {
+  background-color: #c4c4c4; }
+
+.admin-modal-input {
+  display: block;
+  height: 35px;
+  padding: 7px;
+  font-size: 1.2em;
+  margin: 5px; }
+
 .login-page-container {
   position: absolute;
   left: 50%;
@@ -591,5 +934,7 @@ body {
 
 .login-page-button:hover {
   background-color: #2BC3FF; }
+
+
 
 /*# sourceMappingURL=maps/styles.css.map */
