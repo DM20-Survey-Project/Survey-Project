@@ -27,7 +27,7 @@ angular.module('surveyApp').directive('adminModalDirective', function(){
 			if ($scope.subject === 'mentor' || $scope.subject === 'instructor') {
 				console.log();
 				$scope.location = true
-			}
+			} else 
 			$scope.submit = function () {
 				console.log($scope.entity);
 				$scope.entity.type = $scope.subject
