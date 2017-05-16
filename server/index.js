@@ -83,7 +83,7 @@ app.get('/api/admin/templates/:id', templatesCtrl.read);
 app.post('/api/admin/templates', templatesCtrl.createOrUpdate);
 // app.put('/api/admin/templates/:id', templatesCtrl.update);
 
-app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
+app.delete('/api/admin/templates/:id', templatesCtrl.delete);
 
 ///////// Topics Endpoints //////////
 app.get('/api/topics/:id', topicsCtrl.read);

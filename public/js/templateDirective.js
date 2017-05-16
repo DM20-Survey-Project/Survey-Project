@@ -12,6 +12,13 @@ angular.module('surveyApp')
 
 
         $scope.removeQuestion = $scope.removeQuestion()
+		$scope.requiredToggle = function () {
+			if ($scope.question.required) {
+				$scope.question.required = false
+			} else {
+				$scope.question.required = true
+			}
+		}
 /////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
 	      if ($scope.question.type == 'text'){
 					// $scope.numberAnswer = false;

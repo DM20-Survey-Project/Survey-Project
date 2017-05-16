@@ -12,6 +12,9 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
     if($scope.selectedTemplate.template.title.indexOf('$$cohort$$') === -1){
       $scope.submitDisabled = true;
       $scope.submitText = 'Include $$cohort$$';
+    } else if ($scope.selectedTemplate.template.questions.length === 0) {
+      $scope.submitDisabled = true;
+      $scope.submitText = 'Include at least one question';
     } else {
       $scope.submitDisabled = false;
       $scope.submitText = 'Save Template';
@@ -36,10 +39,12 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
       }
     }
     $scope.selectedTemplate.template.questions.push(question)
+    $scope.needCohort()
 
   }
   $scope.removeQuestion = function(index){
       $scope.selectedTemplate.template.questions.splice(index, 1)
+      $scope.needCohort()
   }
 
 
@@ -125,7 +130,7 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
 
     }
     $scope.selectedTemplate.template = {
-      title: 'Title Here',
+      title: '$$cohort$$',
       questions: []
     }
     $scope.needCohort();

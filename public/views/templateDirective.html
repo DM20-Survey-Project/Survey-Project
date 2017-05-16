@@ -1,8 +1,12 @@
 <div class="user-survey-box box-shadow " >
 
 <div class="admin-delete-question" ng-click="removeQuestion(index)">Delete</div>
+<div class="admin-required-question" ng-click="requiredToggle()">
+	<input  type="checkbox" name="" value="" ng-model="question.required">
+	Required
+</div>
 
-	<h4 ng-class="{incomplete: question.incomplete == true}" > <input class="admin-resize-input" ng-model="question.questionText" /><br/></h4>
+	<h4 ng-class="{incomplete: question.incomplete == true}" > <input class="admin-resize-input" placeholder="Question Title" ng-model="question.questionText" /><br/></h4>
 
 	<div ng-show="textAnswer">
 	<textarea name="answer.." class="user-text " cols="60" rows="3" placeholder="Type something here..." ng-model="textValue"></textarea>

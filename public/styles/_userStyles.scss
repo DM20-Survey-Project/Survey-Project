@@ -298,6 +298,7 @@ margin-bottom: 100px;
 cursor: pointer;
 margin-top: 50px;
 border: none;
+z-index: 0;
 
 }
 .user-button-answers:hover {
@@ -329,6 +330,7 @@ ul:hover {
 }
 .admin-delete-question {
   padding: 10px;
+  padding-top: 9px; 
   color: white;
   background-color: $red;
   display: inline-block;

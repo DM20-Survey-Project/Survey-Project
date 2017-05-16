@@ -185,6 +185,8 @@ dropdown-directive {
 	p {
 		float: left;
 		width: 90%;
+		margin: 0;
+		padding: 16px 0;
 	}
 	i {
 		cursor: pointer;
@@ -440,7 +442,7 @@ dropdown-directive {
 	position: absolute;
 	right: -30px;
 	top: 100px;
-	background-color: $blue;
+	background-color: $grey;
 	cursor: pointer;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
@@ -545,4 +547,27 @@ dropdown-directive {
 .admin-results-row:hover {
 	background-color: $blueHighlight;
 	color: white;
+}
+.admin-resize-input {
+	text-align: center;
+	width: 300px;
+}
+.admin-resize-input-tag {
+	text-align: center;
+	width: 100px;
+}
+.admin-resize-input-value {
+	text-align: center;
+	width: 50px;
+	margin-top: 25px;
+}
+.admin-required-question {
+	z-index: 5;
+	position: absolute;
+	color: white;
+	font-size: 0.9em;
+	top: 11px;
+    left: 5px;
+	cursor: pointer;
+	user-select: none;
 }
