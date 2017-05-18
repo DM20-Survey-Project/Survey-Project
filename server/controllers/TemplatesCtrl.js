@@ -4,9 +4,11 @@ module.exports = {
 
     createOrUpdate(req, res) {
       console.log('Create or update template');
+        req.body.recentUse = Date.now();
         let newTemplate = new templatesModel(req.body)
         // console.log('req body', req.body)
-        if (!newTemplate._id) {
+        console.log(newTemplate);
+        if (!req.body._id) {
           console.log('Creating new template');
             newTemplate.save((err, result) => {
                 if (err) {
@@ -17,12 +19,13 @@ module.exports = {
             })
         } else {
           console.log('Updating template');
-            templatesModel.findById(req.params.id)
+            templatesModel.findById(newTemplate)
                 .exec((err, result) => {
                     if (err) {
                         return res.status(500).send(err);
                     } else {
-                        for (var p in req.body) {
+
+                        for (var p in newTemplate) {
                             if (req.body.hasOwnProperty(p)) {
                                 result[p] = req.body[p];
                             }

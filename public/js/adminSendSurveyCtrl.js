@@ -65,7 +65,7 @@ angular.module('surveyApp').controller('adminSendSurveyCtrl', function($scope, $
 
   $scope.checkTemplate = function () {
     $scope.selectedTemplate = templateService.getSelectedTemplate()
-
+    $scope.survey.templateId = $scope.selectedTemplate.template._id
     $scope.survey.questions = $scope.selectedTemplate.template.questions
     $scope.survey.title = $scope.selectedTemplate.template.title
 

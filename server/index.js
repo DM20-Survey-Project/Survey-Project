@@ -79,9 +79,8 @@ app.post('/api/admin/surveys', adminSurveyCtrl.create);
 ///////// Template Endpoints //////////
 app.get('/api/admin/templates', templatesCtrl.readNames);
 app.get('/api/admin/templates/:id', templatesCtrl.read);
-app.put('/api/admin/templates', templatesCtrl.createOrUpdate);
-// app.put('/api/admin/templates/:id', templatesCtrl.update);
-app.delete('/api/admin/templates/:id', authCtrl.requireAdminAuth, templatesCtrl.delete);
+app.post('/api/admin/templates', templatesCtrl.createOrUpdate);
+app.delete('/api/admin/templates/:id', templatesCtrl.delete);
 
 ///////// Topics Endpoints //////////
 app.get('/api/topics/:id', topicsCtrl.read);

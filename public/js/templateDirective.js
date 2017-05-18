@@ -5,12 +5,20 @@ angular.module('surveyApp')
 	    restrict: 'E',
 	    scope: {
 	      question: '=',
-
+        removeQuestion: '&',
+        index: '='
 	    },
 	    controller: function( $scope, $state ) {
 
 
-
+        $scope.removeQuestion = $scope.removeQuestion()
+		$scope.requiredToggle = function () {
+			if ($scope.question.required) {
+				$scope.question.required = false
+			} else {
+				$scope.question.required = true
+			}
+		}
 /////////ng-show=textAnswer/false //////////////////////////////////////////////////////////
 	      if ($scope.question.type == 'text'){
 					// $scope.numberAnswer = false;

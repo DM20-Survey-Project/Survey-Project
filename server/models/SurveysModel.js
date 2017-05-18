@@ -10,10 +10,10 @@ const SurveySchema = new Schema({
   usersSentTo: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   usersUntaken: [{ type: Schema.Types.ObjectId, ref: 'Users' }],
   dateSent: { type: String, required: true },
-  topic: { type: String },
   entities: { },
   questions: [QuestionSchema],
-  results: []
+  results: [],
+  templateId: { type: Schema.Types.ObjectId, ref: 'Templates' }
 });
 
 module.exports = mongoose.model('Surveys', SurveySchema);
