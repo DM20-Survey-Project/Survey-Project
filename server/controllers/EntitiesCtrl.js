@@ -2,6 +2,10 @@ const entitiesModel = require('./../models/EntitiesModel');
 const cohortModel = require('./../models/CohortModel');
 const mongoose = require('mongoose');
 
+
+
+
+
 module.exports = {
 
     create(req, res) {
@@ -18,11 +22,11 @@ module.exports = {
     readByType(req, res) {
         console.log('Read entity by type');
         var entities = req.body.types;
+        console.log('types', entities);
         var entityPackage = [];
         var index = -1;
-        for (var i = 0; i < entities.length; i++) {
-            index++
-            if (entities[i] === 'cohort') {
+        function findEntity(index, entities, entityPackage) {
+    if (entities[index] === 'cohort') {
                 cohortModel.find({}, 'dmCohortId type subject name location')
                     .exec((err, result) => {
                         if (err) {
@@ -40,7 +44,7 @@ module.exports = {
                         }
                     })
             } else {
-                var searchType = entities[i];
+                var searchType = entities[index];
                 entitiesModel.find({
                         type: searchType
                     })
@@ -50,10 +54,12 @@ module.exports = {
                             return res.status(500).send(err);
                         } else {
                             if (result.length === 0) {
+                                
                                 var payload = {
                                     type: entities[index],
                                     entities: []
                                 }
+                                
                             } else {
                                 var payload = {
                                     type: result[0].type,
@@ -71,6 +77,11 @@ module.exports = {
                         }
                     })
             }
+
+}
+        for (var i = 0; i < entities.length; i++) {
+            index++
+            findEntity(i, entities, entityPackage)
         }
     },
     delete(req, res) {
