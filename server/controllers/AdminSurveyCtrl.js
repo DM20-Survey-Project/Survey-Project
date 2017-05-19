@@ -63,6 +63,14 @@ module.exports = {
         req.body.dateSent = Date.now();
         var newSurvey = new surveysModel(req.body)
         var cohort_id = newSurvey.cohortSentTo;
+        var templateId = newSurvey.templateId
+        console.log('rec ', templateId)
+        templatesModel.find({ '_id': templateId })
+          .exec((error, result) => {
+            result[0].recentUse = Date.now();
+            console.log('result ', result)
+            result[0].save()
+          })
 //////// Create survey for a specific cohort, set an array to hold all users sent to and users untaken from that cohort ////////
         usersModel
             .find({ 'cohortId': cohort_id })
