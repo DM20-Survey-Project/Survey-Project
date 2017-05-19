@@ -137,7 +137,6 @@
 .user-done {
     // height: 40vh;
     // width: 50vw;
-    border: solid black 1px;
     text-align: center;
     font-weight: 700;
     padding: 75px 150px;
@@ -330,7 +329,7 @@ ul:hover {
 }
 .admin-delete-question {
   padding: 10px;
-  padding-top: 9px; 
+  padding-top: 9px;
   color: white;
   background-color: $red;
   display: inline-block;
