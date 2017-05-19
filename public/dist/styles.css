@@ -135,7 +135,6 @@ body {
   text-align: center; }
 
 .user-done {
-  border: solid black 1px;
   text-align: center;
   font-weight: 700;
   padding: 75px 150px;
@@ -1269,7 +1268,6 @@ dropdown-directive h2 {
     text-align: center; }
 
 .user-done {
-  border: solid black 1px;
   text-align: center;
   font-weight: 700;
   padding: 75px 150px;
