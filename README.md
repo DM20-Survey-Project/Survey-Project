@@ -8,7 +8,7 @@ We'll take you through the process of creating, taking, and viewing the results 
 
 # Admin
 
-Before a survey can be sent out a template needs to be created in the Edit Page.
+Before a survey can be sent out a template needs to be created in the Edit Templates page.
 
 ![Login](/Readme_Screenshots/Go-to-edit-template.gif)
 
@@ -39,7 +39,7 @@ Upon selecting a template a function will parse all the variables in the title t
 
 ![Login](/Readme_Screenshots/Select-template.gif)
 
-In each dropdownbox you are able to select the entity that you want to youse for that variable. You are  able to youse the search bar to narrow the options.
+In each dropdownbox you are able to select the entity that you want to use for that variable. You are  able to use the search bar to narrow the options.
 
 ![Login](/Readme_Screenshots/Search-select-entity.gif)
 
