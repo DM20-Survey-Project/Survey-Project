@@ -10,12 +10,12 @@ We'll take you through the process of creating, taking, and viewing the results 
 
 Before a survey can be sent out a template needs to be created in the Edit Page.
 
-     ![Login](/Readme_Screenshots/Go-to-edit-template.gif)
+![Login](/Readme_Screenshots/Go-to-edit-template.gif)
 
 
 On the Edit Template Page you may select a template from the dropdown menu to edit, or you may select "add template" to create a new Template.
 
-     ![Login](/Readme_Screenshots/Create-and-edit-template.gif)
+![Login](/Readme_Screenshots/Create-and-edit-template.gif)
      
 The title of a template is structured to allow variables to be placed in the '$$ variable $$' fields which will allow the admin to send out unique surveys with the same structure.
 
