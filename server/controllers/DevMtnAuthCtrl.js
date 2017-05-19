@@ -14,47 +14,49 @@ passport.use('devmtn', new DevmtnStrategy({
     jwtSecret: config.AUTH_CONFIG.jwtSecret
 }, function(jwtoken, user, done) {
     // console.log("DEV USER: ", user);
-//////// If user does not have a cohort auto assign cohort 0 ////////
+    //////// If user does not have a cohort auto assign cohort 0 ////////
     if (!user.cohortId) {
         user.cohortId = 0;
     }
 
-//////// Check the cohort collection for the corresponding ID to ensure the cohort exists ////////
-    Cohort.findOne({ dmCohortId: user.cohortId })
+    //////// Check the cohort collection for the corresponding ID to ensure the cohort exists ////////
+    Cohort.findOne({
+            dmCohortId: user.cohortId
+        })
         .exec(function(findCohortErr, findCohortResult) {
-        if (findCohortErr) {
-            return done(findCohortErr);
-        } else if (!findCohortResult) {
-//////// If no cohort exists build a new one ////////
-            // console.log('creating new cohort for id ', user.cohortId);
-            var newCohort = {
-                dmCohortId: user.cohortId,
-            };
-            Cohort.create(newCohort, function(createCohortErr, createdCohort) {
-                if (createCohortErr) {
-                    done(createCohortErr);
-                } else {
-                    finishLoginFunction(jwtoken, user, done, createdCohort._id);
-                }
-            });
-        } else {
-            // console.log('cohort exists');
-            finishLoginFunction(jwtoken, user, done, user.cohortId);
-        }
-    });
+            if (findCohortErr) {
+                return done(findCohortErr);
+            } else if (!findCohortResult) {
+                //////// If no cohort exists build a new one ////////
+                // console.log('creating new cohort for id ', user.cohortId);
+                var newCohort = {
+                    dmCohortId: user.cohortId,
+                };
+                Cohort.create(newCohort, function(createCohortErr, createdCohort) {
+                    if (createCohortErr) {
+                        done(createCohortErr);
+                    } else {
+                        finishLoginFunction(jwtoken, user, done, createdCohort._id);
+                    }
+                });
+            } else {
+                // console.log('cohort exists');
+                finishLoginFunction(jwtoken, user, done, user.cohortId);
+            }
+        });
 
 
 }));
 
 var finishLoginFunction = function(jwtoken, user, done, newId) {
-//////// Find user by email ////////
+    //////// Find user by email ////////
     User.findOne({
         email: user.email
     }, function(findErr, foundUser) {
         // console.log("Here is the user being passed from the User Collection in our db " + foundUser)
         if (findErr) return done(findErr, false);
 
-//////// If we cant find a user, create a new one ////////
+        //////// If we cant find a user, create a new one ////////
         if (!foundUser) {
             var newUser = {
                 name: {
@@ -72,7 +74,7 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
                 return done(null, createdUser);
             });
         } else {
-//////// If a user was found, welcome back with their name and
+            //////// If a user was found, welcome back with their name and
             // console.log('Welcome back, ' + foundUser.name.first + ' ' + foundUser.name.last);
             // console.log('USER DATA: ', user);
             foundUser.dm_id = user.id.toString();
@@ -82,7 +84,10 @@ var finishLoginFunction = function(jwtoken, user, done, newId) {
                 // console.log('Overwritting roles');
                 foundUser.roles = user.roles;
             } else if (user.cohortId) {
-                foundUser.roles = [{ id: 6, role: 'student' }];
+                foundUser.roles = [{
+                    id: 6,
+                    role: 'student'
+                }];
             }
             // //also update cohort (* if the system has one)
             // Commenting out until it gets updated appropriately.
@@ -123,17 +128,17 @@ var hasCustomRole = function(role, user) {
 
 module.exports = {
 
-//////// Logout, back to login page ////////
+    //////// Logout, back to login page ////////
     logout: function(req, res) {
         req.logout();
         res.redirect('/#!/');
     },
-//////// Login success take them to their user page ////////
+    //////// Login success take them to their user page ////////
     loginSuccessRouter: function(req, res) {
         // console.log("Login Success");
         // console.log('The User: ', req.user);
 
-//////// Check a users roles and redirect them to the proper page ////////
+        //////// Check a users roles and redirect them to the proper page ////////
         if (req.user.roles) {
             if (req.user.roles.length === 0) {
                 // console.log("WARNING: This person has NO roles: ", req.user.roles.length);
@@ -155,7 +160,7 @@ module.exports = {
         }
     },
 
-//////// Get the current user if authenticated ////////
+    //////// Get the current user if authenticated ////////
     currentUser: function(req, res) {
         // console.log('CURRENT USER: ', req.user);
         //Return the currently logged in user
@@ -165,7 +170,7 @@ module.exports = {
             res.status(401).send(null);
         }
     },
-//////// Require a role of "Admin" ////////
+    //////// Require a role of "Admin" ////////
     requireAdminRole: function(req, res, next) {
         // console.log(req.user);
         //only call next if the user has admin status
