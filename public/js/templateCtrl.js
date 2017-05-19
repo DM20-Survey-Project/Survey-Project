@@ -31,11 +31,11 @@ angular.module('surveyApp').controller('templateCtrl', function($scope, surveySe
       required: false,
       min: {
       value: 1,
-      tag: ''
+      tag: 'Very Poor'
       },
       max: {
       value: 10,
-      tag: ''
+      tag: 'Very Good'
       }
     }
     $scope.selectedTemplate.template.questions.push(question)
