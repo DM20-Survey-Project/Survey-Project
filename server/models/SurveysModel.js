@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const QuestionSchema = require('./../schema/QuestionSchema');
-const ResultsSchema = require('./../models/ResultsModel');
 const Schema = mongoose.Schema;
 
 const SurveySchema = new Schema({

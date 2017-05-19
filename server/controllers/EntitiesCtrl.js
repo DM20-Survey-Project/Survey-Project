@@ -50,7 +50,6 @@ module.exports = {
                     })
                     .exec((err, result) => {
                         // console.log('err', err);
-                        // console.log('result', result);
                         if (err) {
                             return res.status(500).send(err);
                         } else {
@@ -84,7 +83,6 @@ module.exports = {
             index++
             findEntity(i, entities, entityPackage)
         }
-
     },
     delete(req, res) {
         console.log('Deleting topic');

@@ -3,13 +3,13 @@ const templatesModel = require('./../models/TemplatesModel');
 module.exports = {
 
     createOrUpdate(req, res) {
-      console.log('Create or update template');
+        console.log('Create or update template');
+        req.body.recentUse = Date.now();
         let newTemplate = new templatesModel(req.body)
         // console.log('req body', req.body)
         console.log(newTemplate);
         if (!req.body._id) {
-          req.body.recentUse = Date.now();
-          console.log('Creating new template');
+            console.log('Creating new template');
             newTemplate.save((err, result) => {
                 if (err) {
                     return res.status(500).send(err);
@@ -18,7 +18,7 @@ module.exports = {
                 }
             })
         } else {
-          console.log('Updating template');
+            console.log('Updating template');
             templatesModel.findById(newTemplate)
                 .exec((err, result) => {
                     if (err) {
@@ -41,21 +41,12 @@ module.exports = {
                 })
         }
     },
-    read(req, res) {
-        console.log('Reading template');
-        templatesModel.findById(req.params.id)
-            .exec((err, result) => {
-                if (err) {
-                    return res.status(500).send(err);
-                } else {
-                    res.send(result);
-                }
-            });
-    },
     readNames(req, res) {
         console.log('Reading template names');
         templatesModel.find({}, 'title questions recentUse')
-            .sort({ recentUse: 'desc' })
+            .sort({
+                recentUse: 'desc'
+            })
             .exec((err, result) => {
                 if (err) {
                     return res.status(500).send(err);
