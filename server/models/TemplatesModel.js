@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const TemplatesSchema = new Schema({
   title: { type: String, required: true },
+  recentUse: { type: String, required: true },
   questions: [QuestionSchema]
 });
 
