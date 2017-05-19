@@ -7,13 +7,6 @@ angular.module("surveyApp").service("userService", function($http) {
         });
     }
 
-    this.getTopic = function(topicId) {
-        return $http({
-            method: 'GET',
-            url: '/api/topics?_id=' + topicId
-        });
-    }
-
     this.writeSurveyResults = function(data) {
         return $http({
             method: 'POST',
@@ -22,36 +15,10 @@ angular.module("surveyApp").service("userService", function($http) {
         });
     }
 
-
     this.getUntaken = function(studentId) {
         return $http({
             method: 'GET',
             url: '/api/surveys/untaken/' + studentId
         });
-      }
-    });
-      // .then(function(response) {
-      //     console.log(response)
-      //
-      //   })
-      // }
-
-
-    //
-    // this.getUsers = function() {
-    //   return $http({
-    //     method: 'GET',
-    //     url: '/user'
-    //   }).then(function(response) {
-    //     return response;
-    //   });
-    // };
-    //
-    // this.getUser = function(id) {
-    //   return $http({
-    //     method: 'GET',
-    //     url: '/user?_id=' + id
-    //   }).then(function(response) {
-    //     return response;
-    //   });
-    // };
+    }
+});

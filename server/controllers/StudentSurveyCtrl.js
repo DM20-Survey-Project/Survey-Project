@@ -1,6 +1,5 @@
 const surveysModel = require('.././models/SurveysModel');
 const usersModel = require('.././models/UserModel');
-const resultsModel = require('.././models/ResultsModel');
 
 module.exports = {
 
