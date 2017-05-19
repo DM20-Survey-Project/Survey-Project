@@ -1,10 +1,12 @@
+# DevMountain Survey System
+
 The purpose of this project was to build a new and improved survey system for DevMountain.
 
 This is a MEAN stack application built by: Aaron Bowers, Mutethia Gatobu, and Kemane Wright.
 
 We'll take you through the process of creating, taking, and viewing the results of a survey.
 
-#Admin
+# Admin
 
 Before a survey can be sent out a template needs to be created in the Edit Page.
 
@@ -80,7 +82,7 @@ clicking on results will bring you directly to its response on results page.
 
 
 
-----------------------------USER Side---------------------------------------------------------------
+## User
 the user is able to log in from the homepage. And it will direct you to DevMountains offical authorization system. After clicking submit it will direct you to the users personal page listing all untaken surveys.
 
 Upon clicking take survey it will redirect them to the user page which will allow them to take the survey.
